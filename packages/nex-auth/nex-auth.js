@@ -1,7 +1,7 @@
-/*! nex-auth v1.3.0 | (c) 2026 NEX SDK | MIT License */
+/*! nex-auth v1.5.0 | (c) 2026 NEX SDK | MIT License */
 class NexAuth extends HTMLElement {
   static get observedAttributes() {
-    return ['endpoint', 'session-timeout', 'logo'];
+    return ['endpoint', 'session-timeout', 'logo', 'min-strength'];
   }
 
   constructor() {
@@ -10,6 +10,10 @@ class NexAuth extends HTMLElement {
     this.sessionActive = false;
     this.timerInterval = null;
     this.timeLeft = 0;
+    // ── Rate Limiter State ──────────────────────────────────────────
+    this.failedAttempts = 0;
+    this.lockoutUntil = null;
+    this.lockoutTimer = null;
     this.attachShadow({ mode: 'open' });
   }
 
@@ -20,6 +24,7 @@ class NexAuth extends HTMLElement {
 
   disconnectedCallback() {
     this.stopSessionTimer();
+    if (this.lockoutTimer) clearInterval(this.lockoutTimer);
   }
 
   attributeChangedCallback(name, oldVal, newVal) {
@@ -95,35 +100,121 @@ class NexAuth extends HTMLElement {
     }
   }
 
+  // ── Enhanced Password Strength (5-level) ────────────────────────────────
   checkPasswordStrength(val) {
-    const bar = this.shadowRoot.querySelector('.strength-bar');
+    const bar  = this.shadowRoot.querySelector('.strength-bar');
     const text = this.shadowRoot.querySelector('.strength-text');
     if (!bar || !text) return;
 
     let score = 0;
-    if (val.length >= 6) score++;
-    if (/[A-Z]/.test(val)) score++;
-    if (/[0-9]/.test(val)) score++;
-    if (/[^A-Za-z0-9]/.test(val)) score++;
+    if (val.length >= 6)  score++;
+    if (val.length >= 12) score++;              // bonus for long passwords
+    if (/[A-Z]/.test(val)) score++;            // uppercase
+    if (/[0-9]/.test(val)) score++;            // digits
+    if (/[^A-Za-z0-9]/.test(val)) score++;    // special chars
 
-    bar.style.width = `${score * 25}%`;
-    if (score === 0) {
-      bar.style.backgroundColor = 'transparent';
-      text.textContent = 'WEAK';
-      text.style.color = '#ff007f';
-    } else if (score <= 2) {
-      bar.style.backgroundColor = '#ff007f';
-      text.textContent = 'MODERATE';
-      text.style.color = '#ff007f';
-    } else {
-      bar.style.backgroundColor = '#00f2ff';
-      text.textContent = 'STRONG';
-      text.style.color = '#00f2ff';
+    const levels = [
+      { pct: '0%',   color: 'transparent', label: '',          textColor: 'transparent' },
+      { pct: '20%',  color: '#ff0040',     label: 'CRITICAL',  textColor: '#ff0040' },
+      { pct: '40%',  color: '#ff007f',     label: 'WEAK',      textColor: '#ff007f' },
+      { pct: '60%',  color: '#ffa500',     label: 'MODERATE',  textColor: '#ffa500' },
+      { pct: '80%',  color: '#00e676',     label: 'STRONG',    textColor: '#00e676' },
+      { pct: '100%', color: '#00f2ff',     label: 'FORTRESS',  textColor: '#00f2ff' },
+    ];
+
+    const level = levels[score] || levels[0];
+    bar.style.width           = level.pct;
+    bar.style.backgroundColor = level.color;
+    text.textContent          = level.label;
+    text.style.color          = level.textColor;
+    bar.dataset.score         = score;
+  }
+
+  // ── Rate Limiter ─────────────────────────────────────────────────────
+  getLockoutDuration() {
+    if (this.failedAttempts >= 7) return 300;
+    if (this.failedAttempts >= 5) return 60;
+    if (this.failedAttempts >= 3) return 15;
+    return 0;
+  }
+
+  _isLocked() {
+    return !!(this.lockoutUntil && Date.now() < this.lockoutUntil);
+  }
+
+  /**
+   * Call this when a login attempt fails (from your auth-submit handler).
+   * Triggers the exponential backoff lockout if thresholds are crossed.
+   */
+  triggerFailure() {
+    this.failedAttempts++;
+    const duration = this.getLockoutDuration();
+    if (duration > 0) {
+      this.lockoutUntil = Date.now() + duration * 1000;
+      this._startLockoutCountdown(duration);
+      this.dispatchEvent(new CustomEvent('auth-locked', {
+        detail: { attempts: this.failedAttempts, duration }
+      }));
+    }
+  }
+
+  _startLockoutCountdown(seconds) {
+    if (this.lockoutTimer) clearInterval(this.lockoutTimer);
+    let remaining = seconds;
+    this._updateLockoutUI(remaining);
+    this.lockoutTimer = setInterval(() => {
+      remaining--;
+      if (remaining <= 0) {
+        clearInterval(this.lockoutTimer);
+        this.lockoutTimer = null;
+        this.lockoutUntil = null;
+        this._updateLockoutUI(0);
+      } else {
+        this._updateLockoutUI(remaining);
+      }
+    }, 1000);
+  }
+
+  _updateLockoutUI(remaining) {
+    const btn = this.shadowRoot.querySelector('.auth-btn[type="submit"]');
+    const lockEl = this.shadowRoot.querySelector('.lockout-msg');
+    if (btn) {
+      btn.disabled = remaining > 0;
+      btn.style.opacity = remaining > 0 ? '0.4' : '1';
+      btn.style.cursor = remaining > 0 ? 'not-allowed' : 'pointer';
+    }
+    if (lockEl) {
+      lockEl.style.display = remaining > 0 ? 'block' : 'none';
+      lockEl.textContent = remaining > 0
+        ? `LOCKOUT // RETRY IN ${remaining}s (${this.failedAttempts} FAILED ATTEMPTS)`
+        : '';
     }
   }
 
   handleSubmit() {
     const shadow = this.shadowRoot;
+
+    // ── Rate Limiter Guard ───────────────────────────────────────────────────
+    if (this._isLocked()) {
+      this.dispatchEvent(new CustomEvent('auth-rate-limited', {
+        detail: { attempts: this.failedAttempts }
+      }));
+      return;
+    }
+
+    // ── Minimum Strength Guard (on login/register forms) ──────────────────
+    const minStrength = parseInt(this.getAttribute('min-strength'));
+    if (!isNaN(minStrength) && (this.currentView === 'login' || this.currentView === 'register')) {
+      const bar = shadow.querySelector('.strength-bar');
+      const score = bar ? parseInt(bar.dataset.score || '0') : 0;
+      if (score < minStrength) {
+        this.dispatchEvent(new CustomEvent('auth-weak-password', {
+          detail: { score, required: minStrength }
+        }));
+        return;
+      }
+    }
+
     const inputs = shadow.querySelectorAll('input');
     const data = {};
     inputs.forEach(input => {
@@ -172,6 +263,7 @@ class NexAuth extends HTMLElement {
             <input type="password" id="password" required autocomplete="current-password">
           </div>
           <div class="strength-container" style="display:none;"></div>
+          <div class="lockout-msg" style="display:none;color:#ff0040;font-size:9px;margin-bottom:8px;text-align:center;letter-spacing:0.1em;"></div>
           <button type="submit" class="auth-btn">AUTHORIZE_UPLINK</button>
           <div class="auth-links">
             <a href="#" data-view="register">NEW_NODE_REGISTER</a>
@@ -200,6 +292,7 @@ class NexAuth extends HTMLElement {
             <div class="strength-track"><div class="strength-bar"></div></div>
             <div class="strength-label">STRENGTH: <span class="strength-text">WEAK</span></div>
           </div>
+          <div class="lockout-msg" style="display:none;color:#ff0040;font-size:9px;margin-bottom:8px;text-align:center;letter-spacing:0.1em;"></div>
           <button type="submit" class="auth-btn">GENERATE_CREDENTIALS</button>
           <div class="auth-links">
             <a href="#" data-view="login">ALREADY_REGISTERED</a>

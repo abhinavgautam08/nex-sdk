@@ -1,4 +1,4 @@
-# NEX SDK (v1.3.2)
+# NEX SDK (v1.5.0)
 
 A lightweight, framework-independent, performance-optimized Web Component developer toolkit designed with a gorgeous neon cyberpunk aesthetic. Natively encapsulated using Shadow DOM, compatible with any HTML website, and fully ready for GitHub and jsDelivr CDN delivery.
 
@@ -37,73 +37,79 @@ Load any component directly on your website using a `<script>` tag from the jsDe
 
 ```html
 <!-- Video Player -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-stream/nex-stream.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-stream/nex-stream.min.js"></script>
 
 <!-- Lazy Image -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-image/nex-image.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-image/nex-image.min.js"></script>
 
 <!-- File Card Previewer -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-file/nex-file.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-file/nex-file.min.js"></script>
 
 <!-- Drag & Drop Uploader -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-upload/nex-upload.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-upload/nex-upload.min.js"></script>
 
 <!-- UI Elements Bundle -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-ui/nex-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-ui/nex-ui.min.js"></script>
 
 <!-- Telemetry Analytics -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-analytics/nex-analytics.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-analytics/nex-analytics.min.js"></script>
 
 <!-- Terminal Shell -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-terminal/nex-terminal.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-terminal/nex-terminal.min.js"></script>
 
 <!-- Telemetry Chart -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-chart/nex-chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-chart/nex-chart.min.js"></script>
 
 <!-- Glitch Router -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-router/nex-router.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-router/nex-router.min.js"></script>
 
 <!-- Authentication Portal -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-auth/nex-auth.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-auth/nex-auth.min.js"></script>
 
 <!-- Chat Terminal -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-chat/nex-chat.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-chat/nex-chat.min.js"></script>
 
 <!-- Notification Toasts -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-notification/nex-notification.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-notification/nex-notification.min.js"></script>
 
 <!-- Checkout Gateway -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-payment/nex-payment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-payment/nex-payment.min.js"></script>
 
 <!-- Rich WYSIWYG Editor -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-editor/nex-editor.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-editor/nex-editor.min.js"></script>
 
 <!-- Canvas QR Generator -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-qr/nex-qr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-qr/nex-qr.min.js"></script>
 
 <!-- Camera Viewport -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-camera/nex-camera.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-camera/nex-camera.min.js"></script>
 
 <!-- Scan Overlay Targets -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-scanner/nex-scanner.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-scanner/nex-scanner.min.js"></script>
 
 <!-- Link Sharing Hub -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-share/nex-share.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-share/nex-share.min.js"></script>
 
 <!-- Theme Persister Switch -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-theme/nex-theme.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-theme/nex-theme.min.js"></script>
 
 <!-- Encryption Storage Cache -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-storage/nex-storage.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-storage/nex-storage.min.js"></script>
 
 <!-- Latency Connection Monitor -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.2/packages/nex-network/nex-network.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-network/nex-network.min.js"></script>
+
+<!-- XSS Shield Sanitizer -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-sanitizer/nex-sanitizer.min.js"></script>
+
+<!-- JWT Token Guard -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-jwt/nex-jwt.min.js"></script>
 ```
 
 ### Version Pinning Strategies (Production Best Practice)
 Always pin versions in production to avoid unexpected breaking changes:
-*   **Exact Patch Pin (Safest for Production)**: `abhinavgautam08/nex-sdk@v1.3.2`
-*   **Minor Version Pin (Auto Patch Updates)**: `abhinavgautam08/nex-sdk@v1.3`
+*   **Exact Patch Pin (Safest for Production)**: `abhinavgautam08/nex-sdk@v1.5.0`
+*   **Minor Version Pin (Auto Patch Updates)**: `abhinavgautam08/nex-sdk@v1.5`
 *   **Major Version Pin (Auto Minor & Patch Updates)**: `abhinavgautam08/nex-sdk@v1`
 *   **Latest (Unstable, Staging Only)**: `abhinavgautam08/nex-sdk@latest`
 

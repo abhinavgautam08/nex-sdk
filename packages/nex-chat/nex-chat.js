@@ -133,11 +133,15 @@ class NexChat extends HTMLElement {
         `;
       }
 
+      const cleanText = window.NexSanitizer
+        ? window.NexSanitizer.sanitize(msg.text)
+        : (msg.text || '').replace(/<\/?[^>]+(>|$)/g, "");
+
       return `
         <div class="msg-row ${isUser ? 'row-user' : 'row-remote'}">
           <div class="msg-bubble ${bubbleClass}">
             ${attachmentHtml}
-            ${msg.text ? `<div class="msg-text">${msg.text}</div>` : ''}
+            ${msg.text ? `<div class="msg-text">${cleanText}</div>` : ''}
             <div class="msg-meta">
               <span>${msg.timestamp}</span>
               ${readTick}

@@ -14,6 +14,44 @@ _Planned for future releases:_
 
 ---
 
+## [1.6.0] — 2026-07-09
+
+### Added (8 New Security Packages)
+- **nex-honeypot** *(NEW)*: Bot & spam trap. Injects invisible decoy fields bots fill; detects fast-submissions (<1.5s), no mouse movement, and headless browser UAs. `inject(form)` + `isHuman(form)` API. Fires `nex-bot-detected`.
+- **nex-idle** *(NEW)*: Idle session timeout guard. Tracks mouse/keyboard/scroll/touch inactivity across 7 event types. Fires `nex-idle-warning` (N seconds before timeout) and `nex-idle` at threshold. Attributes: `timeout`, `warn-at`.
+- **nex-frame-guard** *(NEW)*: Clickjacking shield. Detects cross-origin iframe embedding via `window.self !== window.top`. Actions: `blur` (blocking overlay), `breakout` (force top navigation), `none` (event only). Fires `nex-frame-attack`.
+- **nex-mask** *(NEW)*: Sensitive data auto-masker. Displays `••••••••` for tokens/cards/OTPs/keys. Reveals on click with configurable auto-hide timer. Types: `token`, `card`, `otp`, `key`, `password`. Fires `nex-mask-revealed`, `nex-mask-hidden`.
+- **nex-proto-guard** *(NEW)*: Prototype pollution detector. Patches `JSON.parse` to scan for `__proto__`, `constructor`, `prototype` injection. Optional `freeze` attribute locks `Object.prototype`. Fires `nex-proto-violation`.
+- **nex-integrity** *(NEW)*: SRI (Subresource Integrity) monitor. Watches DOM for external `<script>` / `<link>` tags loaded without `integrity` hashes via `MutationObserver`. `strict` attribute removes offending assets. Fires `nex-integrity-violation`.
+- **nex-https** *(NEW)*: Protocol enforcer. Detects HTTP pages and mixed-content resources. Actions: `warn` | `redirect`. Optional sticky `banner` UI. Fires `nex-http-detected`, `nex-mixed-content`.
+- **nex-clipboard** *(NEW)*: Paste sanitizer. Intercepts `paste` events on guarded inputs, sanitizes via `NexSanitizer` (or fallback), enforces `max-len`. Blocks copy from sensitive elements via `block-copy`. Fires `nex-paste-sanitized`, `nex-paste-blocked`, `nex-copy-blocked`.
+
+---
+
+## [1.5.0] — 2026-07-09
+
+### Added
+- **nex-storage**: Replaced weak `btoa/atob` base64 encoding with real **AES-256-GCM** encryption via `window.crypto.subtle`. Key derived via PBKDF2 (100,000 iterations, SHA-256), domain-bound passphrase, random IV per write.
+- **nex-upload**: Added `magic-verify` attribute opt-in for **magic number file header verification**. Reads first 16 bytes of every file; blocks EXE/ELF/Mach-O/shell scripts unconditionally; detects extension spoofing on PNG/JPEG/GIF/PDF/ZIP/MP4/MP3/WEBP/BMP. Fires `file-spoofed` event on mismatch.
+- **nex-auth**: Upgraded password strength meter to 5 levels (CRITICAL / WEAK / MODERATE / STRONG / FORTRESS). Added `min-strength` attribute to block weak passwords. Added exponential backoff **rate limiter** (3 fails=15s, 5 fails=60s, 7+=300s lockout) with visual countdown. New events: `auth-locked`, `auth-rate-limited`, `auth-weak-password`. New public method: `triggerFailure()`.
+- **nex-jwt** *(NEW)*: Standalone `<nex-jwt>` Web Component for JWT token lifecycle management. API: `setToken()`, `getToken()`, `getPayload()`, `isExpired()`, `clearToken()`, `getRemainingSeconds()`. Auto-checks expiry every `check-interval` seconds (default 30). Fires `nex-session-expired` (bubbles + composed) on expiry.
+
+### Changed
+- `nex-storage.set()` and `nex-storage.get()` are now `async` when `encryption` attribute is present.
+- `nex-upload.handleFiles()` is now `async` when `magic-verify` attribute is present.
+
+---
+
+## [1.4.0] — 2026-07-09
+
+### Added
+- **nex-sanitizer**: Standalone client-side HTML sanitization module to recursively remove unsafe tags (like `<script>`, `<iframe>`, `<object>`), event handlers (like `onerror`, `onload`), and suspicious URL schemes (like `javascript:`).
+- **nex-chat Integration**: Integrated `NexSanitizer` to sanitize message bubble text values. Falls back to stripping HTML if sanitizer is not imported.
+- **nex-terminal Integration**: Integrated `NexSanitizer` to sanitize printed terminal command logs.
+- **nex-editor Integration**: Integrated `NexSanitizer` to sanitize content fetched via `.getHtml()` and loaded via `.setMarkdown()`.
+
+---
+
 ## [1.3.2] — 2026-07-09
 
 ### Fixed

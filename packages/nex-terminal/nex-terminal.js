@@ -80,11 +80,17 @@ class NexTerminal extends HTMLElement {
     const list = this.shadowRoot.querySelector('.nex-terminal-logs');
     if (!list) return;
 
-    list.innerHTML = this.logs.map(log => `
-      <div class="nex-terminal-line ${log.type}">
-        <span class="prefix">//</span> ${log.text}
-      </div>
-    `).join('');
+    list.innerHTML = this.logs.map(log => {
+      const cleanText = window.NexSanitizer
+        ? window.NexSanitizer.sanitize(log.text)
+        : (log.text || '').replace(/<\/?[^>]+(>|$)/g, "");
+
+      return `
+        <div class="nex-terminal-line ${log.type}">
+          <span class="prefix">//</span> ${cleanText}
+        </div>
+      `;
+    }).join('');
 
     const scrollContainer = this.shadowRoot.querySelector('.nex-terminal-body');
     if (scrollContainer) {

@@ -1,4 +1,4 @@
-/*! nex-upload v1.0.0 | (c) 2026 NEX SDK | MIT License | https://github.com/user/nex-sdk */
+/*! nex-upload v1.5.0 | (c) 2026 NEX SDK | MIT License | https://github.com/user/nex-sdk */
 /**
  * NEX-UPLOAD | Cyberpunk Dynamic File Uploader Component
  * Implements interactive Drag & Drop, multiple file validation queues, progress loaders, and upload event dispatches.
@@ -6,7 +6,34 @@
 
 class NexUpload extends HTMLElement {
   static get observedAttributes() {
-    return ['endpoint', 'multiple', 'accept', 'max-size', 'auto-upload', 'logo'];
+    return ['endpoint', 'multiple', 'accept', 'max-size', 'auto-upload', 'logo', 'magic-verify'];
+  }
+
+  // ── Magic Number Lookup Tables ──────────────────────────────────────────
+  static get MAGIC_NUMBERS() {
+    return {
+      'png':  { bytes: [0x89, 0x50, 0x4E, 0x47], offset: 0 },
+      'jpg':  { bytes: [0xFF, 0xD8, 0xFF],        offset: 0 },
+      'jpeg': { bytes: [0xFF, 0xD8, 0xFF],        offset: 0 },
+      'gif':  { bytes: [0x47, 0x49, 0x46, 0x38], offset: 0 },
+      'pdf':  { bytes: [0x25, 0x50, 0x44, 0x46], offset: 0 },
+      'zip':  { bytes: [0x50, 0x4B, 0x03, 0x04], offset: 0 },
+      'docx': { bytes: [0x50, 0x4B, 0x03, 0x04], offset: 0 },
+      'xlsx': { bytes: [0x50, 0x4B, 0x03, 0x04], offset: 0 },
+      'mp4':  { bytes: [0x66, 0x74, 0x79, 0x70], offset: 4 },
+      'mp3':  { bytes: [0x49, 0x44, 0x33],        offset: 0 },
+      'webp': { bytes: [0x57, 0x45, 0x42, 0x50], offset: 8 },
+      'bmp':  { bytes: [0x42, 0x4D],              offset: 0 },
+    };
+  }
+
+  static get BLOCKED_SIGNATURES() {
+    return [
+      { bytes: [0x4D, 0x5A],              offset: 0, type: 'EXE/DLL'  }, // Windows PE
+      { bytes: [0x7F, 0x45, 0x4C, 0x46], offset: 0, type: 'ELF'      }, // Linux binary
+      { bytes: [0xCA, 0xFE, 0xBA, 0xBE], offset: 0, type: 'Mach-O'   }, // macOS binary
+      { bytes: [0x23, 0x21],              offset: 0, type: 'SH Script' }, // Unix shell scripts
+    ];
   }
 
   constructor() {
@@ -88,7 +115,47 @@ class NexUpload extends HTMLElement {
     }
   }
 
-  handleFiles(files) {
+  /**
+   * Reads the first 16 bytes of a file and checks against known magic numbers.
+   * Returns a Promise resolving to { valid, blocked, reason }.
+   */
+  verifyMagicBytes(file) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const bytes = new Uint8Array(e.target.result);
+
+        // Always-blocked executable signatures
+        for (const sig of NexUpload.BLOCKED_SIGNATURES) {
+          const match = sig.bytes.every((b, i) => bytes[sig.offset + i] === b);
+          if (match) {
+            resolve({ valid: false, blocked: true, reason: `BLOCKED_EXECUTABLE (${sig.type})` });
+            return;
+          }
+        }
+
+        // Known-extension magic check
+        const ext = file.name.split('.').pop().toLowerCase();
+        const expected = NexUpload.MAGIC_NUMBERS[ext];
+        if (!expected) {
+          // Unknown extension — no magic defined, pass through
+          resolve({ valid: true, blocked: false, reason: null });
+          return;
+        }
+
+        const match = expected.bytes.every((b, i) => bytes[expected.offset + i] === b);
+        if (!match) {
+          resolve({ valid: false, blocked: false, reason: 'MAGIC_MISMATCH' });
+        } else {
+          resolve({ valid: true, blocked: false, reason: null });
+        }
+      };
+      reader.onerror = () => resolve({ valid: true, blocked: false, reason: null });
+      reader.readAsArrayBuffer(file.slice(0, 16)); // Read only first 16 bytes
+    });
+  }
+
+  async handleFiles(files) {
     const multiple = this.hasAttribute('multiple');
     const accept = this.getAttribute('accept');
     const maxSize = parseFloat(this.getAttribute('max-size'));
@@ -101,39 +168,43 @@ class NexUpload extends HTMLElement {
       this.fileQueue = [];
     }
 
-    filesArray.forEach(file => {
+    for (const file of filesArray) {
       let error = null;
 
-      // Validate Type
-      if (accept) {
-        const allowedTypes = accept.split(',').map(t => t.trim());
-        const fileType = file.type;
-        const fileName = file.name.toLowerCase();
-        
-        const isAllowed = allowedTypes.some(allowed => {
-          if (allowed.startsWith('.')) {
-            return fileName.endsWith(allowed.toLowerCase());
-          }
-          if (allowed.endsWith('/*')) {
-            const group = allowed.split('/')[0];
-            return fileType.startsWith(group);
-          }
-          return fileType === allowed;
-        });
-
-        if (!isAllowed) {
-          error = 'INVALID_FORMAT';
+      // ── Magic Number Verification (opt-in via magic-verify attribute) ──
+      if (this.hasAttribute('magic-verify')) {
+        const magic = await this.verifyMagicBytes(file);
+        if (!magic.valid) {
+          error = magic.reason;
+          this.dispatchEvent(new CustomEvent('file-spoofed', {
+            detail: { file, reason: magic.reason, blocked: magic.blocked }
+          }));
         }
       }
 
-      // Validate Size
+      // ── Extension / MIME Type Check ──────────────────────────────────
+      if (!error && accept) {
+        const allowedTypes = accept.split(',').map(t => t.trim());
+        const fileType = file.type;
+        const fileName = file.name.toLowerCase();
+
+        const isAllowed = allowedTypes.some(allowed => {
+          if (allowed.startsWith('.')) return fileName.endsWith(allowed.toLowerCase());
+          if (allowed.endsWith('/*')) return fileType.startsWith(allowed.split('/')[0]);
+          return fileType === allowed;
+        });
+
+        if (!isAllowed) error = 'INVALID_FORMAT';
+      }
+
+      // ── Size Check ───────────────────────────────────────────────────
       if (!error && !isNaN(maxSize) && file.size > maxSize) {
         error = `SIZE_LIMIT_EXCEEDED (${this.formatBytes(maxSize)})`;
       }
 
       const queueItem = {
         id: 'file-' + Math.random().toString(36).substr(2, 9),
-        file: file,
+        file,
         status: error ? 'error' : 'pending',
         progress: 0,
         errorMessage: error
@@ -144,7 +215,7 @@ class NexUpload extends HTMLElement {
       if (window.dispatchNexAnalytics) {
         window.dispatchNexAnalytics(this, 'upload', 'file-added', file.name, error ? 0 : 1);
       }
-    });
+    }
 
     this.updateQueueUI();
 

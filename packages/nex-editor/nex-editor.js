@@ -28,7 +28,9 @@ class NexEditor extends HTMLElement {
 
   getHtml() {
     const area = this.shadowRoot.querySelector('.editor-workspace');
-    return area ? area.innerHTML : '';
+    if (!area) return '';
+    const rawHtml = area.innerHTML;
+    return window.NexSanitizer ? window.NexSanitizer.sanitize(rawHtml) : rawHtml;
   }
 
   getMarkdown() {
@@ -54,7 +56,8 @@ class NexEditor extends HTMLElement {
     
     const area = this.shadowRoot.querySelector('.editor-workspace');
     if (area) {
-      area.innerHTML = html;
+      const cleanHtml = window.NexSanitizer ? window.NexSanitizer.sanitize(html) : html;
+      area.innerHTML = cleanHtml;
       this.saveState();
     }
   }
