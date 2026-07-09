@@ -9,11 +9,17 @@ Versioning follows [Semantic Versioning](https://semver.org/).
 ## [Unreleased]
 
 _Planned for future releases:_
-- `<nex-chart>` — Canvas-based cyberpunk telemetry data visualizations
-- `<nex-terminal>` — Interactive CLI sandbox element
-- `<nex-tabs>` — Glowing router navigation layout
 - `<nex-avatar>` — User identity badge with animated glitch frames
 - `nex-crypto.js` — Client-side SHA-256 / base64 utility wrapper
+
+---
+
+## [1.1.0] — 2026-07-09
+
+### Added
+- `<nex-terminal>` v1.1.0 — Monospaced green neon CLI shell simulator with mock actions command-line interface.
+- `<nex-chart>` v1.1.0 — HTML5 Canvas neon-glowing telemetry visualizer plotting real-time line/bar data.
+- `<nex-router>` v1.1.0 — Cyberpunk tab navigation controller displaying digital tab selections with glitch animations.
 
 ---
 

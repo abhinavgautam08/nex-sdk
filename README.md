@@ -1,4 +1,4 @@
-# NEX SDK (v1.0.0)
+# NEX SDK (v1.1.0)
 
 A lightweight, framework-independent, performance-optimized Web Component developer toolkit designed with a gorgeous neon cyberpunk aesthetic. Natively encapsulated using Shadow DOM, compatible with any HTML website, and fully ready for GitHub and jsDelivr CDN delivery.
 
@@ -9,7 +9,7 @@ A lightweight, framework-independent, performance-optimized Web Component develo
 NEX SDK provides modern, high-performance UI blocks and telemetry capabilities without the weight of modern framework runtimes. Key highlights:
 *   **Shadow DOM Isolated**: Restricts styles internally. Zero clashing or pollution of your parent document stylesheets.
 *   **Zero Dependencies**: Written in pure ES6 Javascript; requires no build tools or package managers.
-*   **Lightweight Footprint**: The entire minified SDK totals less than 79 KB (~23 KB Gzipped).
+*   **Lightweight Footprint**: The entire minified SDK totals less than 105 KB (~30 KB Gzipped).
 *   **High Performance**: Utilizes lazy initialization, lazy loading, asynchronous CDN loading for heavy libraries, and active memory leak cleanup.
 
 ---
@@ -24,6 +24,9 @@ NEX SDK provides modern, high-performance UI blocks and telemetry capabilities w
 | **`<nex-upload>`** | Drag & drop uploader with validation | `endpoint`, `multiple`, `accept`, `max-size`, `auto-upload` | Events: `file-added`, `upload-start`, `upload-progress`, `upload-success`, `upload-error` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
 | **`<nex-ui>`** *(bundle)* | Buttons, Cards, Loaders, Toasts & Modals | `<nex-button>`, `<nex-card>`, `<nex-loader>`, `<nex-modal>`, `<nex-toast>` | `modal.openModal()`, `modal.close()`, `window.showNexToast()` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
 | **`NexAnalytics`** | Telemetry and event tracking engine | Config options: `endpoint`, `app`, `debug` | `track()`, `trackPageView()`, `destroy()` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
+| **`<nex-terminal>`** | Green neon interactive command CLI shell | `title`, `placeholder`, `logo` | `writeLine()`, `clear()`, Event: `command` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
+| **`<nex-chart>`** | Neon glowing Canvas telemetry visualizer | `type`, `logo`, `glow-color`, `grid-color` | `setData()`, `addDataPoint()` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
+| **`<nex-router>`** | Glitch-animated tab navigation controller | `tabs`, `active-tab`, `logo` | Event: `tab-change` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
 
 ---
 
@@ -33,28 +36,37 @@ Load any component directly on your website using a `<script>` tag from the jsDe
 
 ```html
 <!-- Video Player -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.0.0/packages/nex-stream/nex-stream.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-stream/nex-stream.min.js"></script>
 
 <!-- Lazy Image -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.0.0/packages/nex-image/nex-image.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-image/nex-image.min.js"></script>
 
 <!-- File Card Previewer -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.0.0/packages/nex-file/nex-file.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-file/nex-file.min.js"></script>
 
 <!-- Drag & Drop Uploader -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.0.0/packages/nex-upload/nex-upload.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-upload/nex-upload.min.js"></script>
 
 <!-- UI Elements Bundle -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.0.0/packages/nex-ui/nex-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-ui/nex-ui.min.js"></script>
 
 <!-- Telemetry Analytics -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.0.0/packages/nex-analytics/nex-analytics.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-analytics/nex-analytics.min.js"></script>
+
+<!-- Terminal Shell -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-terminal/nex-terminal.min.js"></script>
+
+<!-- Telemetry Chart -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-chart/nex-chart.min.js"></script>
+
+<!-- Glitch Router -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-router/nex-router.min.js"></script>
 ```
 
 ### Version Pinning Strategies (Production Best Practice)
 Always pin versions in production to avoid unexpected breaking changes:
-*   **Exact Patch Pin (Safest for Production)**: `abhinavgautam08/nex-sdk@v1.0.0`
-*   **Minor Version Pin (Auto Patch Updates)**: `abhinavgautam08/nex-sdk@v1.0`
+*   **Exact Patch Pin (Safest for Production)**: `abhinavgautam08/nex-sdk@v1.1.0`
+*   **Minor Version Pin (Auto Patch Updates)**: `abhinavgautam08/nex-sdk@v1.1`
 *   **Major Version Pin (Auto Minor & Patch Updates)**: `abhinavgautam08/nex-sdk@v1`
 *   **Latest (Unstable, Staging Only)**: `abhinavgautam08/nex-sdk@latest`
 
@@ -243,6 +255,69 @@ new NexAnalytics({
     tracker.track('interactive', 'click', 'myButton_signature');
   });
 </script>
+```
+
+
+### G. `<nex-terminal>` (Terminal Shell)
+**HTML Attributes:**
+*   `title` (String): Header title displayed in top-left bar (e.g. `NEX_OS_TERMINAL`).
+*   `placeholder` (String): Input placeholder text.
+*   `logo` (String): Path to custom brand logo overlay.
+
+**JavaScript Methods:**
+*   `writeLine(message: string, [type: string])`: Appends log output. `type` options: `info`, `success`, `warning`, `error`, `input`.
+*   `clear()`: Wipes all logs from viewport.
+
+**Custom Events:**
+*   `command`: Detail: `{ command, response }` — Fired immediately when user executes input.
+
+**Copy-Paste Template:**
+```html
+<nex-terminal id="termNode" title="SYS_DIAGNOSTICS" placeholder="SYSTEM DIRECTIVE..."></nex-terminal>
+<script>
+  const term = document.getElementById('termNode');
+  term.addEventListener('command', (e) => {
+    console.log('User command executed:', e.detail.command);
+  });
+</script>
+```
+
+### H. `<nex-chart>` (Telemetry Visualizer)
+**HTML Attributes:**
+*   `type` (String): Rendering visual type. Options: `line`, `bar` (defaults to `line`).
+*   `glow-color` (String): Neon glow hex color code (defaults to `#00f2ff`).
+*   `grid-color` (String): Helper grid guidelines color (defaults to `rgba(255, 255, 255, 0.05)`).
+*   `logo` (String): Path to custom brand logo overlay.
+
+**JavaScript Methods:**
+*   `setData(labels: string[], values: number[])`: Resets all data arrays and replots the lines.
+*   `addDataPoint(label: string, value: number)`: Appends point, sliding old coordinates out.
+
+**Copy-Paste Template:**
+```html
+<nex-chart id="netChart" type="bar" glow-color="#ff007f"></nex-chart>
+<script>
+  const chart = document.getElementById('netChart');
+  // Inject coordinates
+  chart.setData(['S1', 'S2', 'S3'], [40, 95, 60]);
+</script>
+```
+
+### I. `<nex-router>` (Glitch Tab Router)
+**HTML Attributes:**
+*   `tabs` (String): Semicolon-separated tab configurations (`Label:id;Label:id`).
+*   `active-tab` (String): The default active tab ID.
+*   `logo` (String): Path to custom brand logo overlay.
+
+**Custom Events:**
+*   `tab-change`: Detail: `{ tabId, label }` — Dispatched on click triggers.
+
+**Copy-Paste Template:**
+```html
+<nex-router id="tabRouter" tabs="OVERVIEW:pane1;TERMINAL:pane2" active-tab="pane1"></nex-router>
+
+<div id="pane1">System stats dashboard.</div>
+<div id="pane2" class="hidden">Logs shell terminal.</div>
 ```
 
 ---
