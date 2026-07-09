@@ -29,34 +29,34 @@ NEX SDK provides modern, high-performance UI blocks and telemetry capabilities w
 
 ## 3. CDN Installation & Version Pinning
 
-Load any component directly on your website using a `<script>` tag from the jsDelivr CDN. Replace `YOUR_USERNAME` with your actual GitHub username.
+Load any component directly on your website using a `<script>` tag from the jsDelivr CDN:
 
 ```html
 <!-- Video Player -->
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/nex-sdk@v1.0.0/packages/nex-stream/nex-stream.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.0.0/packages/nex-stream/nex-stream.min.js"></script>
 
 <!-- Lazy Image -->
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/nex-sdk@v1.0.0/packages/nex-image/nex-image.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.0.0/packages/nex-image/nex-image.min.js"></script>
 
 <!-- File Card Previewer -->
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/nex-sdk@v1.0.0/packages/nex-file/nex-file.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.0.0/packages/nex-file/nex-file.min.js"></script>
 
 <!-- Drag & Drop Uploader -->
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/nex-sdk@v1.0.0/packages/nex-upload/nex-upload.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.0.0/packages/nex-upload/nex-upload.min.js"></script>
 
 <!-- UI Elements Bundle -->
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/nex-sdk@v1.0.0/packages/nex-ui/nex-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.0.0/packages/nex-ui/nex-ui.min.js"></script>
 
 <!-- Telemetry Analytics -->
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/nex-sdk@v1.0.0/packages/nex-analytics/nex-analytics.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.0.0/packages/nex-analytics/nex-analytics.min.js"></script>
 ```
 
 ### Version Pinning Strategies (Production Best Practice)
 Always pin versions in production to avoid unexpected breaking changes:
-*   **Exact Patch Pin (Safest for Production)**: `user/nex-sdk@v1.0.0`
-*   **Minor Version Pin (Auto Patch Updates)**: `user/nex-sdk@v1.0`
-*   **Major Version Pin (Auto Minor & Patch Updates)**: `user/nex-sdk@v1`
-*   **Latest (Unstable, Staging Only)**: `user/nex-sdk@latest`
+*   **Exact Patch Pin (Safest for Production)**: `abhinavgautam08/nex-sdk@v1.0.0`
+*   **Minor Version Pin (Auto Patch Updates)**: `abhinavgautam08/nex-sdk@v1.0`
+*   **Major Version Pin (Auto Minor & Patch Updates)**: `abhinavgautam08/nex-sdk@v1`
+*   **Latest (Unstable, Staging Only)**: `abhinavgautam08/nex-sdk@latest`
 
 ---
 

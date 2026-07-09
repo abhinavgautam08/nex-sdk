@@ -48,7 +48,7 @@ Include the script tag on your HTML page (either the dev version or the minified
 <script src="packages/nex-stream/nex-stream.min.js"></script>
 
 <!-- Or via jsDelivr CDN -->
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/nex-sdk@v1.0.0/packages/nex-stream/nex-stream.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.0.0/packages/nex-stream/nex-stream.min.js"></script>
 ```
 
 ### 2. Add the custom element

@@ -21,7 +21,7 @@ Include the script inside your HTML body and instantiate the global tracker obje
 <script src="packages/nex-analytics/nex-analytics.min.js"></script>
 
 <!-- Or via jsDelivr CDN -->
-<script src="https://cdn.jsdelivr.net/gh/YOUR_USERNAME/nex-sdk@v1.0.0/packages/nex-analytics/nex-analytics.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.0.0/packages/nex-analytics/nex-analytics.min.js"></script>
 <script>
   // Instantiate the analytics client
   const tracker = new NexAnalytics({
