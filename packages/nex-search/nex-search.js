@@ -99,6 +99,7 @@ class NexSearch extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined');
         @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
         :host {
@@ -231,12 +232,17 @@ class NexSearch extends HTMLElement {
         }
 
         .btn-icon {
-          font-family: 'Material Icons';
+          font-family: 'Material Symbols Outlined', 'Material Icons';
           font-size: 16px;
           line-height: 1;
           font-weight: normal;
           font-style: normal;
           display: inline-block;
+          text-transform: none;
+          word-wrap: normal;
+          white-space: nowrap;
+          direction: ltr;
+          -webkit-font-smoothing: antialiased;
         }
 
         /* Spinner */

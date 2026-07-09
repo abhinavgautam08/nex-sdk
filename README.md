@@ -1,8 +1,8 @@
-# NEX SDK (v1.7.1)
+# NEX SDK (v1.7.2)
 
 A lightweight, framework-independent, security-first Web Component developer toolkit with a neon cyberpunk aesthetic. Natively encapsulated using Shadow DOM — compatible with any HTML website, zero dependencies, and fully ready for GitHub + jsDelivr CDN delivery.
 
-[![Version](https://img.shields.io/badge/version-v1.7.1-00f2ff?style=flat-square)](https://github.com/abhinavgautam08/nex-sdk/releases/tag/v1.7.1)
+[![Version](https://img.shields.io/badge/version-v1.7.2-00f2ff?style=flat-square)](https://github.com/abhinavgautam08/nex-sdk/releases/tag/v1.7.2)
 [![License](https://img.shields.io/badge/license-MIT-ff007f?style=flat-square)](LICENSE)
 [![CDN](https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat-square)](https://www.jsdelivr.com/package/gh/abhinavgautam08/nex-sdk)
 
@@ -79,55 +79,58 @@ Load any component directly from jsDelivr:
 
 ```html
 <!-- ── UI & Media ─────────────────────────────────────── -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-stream/nex-stream.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-image/nex-image.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-file/nex-file.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-upload/nex-upload.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-search/nex-search.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-ui/nex-ui.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-analytics/nex-analytics.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-terminal/nex-terminal.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-chart/nex-chart.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-router/nex-router.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-auth/nex-auth.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-chat/nex-chat.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-notification/nex-notification.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-payment/nex-payment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-editor/nex-editor.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-qr/nex-qr.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-camera/nex-camera.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-scanner/nex-scanner.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-share/nex-share.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-theme/nex-theme.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-network/nex-network.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-stream/nex-stream.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-image/nex-image.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-file/nex-file.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-upload/nex-upload.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-search/nex-search.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-ui/nex-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-analytics/nex-analytics.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-terminal/nex-terminal.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-chart/nex-chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-router/nex-router.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-auth/nex-auth.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-chat/nex-chat.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-notification/nex-notification.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-payment/nex-payment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-editor/nex-editor.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-qr/nex-qr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-camera/nex-camera.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-scanner/nex-scanner.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-share/nex-share.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-theme/nex-theme.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-network/nex-network.min.js"></script>
 
 <!-- ── Security Stack ─────────────────────────────────── -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-crypto/nex-crypto.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-totp/nex-totp.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-pow/nex-pow.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-audit/nex-audit.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-vault/nex-vault.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-password/nex-password.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-url-guard/nex-url-guard.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-timing-guard/nex-timing-guard.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-sanitizer/nex-sanitizer.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-storage/nex-storage.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-jwt/nex-jwt.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-honeypot/nex-honeypot.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-idle/nex-idle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-frame-guard/nex-frame-guard.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-mask/nex-mask.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-proto-guard/nex-proto-guard.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-integrity/nex-integrity.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-https/nex-https.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.1/packages/nex-clipboard/nex-clipboard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-crypto/nex-crypto.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-totp/nex-totp.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-pow/nex-pow.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-audit/nex-audit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-vault/nex-vault.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-password/nex-password.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-url-guard/nex-url-guard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-timing-guard/nex-timing-guard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-sanitizer/nex-sanitizer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-storage/nex-storage.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-jwt/nex-jwt.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-honeypot/nex-honeypot.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-idle/nex-idle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-frame-guard/nex-frame-guard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-mask/nex-mask.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-proto-guard/nex-proto-guard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-integrity/nex-integrity.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-https/nex-https.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.7.2/packages/nex-clipboard/nex-clipboard.min.js"></script>
 ```
 
 ### Version Pinning Strategies
 
 | Strategy | CDN Tag | Use Case |
 |:---|:---|:---|
-| Exact pin | `@v1.7.1` | ✅ Production (recommended) |
+| Exact pin | `@v1.7.2` | ✅ Production (recommended) |
+| Minor pin | `@v1.7` | Auto patch updates |
+| Major pin | `@v1` | Auto minor + patch |
+| Latest | `@latest` | 🚧 Staging/dev only |
 | Minor pin | `@v1.7` | Auto patch updates |
 | Major pin | `@v1` | Auto minor + patch |
 | Latest | `@latest` | 🚧 Staging/dev only |
@@ -448,6 +451,7 @@ NEX SDK follows Semantic Versioning (`MAJOR.MINOR.PATCH`):
 
 | Release | Highlights |
 |:---|:---|
+| **v1.7.2** | Render fix for nex-search icons to use Material Symbols |
 | **v1.7.1** | Rebuild of nex-search with dynamic CSS override support |
 | **v1.7.0** | 8 new cryptographic & security components (`nex-crypto`, `nex-totp`, `nex-pow`, `nex-audit`, `nex-vault`, `nex-password`, `nex-url-guard`, `nex-timing-guard`) |
 | **v1.6.2** | Cyberpunk corner clipped button update to `nex-search` |
