@@ -30,25 +30,25 @@ A lightweight, framework-independent, performance-optimized Web Component develo
 - [nex-storage](packages/nex-storage/README.md) - Expiration storage JSON utility.
 - [nex-network](packages/nex-network/README.md) - Latency connection pinger widget.
 
-## CDN Releases (v1.3.0)
-- **`<nex-stream>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-stream/nex-stream.min.js`
-- **`<nex-image>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-image/nex-image.min.js`
-- **`<nex-file>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-file/nex-file.min.js`
-- **`<nex-upload>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-upload/nex-upload.min.js`
-- **`<nex-ui>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-ui/nex-ui.min.js`
-- **`NexAnalytics`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-analytics/nex-analytics.min.js`
-- **`<nex-terminal>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-terminal/nex-terminal.min.js`
-- **`<nex-chart>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-chart/nex-chart.min.js`
-- **`<nex-router>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-router/nex-router.min.js`
-- **`<nex-auth>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-auth/nex-auth.min.js`
-- **`<nex-chat>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-chat/nex-chat.min.js`
-- **`<nex-notification>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-notification/nex-notification.min.js`
-- **`<nex-payment>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-payment/nex-payment.min.js`
-- **`<nex-editor>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-editor/nex-editor.min.js`
-- **`<nex-qr>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-qr/nex-qr.min.js`
-- **`<nex-camera>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-camera/nex-camera.min.js`
-- **`<nex-scanner>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-scanner/nex-scanner.min.js`
-- **`<nex-share>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-share/nex-share.min.js`
-- **`<nex-theme>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-theme/nex-theme.min.js`
-- **`<nex-storage>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-storage/nex-storage.min.js`
-- **`<nex-network>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-network/nex-network.min.js`
+## CDN Releases (v1.3.1)
+- **`<nex-stream>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-stream/nex-stream.min.js`
+- **`<nex-image>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-image/nex-image.min.js`
+- **`<nex-file>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-file/nex-file.min.js`
+- **`<nex-upload>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-upload/nex-upload.min.js`
+- **`<nex-ui>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-ui/nex-ui.min.js`
+- **`NexAnalytics`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-analytics/nex-analytics.min.js`
+- **`<nex-terminal>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-terminal/nex-terminal.min.js`
+- **`<nex-chart>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-chart/nex-chart.min.js`
+- **`<nex-router>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-router/nex-router.min.js`
+- **`<nex-auth>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-auth/nex-auth.min.js`
+- **`<nex-chat>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-chat/nex-chat.min.js`
+- **`<nex-notification>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-notification/nex-notification.min.js`
+- **`<nex-payment>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-payment/nex-payment.min.js`
+- **`<nex-editor>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-editor/nex-editor.min.js`
+- **`<nex-qr>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-qr/nex-qr.min.js`
+- **`<nex-camera>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-camera/nex-camera.min.js`
+- **`<nex-scanner>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-scanner/nex-scanner.min.js`
+- **`<nex-share>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-share/nex-share.min.js`
+- **`<nex-theme>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-theme/nex-theme.min.js`
+- **`<nex-storage>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-storage/nex-storage.min.js`
+- **`<nex-network>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.1/packages/nex-network/nex-network.min.js`

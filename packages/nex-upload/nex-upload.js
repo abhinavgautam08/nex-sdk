@@ -374,6 +374,7 @@ class NexUpload extends HTMLElement {
           transition: all 0.3s ease;
           position: relative;
           box-sizing: border-box;
+          clip-path: polygon(0% 0%, 95% 0%, 100% 5%, 100% 100%, 0% 100%);
         }
 
         .nex-upload-dropzone:hover,

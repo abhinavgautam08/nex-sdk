@@ -14,6 +14,13 @@ _Planned for future releases:_
 
 ---
 
+## [1.3.1] — 2026-07-09
+
+### Fixed
+- **nex-upload Dropzone**: Styled the inner dropzone dashed container (`.nex-upload-dropzone`) to render with a matching top-right corner slanted cut (`clip-path`), aligning it parallel to the outer container frame cut.
+
+---
+
 ## [1.3.0] — 2026-07-09
 
 ### Added
