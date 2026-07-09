@@ -1,508 +1,571 @@
-# NEX SDK (v1.5.0)
+# NEX SDK (v1.6.0)
 
-A lightweight, framework-independent, performance-optimized Web Component developer toolkit designed with a gorgeous neon cyberpunk aesthetic. Natively encapsulated using Shadow DOM, compatible with any HTML website, and fully ready for GitHub and jsDelivr CDN delivery.
+A lightweight, framework-independent, security-first Web Component developer toolkit with a neon cyberpunk aesthetic. Natively encapsulated using Shadow DOM — compatible with any HTML website, zero dependencies, and fully ready for GitHub + jsDelivr CDN delivery.
+
+[![Version](https://img.shields.io/badge/version-v1.6.0-00f2ff?style=flat-square)](https://github.com/abhinavgautam08/nex-sdk/releases/tag/v1.6.0)
+[![License](https://img.shields.io/badge/license-MIT-ff007f?style=flat-square)](LICENSE)
+[![CDN](https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat-square)](https://www.jsdelivr.com/package/gh/abhinavgautam08/nex-sdk)
 
 ---
 
 ## 1. Project Overview & Core Features
 
-NEX SDK provides modern, high-performance UI blocks and telemetry capabilities without the weight of modern framework runtimes. Key highlights:
-*   **Shadow DOM Isolated**: Restricts styles internally. Zero clashing or pollution of your parent document stylesheets.
-*   **Zero Dependencies**: Written in pure ES6 Javascript; requires no build tools or package managers.
-*   **Lightweight Footprint**: The entire minified SDK totals less than 110 KB (~32 KB Gzipped).
-*   **Global Theme Engine**: Customize all visual element colors on-the-fly using CSS variables (`--nex-primary`, `--nex-accent`, `--nex-bg`, `--nex-glow`).
-*   **High Performance**: Utilizes lazy initialization, lazy loading, asynchronous CDN loading for heavy libraries, and active memory leak cleanup.
+*   **Shadow DOM Isolated** — Zero style clashing. Every component is fully encapsulated.
+*   **Zero Dependencies** — Pure ES6 JavaScript. No build tools, no package managers required.
+*   **Security-First** — 10 dedicated security packages (XSS, AES-256-GCM, JWT, bot detection, clickjacking, prototype pollution, and more).
+*   **Lightweight Footprint** — Entire minified SDK totals under 130 KB (~38 KB Gzipped).
+*   **Global Theme Engine** — CSS variables (`--nex-primary`, `--nex-accent`, `--nex-bg`, `--nex-glow`) customize all components instantly.
+*   **High Performance** — Lazy init, async CDN loading, active memory-leak cleanup on disconnect.
 
 ---
 
 ## 2. Component Reference Table
 
-| Component Name | Description / Purpose | Key Attributes | Main Events / JS API | Browser Support |
-|:---|:---|:---|:---|:---|
-| **`<nex-stream>`** | HLS/MP4 cyberpunk media player | `src`, `poster`, `logo`, `autoplay`, `muted`, `playsinline` | `play()`, `pause()`, `togglePlay()`, `toggleMute()` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
-| **`<nex-image>`** | Lazy-loading responsive image element | `src`, `srcset`, `sizes`, `alt`, `loading`, `fallback` | Events: `load`, `error` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
-| **`<nex-file>`** | Video/Image/PDF/Generic metadata card | `src`, `name`, `size`, `type` | Event: `download` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
-| **`<nex-upload>`** | Drag & drop uploader with validation | `endpoint`, `multiple`, `accept`, `max-size`, `auto-upload` | Events: `file-added`, `upload-start`, `upload-progress`, `upload-success`, `upload-error` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
-| **`<nex-ui>`** *(bundle)* | Buttons, Cards, Loaders, Toasts & Modals | `<nex-button>`, `<nex-card>`, `<nex-loader>`, `<nex-modal>`, `<nex-toast>` | `modal.openModal()`, `modal.close()`, `window.showNexToast()` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
-| **`NexAnalytics`** | Telemetry and event tracking engine | Config options: `endpoint`, `app`, `debug` | `track()`, `trackPageView()`, `destroy()` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
-| **`<nex-terminal>`** | Green neon interactive command CLI shell | `title`, `placeholder`, `logo` | `writeLine()`, `clear()`, Event: `command` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
-| **`<nex-chart>`** | Neon glowing Canvas telemetry visualizer | `type`, `logo`, `glow-color`, `grid-color` | `setData()`, `addDataPoint()` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
-| **`<nex-router>`** | Glitch-animated tab navigation controller | `tabs`, `active-tab`, `logo` | Event: `tab-change` | Chrome 67+, Firefox 63+, Safari 10.1+, Edge 79+ |
+### UI & Media Components
+
+| Component | Description | Key Attributes | Events / API |
+|:---|:---|:---|:---|
+| **`<nex-stream>`** | HLS/MP4 cyberpunk media player | `src`, `poster`, `logo`, `autoplay`, `muted` | `play()`, `pause()`, `togglePlay()`, `loadSource()` |
+| **`<nex-image>`** | Lazy-loading responsive image | `src`, `srcset`, `sizes`, `alt`, `loading`, `fallback` | `load`, `error` |
+| **`<nex-file>`** | Video/Image/PDF metadata card | `src`, `name`, `size`, `type` | `download` |
+| **`<nex-upload>`** | Drag & drop uploader + magic verify | `endpoint`, `multiple`, `accept`, `max-size`, `magic-verify` | `file-added`, `file-spoofed`, `upload-success`, `upload-error` |
+| **`<nex-ui>`** *(bundle)* | Buttons, Cards, Loaders, Modals, Toasts | `<nex-button>`, `<nex-card>`, `<nex-loader>`, `<nex-modal>` | `modal.openModal()`, `window.showNexToast()` |
+| **`NexAnalytics`** | Telemetry & event tracking engine | `endpoint`, `app`, `debug` | `track()`, `trackPageView()`, `destroy()` |
+| **`<nex-terminal>`** | Interactive neon CLI shell (XSS-safe) | `title`, `placeholder`, `logo` | `writeLine()`, `clear()`, `command` event |
+| **`<nex-chart>`** | Canvas telemetry visualizer | `type`, `glow-color`, `grid-color` | `setData()`, `addDataPoint()` |
+| **`<nex-router>`** | Glitch-animated tab navigation | `tabs`, `active-tab`, `logo` | `tab-change` |
+| **`<nex-auth>`** | Auth portal + rate limiter + strength | `endpoint`, `session-timeout`, `min-strength`, `logo` | `auth-submit`, `auth-success`, `auth-locked`, `triggerFailure()` |
+| **`<nex-chat>`** | Message terminal (XSS-safe) | `logo` | `addMessage()`, `clearChat()` |
+| **`<nex-notification>`** | Global toast alerts | `position`, `max-notifications` | `window.showNexNotification()` |
+| **`<nex-payment>`** | Mock billing checkout | `logo` | `applyCoupon()` |
+| **`<nex-editor>`** | WYSIWYG rich text editor (XSS-safe) | `logo` | `getHtml()`, `getMarkdown()`, `setMarkdown()` |
+| **`<nex-qr>`** | Canvas QR code generator | `value`, `size`, `color`, `bg-color` | — |
+| **`<nex-camera>`** | getUserMedia hardware viewport | `audio` | `start()`, `stop()`, `capture()` |
+| **`<nex-scanner>`** | Laser tracking overlay | `logo` | — |
+| **`<nex-share>`** | Link sharing portal | `url`, `title` | — |
+| **`<nex-theme>`** | localStorage theme persister | `storage-key` | — |
+| **`<nex-network>`** | Live connection latency monitor | `ping-interval` | — |
+
+### 🔐 Security Components (v1.4.0 – v1.6.0)
+
+| Component | Description | Key Attributes | Events |
+|:---|:---|:---|:---|
+| **`NexSanitizer`** | Client-side XSS HTML sanitizer (static util) | — | — |
+| **`<nex-storage>`** | AES-256-GCM encrypted browser storage | `type`, `encryption` | `storage-set`, `storage-get`, `storage-expire` |
+| **`<nex-jwt>`** | JWT expiry guard + auto-check | `storage`, `check-interval` | `nex-session-expired`, `nex-token-set` |
+| **`<nex-honeypot>`** | Bot & spam trap (invisible fields + UA check) | `min-time` | `nex-bot-detected` |
+| **`<nex-idle>`** | Idle session timeout guard | `timeout`, `warn-at` | `nex-idle-warning`, `nex-idle`, `nex-active` |
+| **`<nex-frame-guard>`** | Clickjacking / iframe detection shield | `action` | `nex-frame-attack` |
+| **`<nex-mask>`** | Sensitive data auto-masker with timed reveal | `type`, `reveal-timeout`, `mask-char` | `nex-mask-revealed`, `nex-mask-hidden` |
+| **`<nex-proto-guard>`** | Prototype pollution detector + JSON guard | `freeze`, `warn` | `nex-proto-violation` |
+| **`<nex-integrity>`** | Subresource Integrity (SRI) monitor | `monitor`, `warn`, `strict` | `nex-integrity-violation` |
+| **`<nex-https>`** | Protocol enforcer + mixed-content scanner | `action`, `banner`, `mixed` | `nex-http-detected`, `nex-mixed-content` |
+| **`<nex-clipboard>`** | Paste sanitizer + copy blocker | `guard`, `max-len`, `block-copy` | `nex-paste-sanitized`, `nex-copy-blocked` |
 
 ---
 
 ## 3. CDN Installation & Version Pinning
 
-Load any component directly on your website using a `<script>` tag from the jsDelivr CDN:
+Load any component directly from jsDelivr:
 
 ```html
-<!-- Video Player -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-stream/nex-stream.min.js"></script>
+<!-- ── UI & Media ─────────────────────────────────────── -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-stream/nex-stream.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-image/nex-image.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-file/nex-file.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-upload/nex-upload.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-ui/nex-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-analytics/nex-analytics.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-terminal/nex-terminal.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-chart/nex-chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-router/nex-router.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-auth/nex-auth.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-chat/nex-chat.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-notification/nex-notification.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-payment/nex-payment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-editor/nex-editor.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-qr/nex-qr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-camera/nex-camera.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-scanner/nex-scanner.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-share/nex-share.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-theme/nex-theme.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-network/nex-network.min.js"></script>
 
-<!-- Lazy Image -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-image/nex-image.min.js"></script>
-
-<!-- File Card Previewer -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-file/nex-file.min.js"></script>
-
-<!-- Drag & Drop Uploader -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-upload/nex-upload.min.js"></script>
-
-<!-- UI Elements Bundle -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-ui/nex-ui.min.js"></script>
-
-<!-- Telemetry Analytics -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-analytics/nex-analytics.min.js"></script>
-
-<!-- Terminal Shell -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-terminal/nex-terminal.min.js"></script>
-
-<!-- Telemetry Chart -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-chart/nex-chart.min.js"></script>
-
-<!-- Glitch Router -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-router/nex-router.min.js"></script>
-
-<!-- Authentication Portal -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-auth/nex-auth.min.js"></script>
-
-<!-- Chat Terminal -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-chat/nex-chat.min.js"></script>
-
-<!-- Notification Toasts -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-notification/nex-notification.min.js"></script>
-
-<!-- Checkout Gateway -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-payment/nex-payment.min.js"></script>
-
-<!-- Rich WYSIWYG Editor -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-editor/nex-editor.min.js"></script>
-
-<!-- Canvas QR Generator -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-qr/nex-qr.min.js"></script>
-
-<!-- Camera Viewport -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-camera/nex-camera.min.js"></script>
-
-<!-- Scan Overlay Targets -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-scanner/nex-scanner.min.js"></script>
-
-<!-- Link Sharing Hub -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-share/nex-share.min.js"></script>
-
-<!-- Theme Persister Switch -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-theme/nex-theme.min.js"></script>
-
-<!-- Encryption Storage Cache -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-storage/nex-storage.min.js"></script>
-
-<!-- Latency Connection Monitor -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-network/nex-network.min.js"></script>
-
-<!-- XSS Shield Sanitizer -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-sanitizer/nex-sanitizer.min.js"></script>
-
-<!-- JWT Token Guard -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.5.0/packages/nex-jwt/nex-jwt.min.js"></script>
+<!-- ── Security Stack ─────────────────────────────────── -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-sanitizer/nex-sanitizer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-storage/nex-storage.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-jwt/nex-jwt.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-honeypot/nex-honeypot.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-idle/nex-idle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-frame-guard/nex-frame-guard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-mask/nex-mask.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-proto-guard/nex-proto-guard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-integrity/nex-integrity.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-https/nex-https.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.6.0/packages/nex-clipboard/nex-clipboard.min.js"></script>
 ```
 
-### Version Pinning Strategies (Production Best Practice)
-Always pin versions in production to avoid unexpected breaking changes:
-*   **Exact Patch Pin (Safest for Production)**: `abhinavgautam08/nex-sdk@v1.5.0`
-*   **Minor Version Pin (Auto Patch Updates)**: `abhinavgautam08/nex-sdk@v1.5`
-*   **Major Version Pin (Auto Minor & Patch Updates)**: `abhinavgautam08/nex-sdk@v1`
-*   **Latest (Unstable, Staging Only)**: `abhinavgautam08/nex-sdk@latest`
+### Version Pinning Strategies
+
+| Strategy | CDN Tag | Use Case |
+|:---|:---|:---|
+| Exact pin | `@v1.6.0` | ✅ Production (recommended) |
+| Minor pin | `@v1.6` | Auto patch updates |
+| Major pin | `@v1` | Auto minor + patch |
+| Latest | `@latest` | 🚧 Staging/dev only |
 
 ---
 
-## 4. AI-Friendly API Reference & Copy-Paste Snippets
+## 4. 🔐 Security Stack — Full Configuration
 
-*This section provides complete specifications for developers and AI code assistants to write functional code integrations.*
+Drop this block at the top of your `<body>` for complete protection:
+
+```html
+<!-- Runtime guards (load before any user content) -->
+<nex-proto-guard freeze warn></nex-proto-guard>
+<nex-frame-guard action="blur"></nex-frame-guard>
+<nex-https action="warn" banner mixed></nex-https>
+<nex-integrity monitor warn></nex-integrity>
+
+<!-- Session guards -->
+<nex-idle id="idleGuard" timeout="300" warn-at="30"></nex-idle>
+<nex-jwt  id="jwtGuard"  storage="session" check-interval="30"></nex-jwt>
+
+<!-- Input guards -->
+<nex-honeypot  id="hp"></nex-honeypot>
+<nex-clipboard guard="input, textarea"></nex-clipboard>
+
+<script>
+  // Auto-logout on idle or JWT expiry
+  document.addEventListener('nex-idle', () => jwtGuard.clearToken());
+  document.addEventListener('nex-session-expired', () => location.href = '/login');
+
+  // Bot protection on login form
+  const form = document.querySelector('#login-form');
+  hp.inject(form);
+  form.addEventListener('submit', e => {
+    if (!hp.isHuman(form)) { e.preventDefault(); return; }
+  });
+
+  // Hook auth failure into rate limiter
+  authEl.addEventListener('auth-submit', async (e) => {
+    const ok = await verifyWithServer(e.detail.data);
+    if (ok) {
+      jwtGuard.setToken(ok.access_token);
+    } else {
+      authEl.triggerFailure(); // triggers exponential lockout
+    }
+  });
+</script>
+```
+
+---
+
+## 5. API Reference
 
 ### A. `<nex-stream>` (Video Player)
-**HTML Attributes:**
-*   `src` (String): Source path (MP4, WebM, or HLS `.m3u8` streams).
-*   `poster` (String): Thumbnail preview image URL.
-*   `logo` (String): Top-left watermark overlay logo. Defaults to a standard relative logo path.
-*   `autoplay` (Boolean): Plays automatically. *Requires element to be muted in most browsers.*
-*   `muted` (Boolean): Mutes audio output.
-*   `playsinline` (Boolean): Plays inline on mobile layouts (prevents iOS native player takeoff).
+**Attributes:** `src`, `poster`, `logo`, `autoplay`, `muted`, `playsinline`
+**Methods:** `play()`, `pause()`, `togglePlay()`, `toggleMute()`, `toggleFullscreen()`, `loadSource(url)`
 
-**JavaScript Methods:**
-*   `play()`: Programmatic play.
-*   `pause()`: Programmatic pause.
-*   `togglePlay()`: Toggles playback state.
-*   `toggleMute()`: Toggles muted/unmuted state.
-*   `toggleFullscreen()`: Toggles fullscreen player overlay.
-*   `loadSource(url: string)`: Dynamic media URL source swap.
-
-**Copy-Paste Template:**
 ```html
-<nex-stream 
-  id="myPlayer"
-  src="https://upload.wikimedia.org/wikipedia/commons/3/37/Crossing_the_Line.webm"
-  poster="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Crossing_the_Line.webm/640px--Crossing_the_Line.webm.jpg"
-  autoplay muted playsinline>
-</nex-stream>
-<script>
-  const player = document.getElementById('myPlayer');
-  // Example call
-  player.addEventListener('click', () => player.togglePlay());
-</script>
+<nex-stream src="video.mp4" poster="thumb.jpg" autoplay muted playsinline></nex-stream>
 ```
+
+---
 
 ### B. `<nex-image>` (Responsive Lazy Image)
-**HTML Attributes:**
-*   `src` (String): Path to primary image file.
-*   `srcset` (String): Responsive source mappings (e.g. `small.jpg 400w, large.jpg 800w`).
-*   `sizes` (String): Layout breakpoints (e.g. `(max-width: 600px) 100vw, 800px`).
-*   `alt` (String): Image description for accessibility.
-*   `loading` (String): Set to `lazy` to activate IntersectionObserver deferred loading.
-*   `fallback` (String): Alternative image path loaded if primary `src` fails (HTTP 4xx/5xx).
+**Attributes:** `src`, `srcset`, `sizes`, `alt`, `loading`, `fallback`
+**Events:** `load`, `error`
 
-**Custom Events:**
-*   `load`: Detail: `{ src }` — Fired on successful load.
-*   `error`: Detail: `{ src }` — Fired on loading error.
-
-**Copy-Paste Template:**
 ```html
-<nex-image 
-  src="https://example.com/neon-artwork.png" 
-  srcset="https://example.com/neon-320.png 320w, https://example.com/neon-800.png 800w"
-  sizes="(max-width: 600px) 100vw, 800px"
-  alt="Cyber Grid Landscape"
-  loading="lazy"
-  fallback="https://example.com/fallback-placeholder.png">
-</nex-image>
+<nex-image src="photo.jpg" alt="Cyber Grid" loading="lazy" fallback="placeholder.png"></nex-image>
 ```
+
+---
 
 ### C. `<nex-file>` (File Preview Card)
-**HTML Attributes:**
-*   `src` (String): File path.
-*   `name` (String): Filename override (defaults to parsing path suffix).
-*   `size` (Number): File size in bytes. Component formats this value automatically.
-*   `type` (String): Preview formatting. Options: `image`, `video`, `pdf`, `generic`. Auto-detected on omission.
+**Attributes:** `src`, `name`, `size`, `type` (`image` | `video` | `pdf` | `generic`)
+**Events:** `download`
 
-**Custom Events:**
-*   `download`: Detail: `{ src, name }` — Dispatched when clicking the download trigger.
-
-**Copy-Paste Template:**
 ```html
-<nex-file 
-  src="https://example.com/clearance-credentials.pdf" 
-  name="SECURITY_CLEARANCE.PDF"
-  size="2097152" 
-  type="pdf">
-</nex-file>
+<nex-file src="report.pdf" name="REPORT.PDF" size="2097152" type="pdf"></nex-file>
 ```
 
-### D. `<nex-upload>` (File Uploader Portal)
-**HTML Attributes:**
-*   `endpoint` (String): Target POST upload endpoint URL. *Omit to run in Mock Sandbox mode.*
-*   `multiple` (Boolean): If present, users can queue multiple files.
-*   `accept` (String): Permitted file types (e.g. `image/*,application/pdf`).
-*   `max-size` (Number): Max allowed size limit in bytes.
-*   `auto-upload` (Boolean): Automatically starts uploads on file drop/select.
+---
 
-**Custom Events:**
-*   `file-added`: Detail: `{ file, error }` — File enters selection list.
-*   `upload-start`: Detail: `{ file }` — File upload handoff initiates.
-*   `upload-progress`: Detail: `{ file, progress }` — Progress value (0-100).
-*   `upload-success`: Detail: `{ file, response }` — HTTP status 2xx success.
-*   `upload-error`: Detail: `{ file, error }` — Handoff failed.
+### D. `<nex-upload>` (Drag & Drop Uploader)
+**Attributes:** `endpoint`, `multiple`, `accept`, `max-size`, `auto-upload`, `magic-verify`
+**Events:** `file-added`, `file-spoofed`, `upload-start`, `upload-progress`, `upload-success`, `upload-error`
 
-**Copy-Paste Template:**
 ```html
-<nex-upload 
-  id="myUploader"
+<nex-upload
+  id="uploader"
   endpoint="https://api.example.com/upload"
-  accept="image/*"
+  accept="image/*,application/pdf"
   max-size="5242880"
-  multiple>
+  multiple magic-verify>
 </nex-upload>
 <script>
-  const uploader = document.getElementById('myUploader');
-  uploader.addEventListener('upload-success', (e) => {
-    console.log('Upload complete for file:', e.detail.file.name);
+  uploader.addEventListener('file-spoofed', e => {
+    console.warn('Spoofed file blocked:', e.detail.reason); // MAGIC_MISMATCH or BLOCKED_EXECUTABLE
   });
 </script>
 ```
 
-### E. `<nex-ui>` (Cyber UI Elements Bundle)
-This bundle registers 5 individual components:
-1.  **`<nex-button>`**: Custom click trigger.
-    *   Attributes: `type` (`primary`, `secondary`, `outline`, `fuchsia`, `lime`), `size` (`sm`, `md`, `lg`), `disabled`, `loading`.
-2.  **`<nex-card>`**: Panel container.
-    *   Attributes: `title` (header string).
-3.  **`<nex-loader>`**: Spinner/Progress loaders.
-    *   Attributes: `type` (`spinner`, `progress`), `text` (status label).
-4.  **`<nex-modal>`**: Overlays with glass blurs.
-    *   Attributes: `title`, `open`.
-    *   JS API: `modal.openModal()`, `modal.close()`.
-    *   Events: `open`, `close`.
-5.  **`<nex-toast>`**: central overlay system manager.
-    *   JS API: `window.showNexToast(message, type, duration)`.
+---
 
-**Copy-Paste Template:**
+### E. `<nex-ui>` (Cyber UI Bundle)
+Registers 5 sub-components:
+- **`<nex-button>`** — `type` (`primary`, `secondary`, `outline`, `fuchsia`, `lime`), `size`, `disabled`, `loading`
+- **`<nex-card>`** — `title`
+- **`<nex-loader>`** — `type` (`spinner` | `progress`), `text`
+- **`<nex-modal>`** — `title`, `open` — API: `openModal()`, `close()` — Events: `open`, `close`
+- **`<nex-toast>`** — `window.showNexToast(message, type, duration)`
+
 ```html
-<nex-card title="DATABASE_UPLINK">
-  <nex-loader type="progress" text="SYNCHRONIZING..."></nex-loader>
-  <div style="margin-top: 15px;">
-    <nex-button id="triggerModal" type="fuchsia">Emergency Override</nex-button>
-  </div>
-</nex-card>
-
-<nex-modal id="overrideModal" title="WARNING_PROTOCOL_V4">
-  <p>Trigger system purge sequence?</p>
-  <nex-button id="confirmBtn" type="lime">Execute</nex-button>
-  <nex-button id="cancelBtn" type="outline">Abort</nex-button>
+<nex-modal id="m" title="CONFIRM_ACTION">
+  <nex-button id="ok" type="lime">Execute</nex-button>
 </nex-modal>
-
 <script>
-  const modal = document.getElementById('overrideModal');
-  document.getElementById('triggerModal').addEventListener('click', () => modal.openModal());
-  document.getElementById('cancelBtn').addEventListener('click', () => modal.close());
-  document.getElementById('confirmBtn').addEventListener('click', () => {
-    modal.close();
-    window.showNexToast('Override activated!', 'success', 3000);
+  document.getElementById('ok').addEventListener('click', () => {
+    document.getElementById('m').close();
+    window.showNexToast('Action confirmed', 'success', 3000);
   });
 </script>
 ```
+
+---
 
 ### F. `NexAnalytics` (Telemetry Client)
-**Initialization Options:**
 ```javascript
-new NexAnalytics({
-  endpoint: string,  // Telemetry collector POST endpoint. Omit for console debug.
-  app: string,       // Application signature string.
-  debug: boolean     // Logs event payloads to developer console.
+const tracker = new NexAnalytics({
+  endpoint: 'https://api.example.com/collect',
+  app: 'MY_APP',
+  debug: true
 });
+tracker.track('ui', 'click', 'button-id');
+tracker.trackPageView();
+tracker.destroy();
 ```
 
-**JavaScript API Methods:**
-*   `track(category: string, action: string, label?: string, value?: number, extra?: object)`: Log custom events.
-*   `trackPageView()`: Trigger dynamic route logging (automatically binds on popstate).
-*   `destroy()`: Safe teardown. Unbinds all global window/document routing and shadow event listeners.
+---
 
-**Copy-Paste Template:**
+### G. `<nex-terminal>` (CLI Shell)
+**Attributes:** `title`, `placeholder`, `logo`
+**Methods:** `writeLine(msg, type)` — types: `info`, `success`, `warning`, `error`, `input`
+**Methods:** `clear()`
+**Events:** `command` — detail: `{ command }`
+
 ```html
+<nex-terminal id="term" title="SYS_SHELL" placeholder="Enter command..."></nex-terminal>
 <script>
-  const tracker = new NexAnalytics({
-    endpoint: 'https://api.example.com/collect',
-    app: 'CLIENT_PORTAL',
-    debug: true
-  });
-
-  // Track button click
-  document.getElementById('myButton').addEventListener('click', () => {
-    tracker.track('interactive', 'click', 'myButton_signature');
-  });
+  term.addEventListener('command', e => term.writeLine(`> ${e.detail.command}`, 'input'));
 </script>
 ```
 
-
-### G. `<nex-terminal>` (Terminal Shell)
-**HTML Attributes:**
-*   `title` (String): Header title displayed in top-left bar (e.g. `NEX_OS_TERMINAL`).
-*   `placeholder` (String): Input placeholder text.
-*   `logo` (String): Path to custom brand logo overlay.
-
-**JavaScript Methods:**
-*   `writeLine(message: string, [type: string])`: Appends log output. `type` options: `info`, `success`, `warning`, `error`, `input`.
-*   `clear()`: Wipes all logs from viewport.
-
-**Custom Events:**
-*   `command`: Detail: `{ command, response }` — Fired immediately when user executes input.
-
-**Copy-Paste Template:**
-```html
-<nex-terminal id="termNode" title="SYS_DIAGNOSTICS" placeholder="SYSTEM DIRECTIVE..."></nex-terminal>
-<script>
-  const term = document.getElementById('termNode');
-  term.addEventListener('command', (e) => {
-    console.log('User command executed:', e.detail.command);
-  });
-</script>
-```
+---
 
 ### H. `<nex-chart>` (Telemetry Visualizer)
-**HTML Attributes:**
-*   `type` (String): Rendering visual type. Options: `line`, `bar` (defaults to `line`).
-*   `glow-color` (String): Neon glow hex color code (defaults to `#00f2ff`).
-*   `grid-color` (String): Helper grid guidelines color (defaults to `rgba(255, 255, 255, 0.05)`).
-*   `logo` (String): Path to custom brand logo overlay.
+**Attributes:** `type` (`line` | `bar`), `glow-color`, `grid-color`, `logo`
+**Methods:** `setData(labels, values)`, `addDataPoint(label, value)`
 
-**JavaScript Methods:**
-*   `setData(labels: string[], values: number[])`: Resets all data arrays and replots the lines.
-*   `addDataPoint(label: string, value: number)`: Appends point, sliding old coordinates out.
-
-**Copy-Paste Template:**
 ```html
-<nex-chart id="netChart" type="bar" glow-color="#ff007f"></nex-chart>
+<nex-chart id="c" type="line" glow-color="#ff007f"></nex-chart>
+<script>document.getElementById('c').setData(['T1','T2','T3'], [40, 90, 65]);</script>
+```
+
+---
+
+### I. `<nex-router>` (Tab Router)
+**Attributes:** `tabs` (semicolon-separated `Label:id`), `active-tab`, `logo`
+**Events:** `tab-change` — detail: `{ tabId, label }`
+
+```html
+<nex-router tabs="OVERVIEW:pane1;LOGS:pane2" active-tab="pane1"></nex-router>
+```
+
+---
+
+### J. `<nex-auth>` (Secure Login Gateway)
+**Attributes:** `endpoint`, `session-timeout`, `logo`, `min-strength` (1–5)
+**Methods:** `logout()`, `showView(view)`, `triggerFailure()`
+**Events:** `auth-submit`, `auth-success`, `auth-logout`, `auth-locked`, `auth-rate-limited`, `auth-weak-password`, `view-change`
+
+**Rate Limiter thresholds:** 3 fails → 15s lock · 5 fails → 60s · 7+ fails → 300s
+
+```html
+<nex-auth id="authEl" session-timeout="600" min-strength="3"></nex-auth>
 <script>
-  const chart = document.getElementById('netChart');
-  // Inject coordinates
-  chart.setData(['S1', 'S2', 'S3'], [40, 95, 60]);
+  authEl.addEventListener('auth-submit', async (e) => {
+    const res = await fetch('/api/login', {
+      method: 'POST', body: JSON.stringify(e.detail.data)
+    });
+    if (!res.ok) authEl.triggerFailure();
+  });
+  authEl.addEventListener('auth-locked', e => {
+    console.log(`Locked for ${e.detail.duration}s after ${e.detail.attempts} attempts`);
+  });
 </script>
 ```
 
-### I. `<nex-router>` (Glitch Tab Router)
-**HTML Attributes:**
-*   `tabs` (String): Semicolon-separated tab configurations (`Label:id;Label:id`).
-*   `active-tab` (String): The default active tab ID.
-*   `logo` (String): Path to custom brand logo overlay.
+---
 
-**Custom Events:**
-*   `tab-change`: Detail: `{ tabId, label }` — Dispatched on click triggers.
+### K. `<nex-chat>` (Message Terminal)
+**Methods:** `addMessage(msg)`, `clearChat()`
 
-**Copy-Paste Template:**
+---
+
+### L. `<nex-notification>` (Global Toast)
+**Attributes:** `position`, `max-notifications`
+**Global:** `window.showNexNotification(type, text, duration)`
+
+---
+
+### M. `<nex-payment>` (Billing Checkout)
+**Methods:** `applyCoupon(code)`
+
+---
+
+### N. `<nex-editor>` (WYSIWYG Editor)
+**Methods:** `getHtml()`, `getMarkdown()`, `setMarkdown(md)`
+
+---
+
+### O. `<nex-qr>` (QR Generator)
+**Attributes:** `value`, `size`, `color`, `bg-color`
+
+---
+
+### P. `<nex-camera>` (Camera Viewport)
+**Attributes:** `audio` — **Methods:** `start()`, `stop()`, `capture()`
+
+---
+
+### Q–S. `<nex-scanner>` · `<nex-share>` · `<nex-theme>`
+Standard utility components. See source files for full attribute docs.
+
+---
+
+### T. `<nex-storage>` (AES-256-GCM Vault) 🔐
+**Attributes:** `type` (`local` | `session`), `encryption`
+**Methods (async when encrypted):** `await set(key, value, ttlSeconds)`, `await get(key)`, `remove(key)`, `clear()`
+**Events:** `storage-set`, `storage-get`, `storage-expire`, `storage-remove`, `storage-clear`
+
+> When `encryption` attribute is present, data is encrypted using **AES-256-GCM** via the Web Crypto API. Key is PBKDF2-derived (100k iterations, SHA-256) with a domain-bound passphrase and a random per-session salt.
+
 ```html
-<nex-router id="tabRouter" tabs="OVERVIEW:pane1;TERMINAL:pane2" active-tab="pane1"></nex-router>
-
-<div id="pane1">System stats dashboard.</div>
-<div id="pane2" class="hidden">Logs shell terminal.</div>
+<nex-storage id="vault" type="local" encryption></nex-storage>
+<script>
+  const vault = document.getElementById('vault');
+  await vault.set('token', 'abc123', 3600);  // encrypted, expires in 1h
+  const token = await vault.get('token');    // decrypted automatically
+</script>
 ```
 
-### J. `<nex-auth>` (Secure Login Gateway)
-**HTML Attributes:**
-*   `endpoint` (String): Address endpoint to post credentials detail.
-*   `session-timeout` (Number): Expiry timer in seconds.
-*   `logo` (String): Floating watermark logo.
+---
 
-**JavaScript Methods:**
-*   `logout()`: De-authorizes active credentials.
-*   `showView(view)`: Switches viewport state (`'login'`, `'register'`, `'forgot'`, `'otp'`).
+### U. `<nex-network>` (Latency Monitor)
+**Attributes:** `ping-interval`
 
 ---
 
-### K. `<nex-chat>` (Message Terminal Console)
-**HTML Attributes:**
-*   `logo` (String): Watermark overlay.
+### V. `NexSanitizer` (XSS Shield) 🔐
+Static utility used internally by `nex-chat`, `nex-terminal`, and `nex-editor`.
 
-**JavaScript Methods:**
-*   `addMessage(msg)`: Appends custom bubble payloads to feed.
-*   `clearChat()`: Discards viewport history contents.
-
----
-
-### L. `<nex-notification>` (Global Alert Toast)
-**HTML Attributes:**
-*   `position` (String): Toast alignment (`'top-right'`, `'bottom-right'`, `'top-left'`, `'bottom-left'`).
-*   `max-notifications` (Number): Queue limit count.
-
-**Global helper:**
-*   `window.showNexNotification(type, text, duration)`
+```javascript
+const clean = NexSanitizer.sanitize('<img src=x onerror=alert(1)>'); // returns safe text
+```
 
 ---
 
-### M. `<nex-payment>` (Mock Billing Checkout)
-**HTML Attributes:**
-*   `logo` (String): Watermark logo overlay.
+### W. `<nex-jwt>` (JWT Guard) 🔐
+**Attributes:** `storage` (`session` | `local`), `check-interval` (seconds, default: 30)
+**Methods:** `setToken(jwt)`, `getToken()`, `getPayload()`, `isExpired()`, `clearToken()`, `getRemainingSeconds()`
+**Events (bubbles+composed):** `nex-session-expired`, `nex-token-set`, `nex-token-invalid`
 
-**JavaScript Methods:**
-*   `applyCoupon(code)`: Applies discount code calculation logic (e.g. `'CYBER'`).
+```html
+<nex-jwt id="jwt" storage="session" check-interval="60"></nex-jwt>
+<script>
+  jwt.setToken(accessToken);
+  document.addEventListener('nex-session-expired', () => location.href = '/login');
 
----
-
-### N. `<nex-editor>` (WYSIWYG Rich Text Editor)
-**HTML Attributes:**
-*   `logo` (String): Watermark.
-
-**JavaScript Methods:**
-*   `getHtml()`: Returns workspace HTML.
-*   `getMarkdown()`: Returns compiled Markdown string.
-*   `setMarkdown(md)`: Renders markdown plain text inside the editor.
+  console.log(jwt.getPayload());          // { sub: "user123", exp: 1720000000, ... }
+  console.log(jwt.getRemainingSeconds()); // 3542
+</script>
+```
 
 ---
 
-### O. `<nex-qr>` (Canvas QR Matrix Generator)
-**HTML Attributes:**
-*   `value` (String): Data string.
-*   `size` (Number): Canvas viewport height/width.
-*   `color` (String): Fill color.
-*   `bg-color` (String): Background color.
+### X. `<nex-honeypot>` (Bot Trap) 🔐
+**Attributes:** `min-time` (ms, default: 1500)
+**Methods:** `inject(form)`, `isHuman(form)`, `reset()`
+**Events:** `nex-bot-detected` — detail: `{ reasons, elapsed, userAgent }`
+
+```html
+<nex-honeypot id="hp" min-time="1500"></nex-honeypot>
+<script>
+  hp.inject(document.querySelector('form'));
+  form.addEventListener('submit', e => {
+    if (!hp.isHuman(form)) {
+      e.preventDefault(); // silently reject bot
+    }
+  });
+</script>
+```
+
+Detection checks:
+- Honeypot fields filled by bots
+- Form submitted in < 1.5s (configurable)
+- No mouse movement detected (headless browser)
+- Known bot user agents (Puppeteer, Selenium, PhantomJS, etc.)
 
 ---
 
-### P. `<nex-camera>` (getUserMedia Hardware Viewport)
-**HTML Attributes:**
-*   `audio` (Boolean): Audio tracking.
+### Y. `<nex-idle>` (Idle Timeout) 🔐
+**Attributes:** `timeout` (seconds, default: 300), `warn-at` (seconds before timeout, default: 30)
+**Methods:** `getIdleSeconds()`, `resetTimer()`, `isIdle()`
+**Events (bubbles+composed):** `nex-idle-warning`, `nex-idle`, `nex-active`
 
-**JavaScript Methods:**
-*   `start()`: Captures camera stream.
-*   `stop()`: Shuts device stream.
-*   `capture()`: Captures and outputs frame data.
-
----
-
-### Q. `<nex-scanner>` (Laser Tracking Overlay)
-**HTML Attributes:**
-*   `logo` (String): Watermark overlay.
-
----
-
-### R. `<nex-share>` (Link Sharing Portal)
-**HTML Attributes:**
-*   `url` (String): Address url to share.
-*   `title` (String): Text title.
+```html
+<nex-idle id="idleGuard" timeout="300" warn-at="30"></nex-idle>
+<script>
+  document.addEventListener('nex-idle-warning', e =>
+    showAlert(`Session expires in ${e.detail.remaining}s`)
+  );
+  document.addEventListener('nex-idle', () => {
+    jwtGuard.clearToken(); // chain with nex-jwt
+    location.href = '/login';
+  });
+</script>
+```
 
 ---
 
-### S. `<nex-theme>` (LocalStorage Theme persister)
-**HTML Attributes:**
-*   `storage-key` (String): Cache key preference.
+### Z. `<nex-frame-guard>` (Clickjacking Shield) 🔐
+**Attributes:** `action` — `"blur"` (default overlay) | `"breakout"` (force top navigation) | `"none"` (event only)
+**Events:** `nex-frame-attack` — detail: `{ action, parentOrigin, url }`
+
+```html
+<nex-frame-guard action="blur"></nex-frame-guard>
+```
 
 ---
 
-### T. `<nex-storage>` (Web Storage Wrappers)
-**HTML Attributes:**
-*   `type` (String): Provider type (`'local'` | `'session'`).
-*   `encryption` (Boolean): Base64 encryption active state.
+### AA. `<nex-mask>` (Data Masker) 🔐
+**Attributes:** `type` (`token` | `card` | `otp` | `key` | `password`), `reveal-timeout` (seconds), `mask-char`
+**Events:** `nex-mask-revealed`, `nex-mask-hidden`
+
+```html
+<!-- API key: shows sk-abc•••••••xyz -->
+<nex-mask type="token" reveal-timeout="5">sk-abc123xyz789</nex-mask>
+
+<!-- Card: shows •••• •••• •••• 1111 -->
+<nex-mask type="card">4111 1111 1111 1111</nex-mask>
+
+<!-- OTP: shows ••••••, auto-hides after 3s -->
+<nex-mask type="otp" reveal-timeout="3">483920</nex-mask>
+```
 
 ---
 
-### U. `<nex-network>` (Live Connection Latency Monitor)
-**HTML Attributes:**
-*   `ping-interval` (Number): Health check interval loops.
+### AB. `<nex-proto-guard>` (Prototype Pollution Guard) 🔐
+**Attributes:** `freeze` (locks `Object.prototype`), `warn` (console warnings)
+**Events:** `nex-proto-violation` — detail: `{ key, depth, value }`
+
+```html
+<!-- Load this FIRST, before any third-party scripts -->
+<nex-proto-guard freeze warn></nex-proto-guard>
+```
+
+Intercepts `JSON.parse` to detect `__proto__`, `constructor`, `prototype` injection.
 
 ---
 
-## 5. Integration Best Practices
+### AC. `<nex-integrity>` (SRI Monitor) 🔐
+**Attributes:** `monitor` (enable observer), `warn` (console log), `strict` (remove offending assets)
+**Events:** `nex-integrity-violation` — detail: `{ tag, url, action }`
 
-### Global CSS Custom Theme Engine
-All visual Web Components in the SDK reference CSS variables at the `:host` level. You can override the theme colors (primary cyan, accent fuchsia, background, and glow) dynamically for the entire page or specific containers:
+```html
+<nex-integrity monitor warn></nex-integrity>
+<!-- In strict mode, removes external scripts loaded without integrity hashes -->
+<nex-integrity monitor warn strict></nex-integrity>
+```
+
+---
+
+### AD. `<nex-https>` (Protocol Enforcer) 🔐
+**Attributes:** `action` (`warn` | `redirect`), `banner`, `mixed`
+**Events:** `nex-http-detected`, `nex-mixed-content`
+
+```html
+<nex-https action="warn" banner mixed></nex-https>
+<!-- On HTTP pages: shows sticky red banner + fires event -->
+<!-- mixed: scans for HTTP resources on HTTPS pages -->
+```
+
+---
+
+### AE. `<nex-clipboard>` (Paste Sanitizer) 🔐
+**Attributes:** `guard` (CSS selector, default: `input, textarea`), `max-len`, `block-copy`
+**Events:** `nex-paste-sanitized`, `nex-paste-blocked`, `nex-copy-blocked`
+
+```html
+<nex-clipboard guard="#chat-input, #terminal-input" max-len="2000"></nex-clipboard>
+
+<!-- Block copying API keys from display elements -->
+<nex-clipboard block-copy=".api-key-display"></nex-clipboard>
+```
+
+---
+
+## 6. Integration Best Practices
+
+### Global CSS Theme Engine
+All visual components read CSS variables at `:host` level:
 
 ```css
-/* Override theme colors globally */
 body {
-  --nex-primary: #39ff14; /* Matrix Green primary color */
-  --nex-accent: #ffb700;  /* Cyber Gold secondary accent */
-  --nex-bg: #0d0d0d;      /* Deep obsidian backdrop */
-  --nex-glow: rgba(57, 255, 20, 0.25);
+  --nex-primary: #00f2ff; /* Neon cyan */
+  --nex-accent:  #ff007f; /* Fuchsia    */
+  --nex-bg:      #070711; /* Dark void  */
+  --nex-glow:    rgba(0, 242, 255, 0.2);
 }
 ```
 
-### Performance Optimization
-*   **Use `loading="lazy"`**: Always apply the `loading="lazy"` attribute on `<nex-image>` elements that appear off-screen to improve core web vitals score.
-*   **Unmount Elements Safely**: Components are engineered to automatically tear down active tasks (XHR queues, timers, observers) upon removal. If you dynamically remove elements, trust browser garbage collection to clean up.
-*   **Initialize Telemetry Early**: Load the `nex-analytics` script in the `<head>` of your document before elements are registered. This ensures automatic scan detectors can capture the initial component inventory correctly.
-
-### Accessibility (a11y)
-*   **Keyboard Operations**: When focusing on the `<nex-stream>` player container, keyboard operations are active automatically. Maintain the default `tabindex="0"` focus outline to ensure visible focus states.
-*   **Focus Restoration**: Modal dialogs automatically remember the triggering element and restore focus on close. Do not manually focus external elements during modal transitions.
+### Performance
+*   Use `loading="lazy"` on all off-screen `<nex-image>` elements.
+*   Components auto-teardown (XHR, timers, observers) on `disconnectedCallback`.
+*   Load `nex-analytics` in `<head>` before other components.
 
 ### Security
-*   **CORS Settings**: Telemetry beacons and upload portals rely on XMLHttpRequests and standard fetches. Ensure that your remote API endpoints publish robust `Access-Control-Allow-Origin` CORS headers.
-*   **Safe HTML Insertion**: In `<nex-modal>` and `<nex-card>` title attributes, avoid passing unescaped HTML characters to prevent rendering truncations. Use clean text titles.
+*   Load `<nex-proto-guard freeze>` **before** any third-party scripts.
+*   Always use `encryption` on `<nex-storage>` for sensitive session data.
+*   Pair `<nex-jwt>` + `<nex-idle>` for complete auto-logout coverage.
+*   Use `magic-verify` on `<nex-upload>` whenever file types matter.
+*   Add `<nex-honeypot>` to every public-facing form.
+*   Prefer `@v1.6.0` pin over `@latest` in production.
+
+### Accessibility
+*   `<nex-stream>` player supports keyboard operations when focused (`tabindex="0"`).
+*   Modal dialogs restore focus to the triggering element on close.
 
 ---
 
-## 6. Versioning & Migration Guidance
+## 7. Versioning & Migration
 
-NEX SDK adheres strictly to Semantic Versioning (`MAJOR.MINOR.PATCH`):
-*   **Patch updates (`1.0.x`)**: Contain minor bug fixes or compatibility updates. Safely upgrade by pinning to `@v1.0` or `@v1`.
-*   **Minor updates (`1.x.0`)**: Bring new attributes or components without modifying existing attributes. No code refactoring required.
-*   **Major updates (`x.0.0`)**: Introduce breaking changes. Check the migration changelogs if upgrading between major releases (e.g. migrating from `v1` to `v2`).
+NEX SDK follows Semantic Versioning (`MAJOR.MINOR.PATCH`):
+
+| Release | Highlights |
+|:---|:---|
+| **v1.6.0** | 8 new security packages (honeypot, idle, frame-guard, mask, proto-guard, integrity, https, clipboard) |
+| **v1.5.0** | AES-256-GCM storage, magic number upload verify, 5-level auth strength, rate limiter, nex-jwt |
+| **v1.4.0** | NexSanitizer XSS shield, nex-chat/terminal/editor hardened |
+| **v1.3.0** | nex-auth, nex-storage, nex-network |
+| **v1.0.0** | Initial release (15 UI components) |
+
+*   **Patch `1.x.y`**: Bug fixes only. Safe to auto-update.
+*   **Minor `1.x.0`**: New components/attributes. No breaking changes.
+*   **Major `x.0.0`**: Breaking changes. Check migration notes.
 
 ---
 
