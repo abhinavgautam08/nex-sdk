@@ -14,6 +14,25 @@ _Planned for future releases:_
 
 ---
 
+## [1.3.0] — 2026-07-09
+
+### Added
+- **12 New Standalone Cyberpunk Web Components**:
+  - `nex-auth` (`<nex-auth>`): Login/Register gate UI with password strength indicator and social login controls mockup.
+  - `nex-chat` (`<nex-chat>`): Full chat bubble terminal featuring emoji select panels, typing status, file attachments previews, and waveform voice visualizer.
+  - `nex-notification` (`<nex-notification>`): Global queue-managed toast alert system.
+  - `nex-payment` (`<nex-payment>`): Billing checkout panel simulating credit card graphics updates, UPI, and wallets.
+  - `nex-editor` (`<nex-editor>`): Rich text markdown WYSIWYG text editor.
+  - `nex-qr` (`<nex-qr>`): Lightweight canvas QR code matrix generator.
+  - `nex-camera` (`<nex-camera>`): getUserMedia media stream viewport helper.
+  - `nex-scanner` (`<nex-scanner>`): Scan alignment laser grids.
+  - `nex-share` (`<nex-share>`): Native sharing triggers & copy URL widget.
+  - `nex-theme` (`<nex-theme>`): LocalStorage-backed light/dark theme switcher.
+  - `nex-storage` (`<nex-storage>`): Utility component wrapping Web Storage.
+  - `nex-network` (`<nex-network>`): Live network latency monitoring.
+
+---
+
 ## [1.2.2] — 2026-07-09
 
 ### Added

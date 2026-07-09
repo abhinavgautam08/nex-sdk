@@ -1,0 +1,190 @@
+/*! nex-scanner v1.3.0 | (c) 2026 NEX SDK | MIT License */
+class NexScanner extends HTMLElement {
+  static get observedAttributes() {
+    return ['logo'];
+  }
+
+  constructor() {
+    super();
+    this.scanInterval = null;
+    this.isScanning = false;
+    this.attachShadow({ mode: 'open' });
+  }
+
+  connectedCallback() {
+    this.render();
+    this.startScanning();
+  }
+
+  disconnectedCallback() {
+    this.stopScanning();
+  }
+
+  attributeChangedCallback(name, oldVal, newVal) {
+    if (name === 'logo' && this.shadowRoot) {
+      const img = this.shadowRoot.querySelector('.nex-badge-logo');
+      if (img) img.src = newVal || '../logo/logo.webp';
+    }
+  }
+
+  startScanning() {
+    if (this.isScanning) return;
+    this.isScanning = true;
+    this.render();
+
+    // Mock scanning intervals for standalone CDN testing
+    this.scanInterval = setInterval(() => {
+      if (Math.random() > 0.7) {
+        this.simulateScanSuccess();
+      }
+    }, 3000);
+  }
+
+  stopScanning() {
+    this.isScanning = false;
+    if (this.scanInterval) {
+      clearInterval(this.scanInterval);
+      this.scanInterval = null;
+    }
+    this.render();
+  }
+
+  simulateScanSuccess() {
+    const mockData = `NEX-NET-TOKEN-${Math.floor(100000 + Math.random() * 900000)}`;
+    this.dispatchEvent(new CustomEvent('scan-success', { detail: { format: 'QR_CODE', result: mockData } }));
+    
+    const laser = this.shadowRoot.querySelector('.laser-line');
+    if (laser) {
+      laser.style.backgroundColor = '#39ff14';
+      setTimeout(() => {
+        if (laser) laser.style.backgroundColor = 'var(--nex-accent, #ff007f)';
+      }, 300);
+    }
+  }
+
+  render() {
+    const logoSrc = this.getAttribute('logo') || '../logo/logo.webp';
+    this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          display: block;
+          width: 100%;
+          max-width: 400px;
+          aspect-ratio: 1 / 1;
+          font-family: 'Orbitron', 'JetBrains Mono', monospace, sans-serif;
+          --nex-primary: var(--nex-primary, #00f2ff);
+          --nex-accent: var(--nex-accent, #ff007f);
+          --nex-bg: var(--nex-bg, #070707);
+          --nex-glow: var(--nex-glow, rgba(0, 242, 255, 0.3));
+          box-sizing: border-box;
+        }
+
+        .scanner-container {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          background: #000000;
+          border: 1px solid var(--nex-glow, rgba(0, 242, 255, 0.3));
+          box-shadow: 0 0 15px var(--nex-glow, rgba(0, 242, 255, 0.3));
+          box-sizing: border-box;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          clip-path: polygon(0 0, 93% 0, 100% 7%, 100% 100%, 0 100%);
+        }
+
+        /* Radar scan background grid */
+        .radar-grid {
+          position: absolute;
+          inset: 0;
+          background: repeating-linear-gradient(rgba(0, 242, 255, 0.02) 0px, rgba(0, 242, 255, 0.02) 1px, transparent 1px, transparent 20px),
+                      repeating-linear-gradient(90deg, rgba(0, 242, 255, 0.02) 0px, rgba(0, 242, 255, 0.02) 1px, transparent 1px, transparent 20px);
+        }
+
+        /* Scanning overlay frame targets */
+        .target-box {
+          position: relative;
+          width: 65%;
+          height: 65%;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          box-sizing: border-box;
+        }
+
+        .corner {
+          position: absolute;
+          width: 16px;
+          height: 16px;
+          border: 2px solid var(--nex-primary, #00f2ff);
+          filter: drop-shadow(0 0 4px var(--nex-glow, rgba(0, 242, 255, 0.3)));
+        }
+
+        .tl { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .tr { top: -2px; right: -2px; border-left: none; border-bottom: none; }
+        .bl { bottom: -2px; left: -2px; border-right: none; border-top: none; }
+        .br { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
+        .laser-line {
+          position: absolute;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background-color: var(--nex-accent, #ff007f);
+          box-shadow: 0 0 8px var(--nex-accent, #ff007f);
+          animation: sweep 2.5s infinite linear;
+          display: ${this.isScanning ? 'block' : 'none'};
+        }
+
+        .scanner-label {
+          position: absolute;
+          bottom: 12px;
+          font-size: 8px;
+          font-weight: 900;
+          color: var(--nex-primary, #00f2ff);
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+        }
+
+        @keyframes sweep {
+          0% { top: 0%; }
+          50% { top: 100%; }
+          100% { top: 0%; }
+        }
+
+        /* Watermark */
+        .nex-badge-inline {
+          position: absolute;
+          top: 12px;
+          right: 12px;
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 5px;
+          color: rgba(255, 255, 255, 0.3);
+          font-weight: 900;
+          letter-spacing: 0.1em;
+          z-index: 10;
+          pointer-events: none;
+        }
+      </style>
+
+      <div class="scanner-container">
+        <div class="nex-badge-inline">
+          <img class="nex-badge-logo" src="${logoSrc}" style="height: 5px; width: auto;" onerror="this.style.display='none'">
+          <span>NEX_SCANNER</span>
+        </div>
+        <div class="radar-grid"></div>
+        <div class="target-box">
+          <div class="corner tl"></div>
+          <div class="corner tr"></div>
+          <div class="corner bl"></div>
+          <div class="corner br"></div>
+          <div class="laser-line"></div>
+        </div>
+        <div class="scanner-label">${this.isScanning ? 'SCANNING_MATRIX_ACTIVE' : 'SCANNING_MATRIX_OFFLINE'}</div>
+      </div>
+    `;
+  }
+}
+
+customElements.define('nex-scanner', NexScanner);

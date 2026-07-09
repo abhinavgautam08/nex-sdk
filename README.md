@@ -1,4 +1,4 @@
-# NEX SDK (v1.2.2)
+# NEX SDK (v1.3.0)
 
 A lightweight, framework-independent, performance-optimized Web Component developer toolkit designed with a gorgeous neon cyberpunk aesthetic. Natively encapsulated using Shadow DOM, compatible with any HTML website, and fully ready for GitHub and jsDelivr CDN delivery.
 
@@ -37,37 +37,73 @@ Load any component directly on your website using a `<script>` tag from the jsDe
 
 ```html
 <!-- Video Player -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.2/packages/nex-stream/nex-stream.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-stream/nex-stream.min.js"></script>
 
 <!-- Lazy Image -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.2/packages/nex-image/nex-image.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-image/nex-image.min.js"></script>
 
 <!-- File Card Previewer -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.2/packages/nex-file/nex-file.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-file/nex-file.min.js"></script>
 
 <!-- Drag & Drop Uploader -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.2/packages/nex-upload/nex-upload.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-upload/nex-upload.min.js"></script>
 
 <!-- UI Elements Bundle -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.2/packages/nex-ui/nex-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-ui/nex-ui.min.js"></script>
 
 <!-- Telemetry Analytics -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.2/packages/nex-analytics/nex-analytics.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-analytics/nex-analytics.min.js"></script>
 
 <!-- Terminal Shell -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.2/packages/nex-terminal/nex-terminal.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-terminal/nex-terminal.min.js"></script>
 
 <!-- Telemetry Chart -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.2/packages/nex-chart/nex-chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-chart/nex-chart.min.js"></script>
 
 <!-- Glitch Router -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.2/packages/nex-router/nex-router.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-router/nex-router.min.js"></script>
+
+<!-- Authentication Portal -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-auth/nex-auth.min.js"></script>
+
+<!-- Chat Terminal -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-chat/nex-chat.min.js"></script>
+
+<!-- Notification Toasts -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-notification/nex-notification.min.js"></script>
+
+<!-- Checkout Gateway -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-payment/nex-payment.min.js"></script>
+
+<!-- Rich WYSIWYG Editor -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-editor/nex-editor.min.js"></script>
+
+<!-- Canvas QR Generator -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-qr/nex-qr.min.js"></script>
+
+<!-- Camera Viewport -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-camera/nex-camera.min.js"></script>
+
+<!-- Scan Overlay Targets -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-scanner/nex-scanner.min.js"></script>
+
+<!-- Link Sharing Hub -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-share/nex-share.min.js"></script>
+
+<!-- Theme Persister Switch -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-theme/nex-theme.min.js"></script>
+
+<!-- Encryption Storage Cache -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-storage/nex-storage.min.js"></script>
+
+<!-- Latency Connection Monitor -->
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.3.0/packages/nex-network/nex-network.min.js"></script>
 ```
 
 ### Version Pinning Strategies (Production Best Practice)
 Always pin versions in production to avoid unexpected breaking changes:
-*   **Exact Patch Pin (Safest for Production)**: `abhinavgautam08/nex-sdk@v1.2.2`
-*   **Minor Version Pin (Auto Patch Updates)**: `abhinavgautam08/nex-sdk@v1.2`
+*   **Exact Patch Pin (Safest for Production)**: `abhinavgautam08/nex-sdk@v1.3.0`
+*   **Minor Version Pin (Auto Patch Updates)**: `abhinavgautam08/nex-sdk@v1.3`
 *   **Major Version Pin (Auto Minor & Patch Updates)**: `abhinavgautam08/nex-sdk@v1`
 *   **Latest (Unstable, Staging Only)**: `abhinavgautam08/nex-sdk@latest`
 
@@ -320,6 +356,108 @@ new NexAnalytics({
 <div id="pane1">System stats dashboard.</div>
 <div id="pane2" class="hidden">Logs shell terminal.</div>
 ```
+
+### J. `<nex-auth>` (Secure Login Gateway)
+**HTML Attributes:**
+*   `endpoint` (String): Address endpoint to post credentials detail.
+*   `session-timeout` (Number): Expiry timer in seconds.
+*   `logo` (String): Floating watermark logo.
+
+**JavaScript Methods:**
+*   `logout()`: De-authorizes active credentials.
+*   `showView(view)`: Switches viewport state (`'login'`, `'register'`, `'forgot'`, `'otp'`).
+
+---
+
+### K. `<nex-chat>` (Message Terminal Console)
+**HTML Attributes:**
+*   `logo` (String): Watermark overlay.
+
+**JavaScript Methods:**
+*   `addMessage(msg)`: Appends custom bubble payloads to feed.
+*   `clearChat()`: Discards viewport history contents.
+
+---
+
+### L. `<nex-notification>` (Global Alert Toast)
+**HTML Attributes:**
+*   `position` (String): Toast alignment (`'top-right'`, `'bottom-right'`, `'top-left'`, `'bottom-left'`).
+*   `max-notifications` (Number): Queue limit count.
+
+**Global helper:**
+*   `window.showNexNotification(type, text, duration)`
+
+---
+
+### M. `<nex-payment>` (Mock Billing Checkout)
+**HTML Attributes:**
+*   `logo` (String): Watermark logo overlay.
+
+**JavaScript Methods:**
+*   `applyCoupon(code)`: Applies discount code calculation logic (e.g. `'CYBER'`).
+
+---
+
+### N. `<nex-editor>` (WYSIWYG Rich Text Editor)
+**HTML Attributes:**
+*   `logo` (String): Watermark.
+
+**JavaScript Methods:**
+*   `getHtml()`: Returns workspace HTML.
+*   `getMarkdown()`: Returns compiled Markdown string.
+*   `setMarkdown(md)`: Renders markdown plain text inside the editor.
+
+---
+
+### O. `<nex-qr>` (Canvas QR Matrix Generator)
+**HTML Attributes:**
+*   `value` (String): Data string.
+*   `size` (Number): Canvas viewport height/width.
+*   `color` (String): Fill color.
+*   `bg-color` (String): Background color.
+
+---
+
+### P. `<nex-camera>` (getUserMedia Hardware Viewport)
+**HTML Attributes:**
+*   `audio` (Boolean): Audio tracking.
+
+**JavaScript Methods:**
+*   `start()`: Captures camera stream.
+*   `stop()`: Shuts device stream.
+*   `capture()`: Captures and outputs frame data.
+
+---
+
+### Q. `<nex-scanner>` (Laser Tracking Overlay)
+**HTML Attributes:**
+*   `logo` (String): Watermark overlay.
+
+---
+
+### R. `<nex-share>` (Link Sharing Portal)
+**HTML Attributes:**
+*   `url` (String): Address url to share.
+*   `title` (String): Text title.
+
+---
+
+### S. `<nex-theme>` (LocalStorage Theme persister)
+**HTML Attributes:**
+*   `storage-key` (String): Cache key preference.
+
+---
+
+### T. `<nex-storage>` (Web Storage Wrappers)
+**HTML Attributes:**
+*   `type` (String): Provider type (`'local'` | `'session'`).
+*   `encryption` (Boolean): Base64 encryption active state.
+
+---
+
+### U. `<nex-network>` (Live Connection Latency Monitor)
+**HTML Attributes:**
+*   `ping-interval` (Number): Health check interval loops.
 
 ---
 
