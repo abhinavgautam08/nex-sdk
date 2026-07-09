@@ -18,13 +18,13 @@ A lightweight, framework-independent, performance-optimized Web Component develo
 - [nex-chart](packages/nex-chart/README.md) - Neon Glowing Canvas-based Telemetry Line/Bar Chart visualizer.
 - [nex-router](packages/nex-router/README.md) - Glitch animated tab navigation router with automated page views toggle support.
 
-## CDN Releases (v1.2.0)
-- **`<nex-stream>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-stream/nex-stream.min.js`
-- **`<nex-image>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-image/nex-image.min.js`
-- **`<nex-file>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-file/nex-file.min.js`
-- **`<nex-upload>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-upload/nex-upload.min.js`
-- **`<nex-ui>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-ui/nex-ui.min.js`
-- **`NexAnalytics`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-analytics/nex-analytics.min.js`
-- **`<nex-terminal>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-terminal/nex-terminal.min.js`
-- **`<nex-chart>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-chart/nex-chart.min.js`
-- **`<nex-router>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-router/nex-router.min.js`
+## CDN Releases (v1.2.1)
+- **`<nex-stream>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-stream/nex-stream.min.js`
+- **`<nex-image>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-image/nex-image.min.js`
+- **`<nex-file>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-file/nex-file.min.js`
+- **`<nex-upload>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-upload/nex-upload.min.js`
+- **`<nex-ui>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-ui/nex-ui.min.js`
+- **`NexAnalytics`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-analytics/nex-analytics.min.js`
+- **`<nex-terminal>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-terminal/nex-terminal.min.js`
+- **`<nex-chart>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-chart/nex-chart.min.js`
+- **`<nex-router>`**: `https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-router/nex-router.min.js`

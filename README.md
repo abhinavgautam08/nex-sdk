@@ -1,4 +1,4 @@
-# NEX SDK (v1.2.0)
+# NEX SDK (v1.2.1)
 
 A lightweight, framework-independent, performance-optimized Web Component developer toolkit designed with a gorgeous neon cyberpunk aesthetic. Natively encapsulated using Shadow DOM, compatible with any HTML website, and fully ready for GitHub and jsDelivr CDN delivery.
 
@@ -37,36 +37,36 @@ Load any component directly on your website using a `<script>` tag from the jsDe
 
 ```html
 <!-- Video Player -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-stream/nex-stream.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-stream/nex-stream.min.js"></script>
 
 <!-- Lazy Image -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-image/nex-image.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-image/nex-image.min.js"></script>
 
 <!-- File Card Previewer -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-file/nex-file.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-file/nex-file.min.js"></script>
 
 <!-- Drag & Drop Uploader -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-upload/nex-upload.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-upload/nex-upload.min.js"></script>
 
 <!-- UI Elements Bundle -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-ui/nex-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-ui/nex-ui.min.js"></script>
 
 <!-- Telemetry Analytics -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-analytics/nex-analytics.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-analytics/nex-analytics.min.js"></script>
 
 <!-- Terminal Shell -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-terminal/nex-terminal.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-terminal/nex-terminal.min.js"></script>
 
 <!-- Telemetry Chart -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-chart/nex-chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-chart/nex-chart.min.js"></script>
 
 <!-- Glitch Router -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-router/nex-router.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.1/packages/nex-router/nex-router.min.js"></script>
 ```
 
 ### Version Pinning Strategies (Production Best Practice)
 Always pin versions in production to avoid unexpected breaking changes:
-*   **Exact Patch Pin (Safest for Production)**: `abhinavgautam08/nex-sdk@v1.2.0`
+*   **Exact Patch Pin (Safest for Production)**: `abhinavgautam08/nex-sdk@v1.2.1`
 *   **Minor Version Pin (Auto Patch Updates)**: `abhinavgautam08/nex-sdk@v1.2`
 *   **Major Version Pin (Auto Minor & Patch Updates)**: `abhinavgautam08/nex-sdk@v1`
 *   **Latest (Unstable, Staging Only)**: `abhinavgautam08/nex-sdk@latest`

@@ -126,5 +126,3 @@ window.dispatchNexAnalytics = (element, category, action, label = '', value = nu
 };
 
 window.NexAnalytics = NexAnalytics;
-export default NexAnalytics;
-export { NexAnalytics };

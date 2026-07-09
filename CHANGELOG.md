@@ -14,6 +14,13 @@ _Planned for future releases:_
 
 ---
 
+## [1.2.1] — 2026-07-09
+
+### Fixed
+- **nex-analytics**: Removed ES6 export statements from build outputs, correcting `Uncaught SyntaxError: Unexpected token 'export'` on pages loading the library via standard non-module script tags.
+
+---
+
 ## [1.2.0] — 2026-07-09
 
 ### Added
