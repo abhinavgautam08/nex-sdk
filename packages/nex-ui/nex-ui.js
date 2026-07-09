@@ -553,7 +553,7 @@ window.showNexToast = (message, type = 'info', duration = 4000) => {
 // ==========================================
 class NexLoader extends HTMLElement {
   static get observedAttributes() {
-    return ['type', 'text'];
+    return ['type', 'text', 'logo'];
   }
 
   constructor() {
@@ -574,6 +574,7 @@ class NexLoader extends HTMLElement {
   render() {
     const type = this.getAttribute('type') || 'spinner'; // spinner, progress
     const text = this.getAttribute('text') || 'SYNCING_DATA_GATEWAY...';
+    const logoSrc = this.getAttribute('logo') || '../logo/logo.webp';
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -598,15 +599,32 @@ class NexLoader extends HTMLElement {
           gap: 16px;
         }
 
-        /* Spinner Type */
-        .spinner {
+        /* Spinner Type with brand logo */
+        .spinner-container {
+          position: relative;
           width: 40px;
           height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .spinner-border {
+          position: absolute;
+          inset: 0;
           border: 3px solid var(--nex-glow, rgba(0, 242, 255, 0.3));
           border-top-color: var(--nex-primary, #00f2ff);
           border-radius: 50%;
           animation: spin 1s linear infinite;
           box-shadow: 0 0 15px var(--nex-glow, rgba(0, 242, 255, 0.3));
+        }
+
+        .spinner-logo {
+          width: 18px;
+          height: 18px;
+          object-fit: contain;
+          z-index: 2;
+          filter: drop-shadow(0 0 4px var(--nex-primary, #00f2ff));
         }
 
         /* Progress Bar Type */
@@ -663,7 +681,12 @@ class NexLoader extends HTMLElement {
       </style>
 
       <div class="loader-wrapper">
-        ${type === 'spinner' ? '<div class="spinner"></div>' : ''}
+        ${type === 'spinner' ? `
+          <div class="spinner-container">
+            <div class="spinner-border"></div>
+            <img class="spinner-logo" src="${logoSrc}" onerror="this.style.display='none'">
+          </div>
+        ` : ''}
         ${type === 'progress' ? '<div class="progress-bar-container"><div class="progress-fill"></div></div>' : ''}
         ${text ? `<div class="loader-text">${text}</div>` : ''}
       </div>

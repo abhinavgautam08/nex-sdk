@@ -14,6 +14,13 @@ _Planned for future releases:_
 
 ---
 
+## [1.3.2] — 2026-07-09
+
+### Fixed
+- **nex-loader Spinner**: Added the brand logo to the center of the loading spinner circle, keeping it upright while the outer border rotates.
+
+---
+
 ## [1.3.1] — 2026-07-09
 
 ### Fixed
