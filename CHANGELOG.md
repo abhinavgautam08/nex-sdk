@@ -14,6 +14,13 @@ _Planned for future releases:_
 
 ---
 
+## [1.2.2] — 2026-07-09
+
+### Added
+- **nex-image Cyber Frame**: Styled the image element container to render with a matching top-right corner slanted cut (`clip-path`), aligning the static picture viewport style with the `<nex-stream>` video player viewport.
+
+---
+
 ## [1.2.1] — 2026-07-09
 
 ### Fixed
