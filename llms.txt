@@ -1,0 +1,16 @@
+# NEX SDK
+
+A lightweight, framework-independent, performance-optimized Web Component developer toolkit designed with a gorgeous neon cyberpunk aesthetic. Natively encapsulated using Shadow DOM and optimized for static hosting and jsDelivr CDN delivery.
+
+> Information for AI coding assistants and LLMs integrating NEX SDK.
+
+## Core Reference
+- [Main Integration Guide](README.md) - Master documentation containing API Reference, usage examples, best practices, and CDN installation guides.
+
+## Component Documentation
+- [nex-stream](packages/nex-stream/README.md) - HLS/MP4/WebM Cyber Video Player. Includes custom controls overlay, volume, fullscreen, double click triggers, and telemetry hooks.
+- [nex-image](packages/nex-image/README.md) - Lazy-loading Responsive Image. Includes IntersectionObserver lazy triggers, shimmer loader animations, and automatic HTTP error fallbacks.
+- [nex-file](packages/nex-file/README.md) - Video/Image/PDF Card Previewer. Handles dynamic mime-type formatting, size labels calculation, and download payloads.
+- [nex-upload](packages/nex-upload/README.md) - Drag & Drop File Uplink Portal. Features multi-file selection queue, size/type validation filters, and XHR upload progress indicators.
+- [nex-ui](packages/nex-ui/README.md) - Interactive Elements Bundle. Registers `<nex-button>`, `<nex-card>`, `<nex-loader>`, `<nex-modal>`, and `<nex-toast>`.
+- [nex-analytics](packages/nex-analytics/README.md) - Page View & Component Telemetry Client. Logs page views, popstate SPA routing transitions, and Shadow DOM custom events.
