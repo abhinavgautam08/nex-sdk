@@ -194,6 +194,24 @@ class NexSearch extends HTMLElement {
           shrink: 0;
           position: relative;
           overflow: hidden;
+          /* Cyberpunk corner clip — top-right diagonal cut */
+          clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+        }
+
+        /* Corner accent line on the clipped notch */
+        #nex-btn::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          width: 17px;
+          height: 17px;
+          background: transparent;
+          border-top: 2px solid rgba(5,5,5,0.35);
+          border-right: 2px solid rgba(5,5,5,0.35);
+          transform: rotate(0deg);
+          clip-path: polygon(0 0, 100% 0, 100% 100%);
+          pointer-events: none;
         }
 
         #nex-btn:hover:not(:disabled) {
