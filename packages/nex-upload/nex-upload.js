@@ -339,6 +339,10 @@ class NexUpload extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         :host {
+          --nex-primary: var(--nex-primary, #00f2ff);
+          --nex-accent: var(--nex-accent, #ff007f);
+          --nex-bg: var(--nex-bg, #070707);
+          --nex-glow: var(--nex-glow, rgba(0, 242, 255, 0.3));
           display: block;
           max-width: 480px;
           font-family: 'Orbitron', 'JetBrains Mono', monospace, sans-serif;
@@ -346,7 +350,7 @@ class NexUpload extends HTMLElement {
         }
 
         .nex-upload-container {
-          background-color: #070707;
+          background-color: var(--nex-bg, #070707);
           border: 1px solid rgba(0, 242, 255, 0.15);
           box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
           padding: 16px;
@@ -358,8 +362,8 @@ class NexUpload extends HTMLElement {
         }
 
         .nex-upload-dropzone {
-          border: 1px dashed rgba(0, 242, 255, 0.3);
-          background: rgba(0, 242, 255, 0.02);
+          border: 1px dashed var(--nex-glow, rgba(0, 242, 255, 0.3));
+          background: var(--nex-glow, rgba(0, 242, 255, 0.3));
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -374,7 +378,7 @@ class NexUpload extends HTMLElement {
 
         .nex-upload-dropzone:hover,
         .nex-upload-dropzone.dragover {
-          border-color: #ff007f;
+          border-color: var(--nex-accent, #ff007f);
           background: rgba(255, 0, 127, 0.04);
           box-shadow: inset 0 0 10px rgba(255, 0, 127, 0.1);
         }
@@ -382,7 +386,7 @@ class NexUpload extends HTMLElement {
         .nex-upload-icon {
           width: 36px;
           height: 36px;
-          color: #00f2ff;
+          color: var(--nex-primary, #00f2ff);
           margin-bottom: 12px;
           transition: transform 0.2s ease, color 0.2s ease;
         }
@@ -390,7 +394,7 @@ class NexUpload extends HTMLElement {
         .nex-upload-dropzone:hover .nex-upload-icon,
         .nex-upload-dropzone.dragover .nex-upload-icon {
           transform: translateY(-4px);
-          color: #ff007f;
+          color: var(--nex-accent, #ff007f);
         }
 
         .nex-upload-prompt {
@@ -412,8 +416,8 @@ class NexUpload extends HTMLElement {
         .nex-upload-select-btn {
           margin-top: 12px;
           background: transparent;
-          border: 1px solid #00f2ff;
-          color: #00f2ff;
+          border: 1px solid var(--nex-primary, #00f2ff);
+          color: var(--nex-primary, #00f2ff);
           font-family: inherit;
           font-size: 8px;
           font-weight: bold;
@@ -425,9 +429,9 @@ class NexUpload extends HTMLElement {
         }
 
         .nex-upload-select-btn:hover {
-          background: #00f2ff;
+          background: var(--nex-primary, #00f2ff);
           color: #050505;
-          box-shadow: 0 0 10px rgba(0, 242, 255, 0.3);
+          box-shadow: 0 0 10px var(--nex-glow, rgba(0, 242, 255, 0.3));
         }
 
         .nex-upload-input {
@@ -449,7 +453,7 @@ class NexUpload extends HTMLElement {
         }
 
         .nex-upload-item {
-          background: #0b0b0b;
+          background: var(--nex-bg, #070707);
           border: 1px solid rgba(255, 255, 255, 0.05);
           padding: 10px 12px;
           display: flex;
@@ -499,7 +503,7 @@ class NexUpload extends HTMLElement {
 
         .nex-upload-bar-fill {
           height: 100%;
-          background: #00f2ff;
+          background: var(--nex-primary, #00f2ff);
           width: 0%;
           transition: width 0.1s ease;
         }
@@ -510,13 +514,13 @@ class NexUpload extends HTMLElement {
         }
 
         .nex-upload-bar-fill.error {
-          background: #ff007f;
-          box-shadow: 0 0 6px #ff007f;
+          background: var(--nex-accent, #ff007f);
+          box-shadow: 0 0 6px var(--nex-accent, #ff007f);
         }
 
         .nex-upload-bar-fill.uploading {
-          background: #00f2ff;
-          box-shadow: 0 0 6px #00f2ff;
+          background: var(--nex-primary, #00f2ff);
+          box-shadow: 0 0 6px var(--nex-primary, #00f2ff);
         }
 
         .nex-upload-status-badge {
@@ -529,9 +533,9 @@ class NexUpload extends HTMLElement {
         }
 
         .nex-upload-status-badge.pending { color: rgba(255, 255, 255, 0.4); }
-        .nex-upload-status-badge.uploading { color: #00f2ff; }
+        .nex-upload-status-badge.uploading { color: var(--nex-primary, #00f2ff); }
         .nex-upload-status-badge.success { color: #39ff14; }
-        .nex-upload-status-badge.error { color: #ff007f; }
+        .nex-upload-status-badge.error { color: var(--nex-accent, #ff007f); }
 
         .nex-upload-remove-btn {
           position: absolute;
@@ -548,7 +552,7 @@ class NexUpload extends HTMLElement {
         }
 
         .nex-upload-remove-btn:hover {
-          color: #ff007f;
+          color: var(--nex-accent, #ff007f);
         }
 
         .nex-upload-remove-btn svg {
@@ -565,9 +569,9 @@ class NexUpload extends HTMLElement {
         }
 
         .nex-upload-action-btn {
-          background: rgba(0, 242, 255, 0.05);
-          border: 1px solid #00f2ff;
-          color: #00f2ff;
+          background: var(--nex-glow, rgba(0, 242, 255, 0.3));
+          border: 1px solid var(--nex-primary, #00f2ff);
+          color: var(--nex-primary, #00f2ff);
           font-family: inherit;
           font-size: 9px;
           font-weight: 900;
@@ -579,9 +583,9 @@ class NexUpload extends HTMLElement {
         }
 
         .nex-upload-action-btn:hover {
-          background: #00f2ff;
+          background: var(--nex-primary, #00f2ff);
           color: #050505;
-          box-shadow: 0 0 12px rgba(0, 242, 255, 0.3);
+          box-shadow: 0 0 12px var(--nex-glow, rgba(0, 242, 255, 0.3));
         }
 
         .hidden {

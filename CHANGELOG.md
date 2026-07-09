@@ -14,6 +14,14 @@ _Planned for future releases:_
 
 ---
 
+## [1.2.0] — 2026-07-09
+
+### Added
+- **Global Theme Engine (CSS Custom Properties)**: Refactored all 8 visual components to dynamically resolve color tokens (`--nex-primary`, `--nex-accent`, `--nex-bg`, and `--nex-glow`) with fallback defaults, enabling dynamic branding overrides.
+- **Canvas Dynamic Rendering**: Configured `<nex-chart>` to dynamically lookup the computed style values of `--nex-primary` and `--nex-accent` on rendering cycles.
+
+---
+
 ## [1.1.0] — 2026-07-09
 
 ### Added

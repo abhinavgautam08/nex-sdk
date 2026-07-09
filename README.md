@@ -1,4 +1,4 @@
-# NEX SDK (v1.1.0)
+# NEX SDK (v1.2.0)
 
 A lightweight, framework-independent, performance-optimized Web Component developer toolkit designed with a gorgeous neon cyberpunk aesthetic. Natively encapsulated using Shadow DOM, compatible with any HTML website, and fully ready for GitHub and jsDelivr CDN delivery.
 
@@ -9,7 +9,8 @@ A lightweight, framework-independent, performance-optimized Web Component develo
 NEX SDK provides modern, high-performance UI blocks and telemetry capabilities without the weight of modern framework runtimes. Key highlights:
 *   **Shadow DOM Isolated**: Restricts styles internally. Zero clashing or pollution of your parent document stylesheets.
 *   **Zero Dependencies**: Written in pure ES6 Javascript; requires no build tools or package managers.
-*   **Lightweight Footprint**: The entire minified SDK totals less than 105 KB (~30 KB Gzipped).
+*   **Lightweight Footprint**: The entire minified SDK totals less than 110 KB (~32 KB Gzipped).
+*   **Global Theme Engine**: Customize all visual element colors on-the-fly using CSS variables (`--nex-primary`, `--nex-accent`, `--nex-bg`, `--nex-glow`).
 *   **High Performance**: Utilizes lazy initialization, lazy loading, asynchronous CDN loading for heavy libraries, and active memory leak cleanup.
 
 ---
@@ -36,37 +37,37 @@ Load any component directly on your website using a `<script>` tag from the jsDe
 
 ```html
 <!-- Video Player -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-stream/nex-stream.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-stream/nex-stream.min.js"></script>
 
 <!-- Lazy Image -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-image/nex-image.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-image/nex-image.min.js"></script>
 
 <!-- File Card Previewer -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-file/nex-file.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-file/nex-file.min.js"></script>
 
 <!-- Drag & Drop Uploader -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-upload/nex-upload.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-upload/nex-upload.min.js"></script>
 
 <!-- UI Elements Bundle -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-ui/nex-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-ui/nex-ui.min.js"></script>
 
 <!-- Telemetry Analytics -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-analytics/nex-analytics.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-analytics/nex-analytics.min.js"></script>
 
 <!-- Terminal Shell -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-terminal/nex-terminal.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-terminal/nex-terminal.min.js"></script>
 
 <!-- Telemetry Chart -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-chart/nex-chart.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-chart/nex-chart.min.js"></script>
 
 <!-- Glitch Router -->
-<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.1.0/packages/nex-router/nex-router.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/abhinavgautam08/nex-sdk@v1.2.0/packages/nex-router/nex-router.min.js"></script>
 ```
 
 ### Version Pinning Strategies (Production Best Practice)
 Always pin versions in production to avoid unexpected breaking changes:
-*   **Exact Patch Pin (Safest for Production)**: `abhinavgautam08/nex-sdk@v1.1.0`
-*   **Minor Version Pin (Auto Patch Updates)**: `abhinavgautam08/nex-sdk@v1.1`
+*   **Exact Patch Pin (Safest for Production)**: `abhinavgautam08/nex-sdk@v1.2.0`
+*   **Minor Version Pin (Auto Patch Updates)**: `abhinavgautam08/nex-sdk@v1.2`
 *   **Major Version Pin (Auto Minor & Patch Updates)**: `abhinavgautam08/nex-sdk@v1`
 *   **Latest (Unstable, Staging Only)**: `abhinavgautam08/nex-sdk@latest`
 
@@ -323,6 +324,19 @@ new NexAnalytics({
 ---
 
 ## 5. Integration Best Practices
+
+### Global CSS Custom Theme Engine
+All visual Web Components in the SDK reference CSS variables at the `:host` level. You can override the theme colors (primary cyan, accent fuchsia, background, and glow) dynamically for the entire page or specific containers:
+
+```css
+/* Override theme colors globally */
+body {
+  --nex-primary: #39ff14; /* Matrix Green primary color */
+  --nex-accent: #ffb700;  /* Cyber Gold secondary accent */
+  --nex-bg: #0d0d0d;      /* Deep obsidian backdrop */
+  --nex-glow: rgba(57, 255, 20, 0.25);
+}
+```
 
 ### Performance Optimization
 *   **Use `loading="lazy"`**: Always apply the `loading="lazy"` attribute on `<nex-image>` elements that appear off-screen to improve core web vitals score.

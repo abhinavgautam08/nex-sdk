@@ -132,7 +132,11 @@ class NexChart extends HTMLElement {
 
     // Colors Setup
     const type = this.getAttribute('type') || 'line';
-    const glowColor = this.getAttribute('glow-color') || '#00f2ff';
+    const computedStyle = getComputedStyle(this);
+    const cssPrimary = computedStyle.getPropertyValue('--nex-primary').trim();
+    const cssAccent = computedStyle.getPropertyValue('--nex-accent').trim();
+    
+    const glowColor = this.getAttribute('glow-color') || cssPrimary || '#00f2ff';
     const gridColor = this.getAttribute('grid-color') || 'rgba(255, 255, 255, 0.05)';
 
     ctx.clearRect(0, 0, width, height);
@@ -284,6 +288,10 @@ class NexChart extends HTMLElement {
           max-width: 500px;
           font-family: 'Orbitron', 'JetBrains Mono', monospace, sans-serif;
           box-sizing: border-box;
+          --nex-primary: #00f2ff;
+          --nex-accent: #ff007f;
+          --nex-bg: #070707;
+          --nex-glow: rgba(0, 242, 255, 0.3);
         }
 
         .nex-chart-container {

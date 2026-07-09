@@ -131,6 +131,10 @@ class NexImage extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         :host {
+          --nex-primary: var(--nex-primary, #00f2ff);
+          --nex-accent: var(--nex-accent, #ff007f);
+          --nex-bg: #070707;
+          --nex-glow: var(--nex-glow, rgba(0, 242, 255, 0.3));
           display: inline-block;
           width: 100%;
           font-family: 'Orbitron', 'JetBrains Mono', monospace, sans-serif;
@@ -142,18 +146,18 @@ class NexImage extends HTMLElement {
           width: 100%;
           height: 100%;
           min-height: 150px;
-          background-color: #0d0d0d;
+          background-color: var(--nex-bg, #070707);
           overflow: hidden;
           display: flex;
           align-items: center;
           justify-content: center;
-          border: 1px solid rgba(0, 242, 255, 0.15);
+          border: 1px solid var(--nex-glow, var(--nex-glow, rgba(0, 242, 255, 0.3)));
           box-sizing: border-box;
           transition: border-color 0.3s ease;
         }
 
         .nex-image-container.loaded {
-          border-color: rgba(0, 242, 255, 0.3);
+          border-color: var(--nex-glow, rgba(0, 242, 255, 0.3));
         }
 
         .nex-image-container.error {
@@ -179,9 +183,9 @@ class NexImage extends HTMLElement {
           inset: 0;
           background: linear-gradient(
             90deg,
-            #0d0d0d 25%,
+            var(--nex-bg, #070707) 25%,
             #151c20 50%,
-            #0d0d0d 75%
+            var(--nex-bg, #070707) 75%
           );
           background-size: 200% 100%;
           animation: loading-pulse 1.5s infinite;
@@ -201,8 +205,8 @@ class NexImage extends HTMLElement {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          color: #ff007f;
-          background: #0d0d0d;
+          color: var(--nex-accent, #ff007f);
+          background: var(--nex-bg, #070707);
           z-index: 3;
           padding: 10px;
           text-align: center;
@@ -217,7 +221,7 @@ class NexImage extends HTMLElement {
           width: 24px;
           height: 24px;
           margin-bottom: 8px;
-          filter: drop-shadow(0 0 4px #ff007f);
+          filter: drop-shadow(0 0 4px var(--nex-accent, #ff007f));
         }
 
         .error-text {

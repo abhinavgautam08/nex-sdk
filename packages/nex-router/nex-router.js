@@ -128,6 +128,10 @@ class NexRouter extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         :host {
+          --nex-primary: #00f2ff;
+          --nex-accent: var(--nex-accent, #ff007f);
+          --nex-bg: var(--nex-bg, #070707);
+          --nex-glow: rgba(0, 242, 255, 0.3);
           display: block;
           width: 100%;
           font-family: 'Orbitron', 'JetBrains Mono', monospace, sans-serif;
@@ -135,8 +139,8 @@ class NexRouter extends HTMLElement {
         }
 
         .nex-router-container {
-          background-color: #070707;
-          border: 1px solid rgba(255, 0, 127, 0.15);
+          background-color: var(--nex-bg, #070707);
+          border: 1px solid var(--nex-glow, var(--nex-glow, rgba(255, 0, 127, 0.3)));
           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
           padding: 8px 16px;
           display: flex;
@@ -170,23 +174,23 @@ class NexRouter extends HTMLElement {
         }
 
         .nex-router-tab:hover {
-          color: #ff007f;
-          background: rgba(255, 0, 127, 0.03);
-          border-color: rgba(255, 0, 127, 0.1);
+          color: var(--nex-accent, #ff007f);
+          background: var(--nex-glow, rgba(255, 0, 127, 0.3));
+          border-color: var(--nex-glow, rgba(255, 0, 127, 0.3));
         }
 
         .nex-router-tab.active {
           color: #fff;
-          background: rgba(255, 0, 127, 0.1);
-          border-color: #ff007f;
-          box-shadow: 0 0 10px rgba(255, 0, 127, 0.2);
+          background: var(--nex-glow, rgba(255, 0, 127, 0.3));
+          border-color: var(--nex-accent, #ff007f);
+          box-shadow: 0 0 10px var(--nex-glow, rgba(255, 0, 127, 0.3));
           text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
         }
 
         /* Glitch effect style */
         .nex-router-tab.glitching {
           animation: glitch-anim 0.15s infinite linear;
-          background: #ff007f;
+          background: var(--nex-accent, #ff007f);
           color: #050505;
         }
 
@@ -220,15 +224,15 @@ class NexRouter extends HTMLElement {
         .corner-tl {
           top: 0;
           left: 0;
-          border-top: 1.5px solid #ff007f;
-          border-left: 1.5px solid #ff007f;
+          border-top: 1.5px solid var(--nex-accent, #ff007f);
+          border-left: 1.5px solid var(--nex-accent, #ff007f);
         }
 
         .corner-br {
           bottom: 0;
           right: 0;
-          border-bottom: 1.5px solid #ff007f;
-          border-right: 1.5px solid #ff007f;
+          border-bottom: 1.5px solid var(--nex-accent, #ff007f);
+          border-right: 1.5px solid var(--nex-accent, #ff007f);
         }
       </style>
 

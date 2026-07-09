@@ -133,6 +133,10 @@ class NexFile extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         :host {
+          --nex-primary: var(--nex-primary, #00f2ff);
+          --nex-accent: var(--nex-accent, #ff007f);
+          --nex-bg: var(--nex-bg, #070707);
+          --nex-glow: rgba(0, 242, 255, 0.3);
           display: block;
           max-width: 420px;
           font-family: 'Orbitron', 'JetBrains Mono', monospace, sans-serif;
@@ -140,8 +144,8 @@ class NexFile extends HTMLElement {
         }
 
         .nex-file-card {
-          background-color: #070707;
-          border: 1px solid rgba(0, 242, 255, 0.15);
+          background-color: var(--nex-bg, #070707);
+          border: 1px solid var(--nex-glow, rgba(0, 242, 255, 0.3));
           clip-path: polygon(0% 0%, 94% 0%, 100% 6%, 100% 100%, 0% 100%);
           display: flex;
           flex-direction: column;
@@ -191,14 +195,14 @@ class NexFile extends HTMLElement {
         .nex-file-icon {
           width: 64px;
           height: 64px;
-          color: #00f2ff;
+          color: var(--nex-primary, #00f2ff);
           filter: drop-shadow(0 0 8px rgba(0, 242, 255, 0.3));
         }
 
         .nex-file-extension-badge {
           position: absolute;
           bottom: -2px;
-          background: #ff007f;
+          background: var(--nex-accent, #ff007f);
           color: #fff;
           font-size: 8px;
           font-weight: 900;
@@ -240,13 +244,13 @@ class NexFile extends HTMLElement {
         }
 
         .nex-file-size-badge {
-          color: #00f2ff;
+          color: var(--nex-primary, #00f2ff);
         }
 
         .nex-file-download {
-          background: rgba(0, 242, 255, 0.05);
-          border: 1px solid #00f2ff;
-          color: #00f2ff;
+          background: var(--nex-glow, rgba(0, 242, 255, 0.3));
+          border: 1px solid var(--nex-primary, #00f2ff);
+          color: var(--nex-primary, #00f2ff);
           font-family: inherit;
           font-size: 9px;
           font-weight: 900;
@@ -262,9 +266,9 @@ class NexFile extends HTMLElement {
         }
 
         .nex-file-download:hover {
-          background: #00f2ff;
+          background: var(--nex-primary, #00f2ff);
           color: #050505;
-          box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+          box-shadow: 0 0 15px var(--nex-glow, rgba(0, 242, 255, 0.3));
         }
 
         .nex-file-download:active {

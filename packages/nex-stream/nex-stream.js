@@ -98,6 +98,10 @@ class NexStream extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         :host {
+          --nex-primary: var(--nex-primary, #00f2ff);
+          --nex-accent: #ff007f;
+          --nex-bg: #070707;
+          --nex-glow: var(--nex-glow, rgba(0, 242, 255, 0.3));
           display: block;
           width: 100%;
           font-family: 'Orbitron', 'JetBrains Mono', monospace, sans-serif;
@@ -124,9 +128,9 @@ class NexStream extends HTMLElement {
         .nex-corner-tl {
           top: 0px;
           left: 0px;
-          border-top: 2px solid #00f2ff;
-          border-left: 2px solid #00f2ff;
-          filter: drop-shadow(0 0 5px #00f2ff);
+          border-top: 2px solid var(--nex-primary, #00f2ff);
+          border-left: 2px solid var(--nex-primary, #00f2ff);
+          filter: drop-shadow(0 0 5px var(--nex-primary, #00f2ff));
         }
 
         .nex-corner-br {
@@ -142,7 +146,7 @@ class NexStream extends HTMLElement {
           position: relative;
           width: 100%;
           aspect-ratio: 16/9;
-          background-image: linear-gradient(135deg, #00f2ff 0%, #ff007f 100%);
+          background-image: linear-gradient(135deg, var(--nex-primary, #00f2ff) 0%, #ff007f 100%);
           padding: 1px;
           box-sizing: border-box;
           box-shadow: 0 0 25px rgba(0, 242, 255, 0.25);
@@ -152,7 +156,7 @@ class NexStream extends HTMLElement {
 
         .nex-player-container:focus-visible {
           box-shadow: 0 0 35px rgba(0, 242, 255, 0.5);
-          background-image: linear-gradient(135deg, #00f2ff 0%, #39ff14 100%);
+          background-image: linear-gradient(135deg, var(--nex-primary, #00f2ff) 0%, #39ff14 100%);
         }
 
         .nex-player-container:fullscreen {
@@ -224,15 +228,15 @@ class NexStream extends HTMLElement {
           width: 72px;
           height: 72px;
           border-radius: 50%;
-          border: 2px solid #00f2ff;
-          background: rgba(0, 242, 255, 0.1);
-          color: #00f2ff;
+          border: 2px solid var(--nex-primary, #00f2ff);
+          background: var(--nex-glow, rgba(0, 242, 255, 0.3));
+          color: var(--nex-primary, #00f2ff);
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
           transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+          box-shadow: 0 0 20px var(--nex-glow, rgba(0, 242, 255, 0.3));
         }
 
         .nex-play-btn svg {
@@ -250,12 +254,12 @@ class NexStream extends HTMLElement {
         .nex-spinner {
           width: 44px;
           height: 44px;
-          border: 3px solid #00f2ff;
+          border: 3px solid var(--nex-primary, #00f2ff);
           border-top-color: transparent;
           border-radius: 50%;
           animation: nex-spin 1s linear infinite;
           margin-bottom: 12px;
-          box-shadow: 0 0 15px rgba(0, 242, 255, 0.2);
+          box-shadow: 0 0 15px var(--nex-glow, rgba(0, 242, 255, 0.3));
         }
 
         .nex-loading-text {
@@ -278,7 +282,7 @@ class NexStream extends HTMLElement {
         .nex-overlay-error svg {
           width: 48px;
           height: 48px;
-          color: #ff0055;
+          color: var(--nex-accent, #ff007f);
           margin-bottom: 12px;
           filter: drop-shadow(0 0 8px rgba(255, 0, 85, 0.4));
         }
@@ -293,7 +297,7 @@ class NexStream extends HTMLElement {
 
         .nex-error-message {
           font-size: 9px;
-          color: #ff0055;
+          color: var(--nex-accent, #ff007f);
           letter-spacing: 0.05em;
           margin-bottom: 16px;
           text-transform: uppercase;
@@ -301,8 +305,8 @@ class NexStream extends HTMLElement {
 
         .nex-retry-btn {
           background: transparent;
-          border: 1px solid #ff0055;
-          color: #ff0055;
+          border: 1px solid var(--nex-accent, #ff007f);
+          color: var(--nex-accent, #ff007f);
           padding: 6px 14px;
           font-size: 9px;
           font-weight: 900;
@@ -312,9 +316,9 @@ class NexStream extends HTMLElement {
         }
 
         .nex-retry-btn:hover {
-          background: #ff0055;
-          color: #050505;
-          box-shadow: 0 0 15px #ff0055;
+          background: var(--nex-accent, #ff007f);
+          color: var(--nex-bg, #070707);
+          box-shadow: 0 0 15px var(--nex-accent, #ff007f);
         }
 
         /* controls */
@@ -326,7 +330,7 @@ class NexStream extends HTMLElement {
           background: rgba(5, 5, 5, 0.5);
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
-          border-top: 1px solid rgba(0, 242, 255, 0.2);
+          border-top: 1px solid var(--nex-glow, rgba(0, 242, 255, 0.3));
           padding: 8px 12px;
           z-index: 25;
           transform: translateY(0);
@@ -369,7 +373,7 @@ class NexStream extends HTMLElement {
           top: 0;
           left: 0;
           height: 100%;
-          background: #00f2ff;
+          background: var(--nex-primary, #00f2ff);
           width: 0%;
           box-shadow: 0 0 8px rgba(0, 242, 255, 0.6);
         }
@@ -382,7 +386,7 @@ class NexStream extends HTMLElement {
           height: 10px;
           border-radius: 50%;
           background: #fff;
-          border: 2px solid #00f2ff;
+          border: 2px solid var(--nex-primary, #00f2ff);
           transform: translate(-50%, -50%) scale(0);
           transition: transform 0.15s ease;
           box-shadow: 0 0 6px rgba(0, 242, 255, 0.8);
@@ -409,7 +413,7 @@ class NexStream extends HTMLElement {
         .nex-ctrl-btn {
           background: transparent;
           border: none;
-          color: #00f2ff;
+          color: var(--nex-primary, #00f2ff);
           padding: 4px;
           cursor: pointer;
           display: flex;
@@ -463,24 +467,24 @@ class NexStream extends HTMLElement {
           width: 8px;
           height: 8px;
           border-radius: 50%;
-          background: #00f2ff;
+          background: var(--nex-primary, #00f2ff);
           cursor: pointer;
-          box-shadow: 0 0 4px #00f2ff;
+          box-shadow: 0 0 4px var(--nex-primary, #00f2ff);
         }
 
         .nex-volume-slider::-moz-range-thumb {
           width: 8px;
           height: 8px;
           border-radius: 50%;
-          background: #00f2ff;
+          background: var(--nex-primary, #00f2ff);
           border: none;
           cursor: pointer;
-          box-shadow: 0 0 4px #00f2ff;
+          box-shadow: 0 0 4px var(--nex-primary, #00f2ff);
         }
 
         /* time display */
         .nex-time-display {
-          color: #00f2ff;
+          color: var(--nex-primary, #00f2ff);
           font-size: 9px;
           letter-spacing: 0.1em;
           font-family: monospace;

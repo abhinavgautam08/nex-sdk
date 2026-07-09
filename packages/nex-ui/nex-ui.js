@@ -37,6 +37,10 @@ class NexButton extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         :host {
+          --nex-primary: var(--nex-primary, #00f2ff);
+          --nex-accent: var(--nex-accent, #ff007f);
+          --nex-bg: var(--nex-bg, #070707);
+          --nex-glow: var(--nex-glow, rgba(0, 242, 255, 0.3));
           display: inline-block;
           font-family: 'Orbitron', 'JetBrains Mono', monospace, sans-serif;
         }
@@ -76,14 +80,14 @@ class NexButton extends HTMLElement {
 
         /* Types */
         .btn-primary {
-          background-color: rgba(0, 242, 255, 0.05);
-          border: 1px solid #00f2ff;
-          color: #00f2ff;
+          background-color: var(--nex-glow, rgba(0, 242, 255, 0.3));
+          border: 1px solid var(--nex-primary, #00f2ff);
+          color: var(--nex-primary, #00f2ff);
           text-shadow: 0 0 4px rgba(0, 242, 255, 0.4);
         }
         .btn-primary:hover:not(:disabled) {
-          background-color: #00f2ff;
-          color: #050505;
+          background-color: var(--nex-primary, #00f2ff);
+          color: var(--nex-bg, #070707);
           box-shadow: 0 0 20px rgba(0, 242, 255, 0.6);
           text-shadow: none;
         }
@@ -95,7 +99,7 @@ class NexButton extends HTMLElement {
         }
         .btn-secondary:hover:not(:disabled) {
           background-color: #fff;
-          color: #050505;
+          color: var(--nex-bg, #070707);
           box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
         }
 
@@ -105,20 +109,20 @@ class NexButton extends HTMLElement {
           color: rgba(0, 242, 255, 0.8);
         }
         .btn-outline:hover:not(:disabled) {
-          border-color: #00f2ff;
-          color: #00f2ff;
+          border-color: var(--nex-primary, #00f2ff);
+          color: var(--nex-primary, #00f2ff);
           box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
         }
 
         .btn-fuchsia {
           background-color: rgba(255, 0, 127, 0.05);
-          border: 1px solid #ff007f;
-          color: #ff007f;
+          border: 1px solid var(--nex-accent, #ff007f);
+          color: var(--nex-accent, #ff007f);
           text-shadow: 0 0 4px rgba(255, 0, 127, 0.4);
         }
         .btn-fuchsia:hover:not(:disabled) {
-          background-color: #ff007f;
-          color: #050505;
+          background-color: var(--nex-accent, #ff007f);
+          color: var(--nex-bg, #070707);
           box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
           text-shadow: none;
         }
@@ -131,7 +135,7 @@ class NexButton extends HTMLElement {
         }
         .btn-lime:hover:not(:disabled) {
           background-color: #39ff14;
-          color: #050505;
+          color: var(--nex-bg, #070707);
           box-shadow: 0 0 20px rgba(57, 255, 20, 0.6);
           text-shadow: none;
         }
@@ -274,9 +278,9 @@ class NexModal extends HTMLElement {
         }
 
         .nex-modal-container {
-          background-color: #070707;
-          border: 1px solid rgba(0, 242, 255, 0.3);
-          box-shadow: 0 0 35px rgba(0, 242, 255, 0.15);
+          background-color: var(--nex-bg, #070707);
+          border: 1px solid var(--nex-glow, rgba(0, 242, 255, 0.3));
+          box-shadow: 0 0 35px var(--nex-glow, rgba(0, 242, 255, 0.3));
           width: 100%;
           max-width: 500px;
           clip-path: polygon(0 0, 95% 0, 100% 5%, 100% 100%, 5% 100%, 0 95%);
@@ -295,7 +299,7 @@ class NexModal extends HTMLElement {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          border-bottom: 1px solid rgba(0, 242, 255, 0.1);
+          border-bottom: 1px solid var(--nex-glow, rgba(0, 242, 255, 0.3));
           padding: 14px 18px;
           box-sizing: border-box;
         }
@@ -305,15 +309,15 @@ class NexModal extends HTMLElement {
           font-size: 11px;
           font-weight: 900;
           letter-spacing: 0.1em;
-          color: #00f2ff;
-          text-shadow: 0 0 6px rgba(0, 242, 255, 0.3);
+          color: var(--nex-primary, #00f2ff);
+          text-shadow: 0 0 6px var(--nex-glow, rgba(0, 242, 255, 0.3));
           text-transform: uppercase;
         }
 
         .nex-modal-close-btn {
           background: transparent;
           border: none;
-          color: #ff007f;
+          color: var(--nex-accent, #ff007f);
           cursor: pointer;
           padding: 4px;
           display: flex;
@@ -325,7 +329,7 @@ class NexModal extends HTMLElement {
         .nex-modal-close-btn:hover {
           transform: scale(1.1);
           color: #fff;
-          filter: drop-shadow(0 0 4px #ff007f);
+          filter: drop-shadow(0 0 4px var(--nex-accent, #ff007f));
         }
 
         .nex-modal-close-btn svg {
@@ -447,7 +451,7 @@ class NexToast extends HTMLElement {
         }
 
         .nex-toast-item {
-          background-color: #070707;
+          background-color: var(--nex-bg, #070707);
           border: 1px solid rgba(255, 255, 255, 0.1);
           padding: 12px 18px;
           font-family: 'Orbitron', 'JetBrains Mono', monospace, sans-serif;
@@ -497,16 +501,16 @@ class NexToast extends HTMLElement {
           border-color: rgba(255, 0, 127, 0.3);
           color: #fff;
         }
-        .nex-toast-error .toast-indicator { background-color: #ff007f; }
-        .nex-toast-error .toast-icon { color: #ff007f; filter: drop-shadow(0 0 3px #ff007f); }
+        .nex-toast-error .toast-indicator { background-color: var(--nex-accent, #ff007f); }
+        .nex-toast-error .toast-icon { color: var(--nex-accent, #ff007f); filter: drop-shadow(0 0 3px var(--nex-accent, #ff007f)); }
 
         /* Info Theme */
         .nex-toast-info {
-          border-color: rgba(0, 242, 255, 0.3);
+          border-color: var(--nex-glow, rgba(0, 242, 255, 0.3));
           color: #fff;
         }
-        .nex-toast-info .toast-indicator { background-color: #00f2ff; }
-        .nex-toast-info .toast-icon { color: #00f2ff; filter: drop-shadow(0 0 3px #00f2ff); }
+        .nex-toast-info .toast-indicator { background-color: var(--nex-primary, #00f2ff); }
+        .nex-toast-info .toast-icon { color: var(--nex-primary, #00f2ff); filter: drop-shadow(0 0 3px var(--nex-primary, #00f2ff)); }
 
         @keyframes slide-in {
           from {
@@ -574,6 +578,10 @@ class NexLoader extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         :host {
+          --nex-primary: var(--nex-primary, #00f2ff);
+          --nex-accent: var(--nex-accent, #ff007f);
+          --nex-bg: var(--nex-bg, #070707);
+          --nex-glow: var(--nex-glow, rgba(0, 242, 255, 0.3));
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -594,11 +602,11 @@ class NexLoader extends HTMLElement {
         .spinner {
           width: 40px;
           height: 40px;
-          border: 3px solid rgba(0, 242, 255, 0.1);
-          border-top-color: #00f2ff;
+          border: 3px solid var(--nex-glow, rgba(0, 242, 255, 0.3));
+          border-top-color: var(--nex-primary, #00f2ff);
           border-radius: 50%;
           animation: spin 1s linear infinite;
-          box-shadow: 0 0 15px rgba(0, 242, 255, 0.15);
+          box-shadow: 0 0 15px var(--nex-glow, rgba(0, 242, 255, 0.3));
         }
 
         /* Progress Bar Type */
@@ -613,8 +621,8 @@ class NexLoader extends HTMLElement {
 
         .progress-fill {
           height: 100%;
-          background: #00f2ff;
-          box-shadow: 0 0 10px #00f2ff;
+          background: var(--nex-primary, #00f2ff);
+          box-shadow: 0 0 10px var(--nex-primary, #00f2ff);
           width: 30%;
           animation: progress-slide 2s infinite ease-in-out;
         }
@@ -622,7 +630,7 @@ class NexLoader extends HTMLElement {
         .loader-text {
           font-size: 8px;
           font-weight: 900;
-          color: #00f2ff;
+          color: var(--nex-primary, #00f2ff);
           letter-spacing: 0.2em;
           text-transform: uppercase;
           text-shadow: 0 0 6px rgba(0, 242, 255, 0.4);
@@ -695,6 +703,10 @@ class NexCard extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         :host {
+          --nex-primary: var(--nex-primary, #00f2ff);
+          --nex-accent: var(--nex-accent, #ff007f);
+          --nex-bg: var(--nex-bg, #070707);
+          --nex-glow: var(--nex-glow, rgba(0, 242, 255, 0.3));
           display: block;
           width: 100%;
           font-family: 'Orbitron', 'JetBrains Mono', monospace, sans-serif;
@@ -702,8 +714,8 @@ class NexCard extends HTMLElement {
         }
 
         .nex-card-container {
-          background-color: #070707;
-          border: 1px solid rgba(0, 242, 255, 0.15);
+          background-color: var(--nex-bg, #070707);
+          border: 1px solid var(--nex-glow, rgba(0, 242, 255, 0.3));
           box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
           clip-path: polygon(0 0, 96% 0, 100% 12px, 100% 100%, 4% 100%, 0 92%);
           position: relative;
@@ -713,7 +725,7 @@ class NexCard extends HTMLElement {
         }
 
         .nex-card-header {
-          border-bottom: 1px solid rgba(0, 242, 255, 0.1);
+          border-bottom: 1px solid var(--nex-glow, rgba(0, 242, 255, 0.3));
           padding: 12px 16px;
           display: flex;
           align-items: center;
@@ -723,9 +735,9 @@ class NexCard extends HTMLElement {
         .nex-card-title {
           font-size: 10px;
           font-weight: 900;
-          color: #00f2ff;
+          color: var(--nex-primary, #00f2ff);
           letter-spacing: 0.12em;
-          text-shadow: 0 0 6px rgba(0, 242, 255, 0.3);
+          text-shadow: 0 0 6px var(--nex-glow, rgba(0, 242, 255, 0.3));
           text-transform: uppercase;
         }
 
@@ -749,15 +761,15 @@ class NexCard extends HTMLElement {
         .corner-tl {
           top: 0;
           left: 0;
-          border-top: 1.5px solid #ff007f;
-          border-left: 1.5px solid #ff007f;
+          border-top: 1.5px solid var(--nex-accent, #ff007f);
+          border-left: 1.5px solid var(--nex-accent, #ff007f);
         }
 
         .corner-br {
           bottom: 0;
           right: 0;
-          border-bottom: 1.5px solid #00f2ff;
-          border-right: 1.5px solid #00f2ff;
+          border-bottom: 1.5px solid var(--nex-primary, #00f2ff);
+          border-right: 1.5px solid var(--nex-primary, #00f2ff);
         }
       </style>
 

@@ -182,6 +182,10 @@ class NexTerminal extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <style>
         :host {
+          --nex-primary: var(--nex-primary, #39ff14);
+          --nex-accent: var(--nex-accent, #ff007f);
+          --nex-bg: var(--nex-bg, #070707);
+          --nex-glow: var(--nex-glow, rgba(57, 255, 20, 0.3));
           display: block;
           width: 100%;
           max-width: 600px;
@@ -190,9 +194,9 @@ class NexTerminal extends HTMLElement {
         }
 
         .nex-terminal-container {
-          background-color: #070707;
-          border: 1px solid rgba(57, 255, 20, 0.2);
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 10px rgba(57, 255, 20, 0.05);
+          background-color: var(--nex-bg, #070707);
+          border: 1px solid var(--nex-glow, rgba(57, 255, 20, 0.3));
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 10px var(--nex-glow, rgba(57, 255, 20, 0.3));
           clip-path: polygon(0 0, 96% 0, 100% 15px, 100% 100%, 4% 100%, 0 94%);
           position: relative;
           display: flex;
@@ -215,7 +219,7 @@ class NexTerminal extends HTMLElement {
         }
 
         .nex-terminal-header {
-          border-bottom: 1px solid rgba(57, 255, 20, 0.15);
+          border-bottom: 1px solid var(--nex-glow, rgba(57, 255, 20, 0.3));
           padding: 8px 16px;
           display: flex;
           justify-content: space-between;
@@ -227,7 +231,7 @@ class NexTerminal extends HTMLElement {
         .nex-terminal-title {
           font-size: 9px;
           font-weight: 900;
-          color: #39ff14;
+          color: var(--nex-primary, #39ff14);
           letter-spacing: 0.15em;
           text-shadow: 0 0 6px rgba(57, 255, 20, 0.4);
           text-transform: uppercase;
@@ -267,7 +271,7 @@ class NexTerminal extends HTMLElement {
         }
 
         .nex-terminal-line.success {
-          color: #39ff14;
+          color: var(--nex-primary, #39ff14);
           text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
         }
 
@@ -277,7 +281,7 @@ class NexTerminal extends HTMLElement {
         }
 
         .nex-terminal-line.error {
-          color: #ff0055;
+          color: var(--nex-accent, #ff007f);
           text-shadow: 0 0 5px rgba(255, 0, 85, 0.5);
         }
 
@@ -288,12 +292,12 @@ class NexTerminal extends HTMLElement {
         }
 
         .nex-terminal-line .prefix {
-          color: #39ff14;
+          color: var(--nex-primary, #39ff14);
           margin-right: 4px;
         }
 
         .nex-terminal-form {
-          border-top: 1px solid rgba(57, 255, 20, 0.15);
+          border-top: 1px solid var(--nex-glow, rgba(57, 255, 20, 0.3));
           padding: 10px 16px;
           display: flex;
           align-items: center;
@@ -305,7 +309,7 @@ class NexTerminal extends HTMLElement {
         .nex-terminal-prompt {
           font-family: 'JetBrains Mono', monospace;
           font-size: 10px;
-          color: #39ff14;
+          color: var(--nex-primary, #39ff14);
           font-weight: bold;
           text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
         }
@@ -315,7 +319,7 @@ class NexTerminal extends HTMLElement {
           background: transparent;
           border: none;
           outline: none;
-          color: #39ff14;
+          color: var(--nex-primary, #39ff14);
           font-family: 'JetBrains Mono', monospace;
           font-size: 10px;
           letter-spacing: 0.05em;
@@ -324,7 +328,7 @@ class NexTerminal extends HTMLElement {
         }
 
         .nex-terminal-input::placeholder {
-          color: rgba(57, 255, 20, 0.3);
+          color: var(--nex-glow, rgba(57, 255, 20, 0.3));
           text-shadow: none;
         }
 
@@ -332,9 +336,9 @@ class NexTerminal extends HTMLElement {
         .cursor-indicator {
           width: 6px;
           height: 12px;
-          background-color: #39ff14;
+          background-color: var(--nex-primary, #39ff14);
           animation: blink 1s infinite step-end;
-          box-shadow: 0 0 5px #39ff14;
+          box-shadow: 0 0 5px var(--nex-primary, #39ff14);
         }
 
         @keyframes blink {
@@ -352,15 +356,15 @@ class NexTerminal extends HTMLElement {
         .corner-tl {
           top: 0;
           left: 0;
-          border-top: 2px solid #ff007f;
-          border-left: 2px solid #ff007f;
+          border-top: 2px solid var(--nex-accent, #ff007f);
+          border-left: 2px solid var(--nex-accent, #ff007f);
         }
 
         .corner-br {
           bottom: 0;
           right: 0;
-          border-bottom: 2px solid #39ff14;
-          border-right: 2px solid #39ff14;
+          border-bottom: 2px solid var(--nex-primary, #39ff14);
+          border-right: 2px solid var(--nex-primary, #39ff14);
         }
       </style>
 
