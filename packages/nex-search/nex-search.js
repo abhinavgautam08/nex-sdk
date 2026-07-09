@@ -133,9 +133,9 @@ class NexSearch extends HTMLElement {
         #nex-input {
           width: 100%;
           background: #050505;
-          border: 2px solid rgba(0, 242, 255, 0.35);
+          border: 2px solid var(--nex-input-border, rgba(0, 242, 255, 0.35));
           border-right: none;
-          color: #00f2ff;
+          color: var(--nex-input-color, #00f2ff);
           font-family: 'JetBrains Mono', monospace;
           font-size: clamp(11px, 2vw, 15px);
           letter-spacing: 0.06em;
@@ -144,6 +144,7 @@ class NexSearch extends HTMLElement {
           transition: border-color 0.2s, box-shadow 0.2s;
           caret-color: #00f2ff;
           width: 100%;
+          box-shadow: var(--nex-input-shadow, none);
         }
 
         #nex-input::placeholder {
@@ -152,8 +153,8 @@ class NexSearch extends HTMLElement {
         }
 
         #nex-input:focus {
-          border-color: #00f2ff;
-          box-shadow: 0 0 0 1px rgba(0, 242, 255, 0.15), 0 0 20px rgba(0, 242, 255, 0.08);
+          border-color: var(--nex-input-focus-border, #00f2ff);
+          box-shadow: var(--nex-input-focus-shadow, 0 0 0 1px rgba(0, 242, 255, 0.15), 0 0 20px rgba(0, 242, 255, 0.08));
         }
 
         #nex-clear {
