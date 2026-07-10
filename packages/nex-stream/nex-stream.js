@@ -859,6 +859,16 @@ class NexStream extends HTMLElement {
         this.toggleFullscreen();
       }
     });
+    // 9. Retry Uplink
+    if (this.retryBtn) {
+      this.retryBtn.addEventListener('click', () => {
+        const src = this.getAttribute('src');
+        if (src) {
+          this.loadSource(src);
+        }
+        this.dispatchEvent(new CustomEvent('nex-stream-retry', { bubbles: true, composed: true }));
+      });
+    }
 
     this._fsChangeHandler = () => {
       const isFs = !!document.fullscreenElement;
