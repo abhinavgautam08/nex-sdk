@@ -195,6 +195,7 @@ class NexTerminal extends HTMLElement {
           display: block;
           width: 100%;
           max-width: 600px;
+          height: 320px;
           font-family: 'Orbitron', 'JetBrains Mono', monospace, sans-serif;
           box-sizing: border-box;
         }
@@ -208,7 +209,7 @@ class NexTerminal extends HTMLElement {
           display: flex;
           flex-direction: column;
           box-sizing: border-box;
-          height: 320px;
+          height: 100%;
           overflow: hidden;
         }
 
