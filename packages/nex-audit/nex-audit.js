@@ -33,10 +33,10 @@ class NexAudit extends HTMLElement {
     this._log      = [];
     this._handlers = [];
     this._timer    = null;
-    this.style.display = 'none';
   }
 
   connectedCallback() {
+    this.style.display = 'none';
     this._bindEvents();
     const interval = parseInt(this.getAttribute('auto-flush'));
     if (interval > 0) {

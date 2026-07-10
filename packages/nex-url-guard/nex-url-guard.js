@@ -30,10 +30,10 @@ class NexURLGuard extends HTMLElement {
     super();
     this._onClick   = null;
     this._origHref  = null;
-    this.style.display = 'none';
   }
 
   connectedCallback() {
+    this.style.display = 'none';
     this._patchLocationHref();
     this._bindClickInterceptor();
   }

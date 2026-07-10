@@ -61,6 +61,36 @@ class NexButton extends HTMLElement {
           position: relative;
         }
 
+        button::before {
+          content: '';
+          position: absolute;
+          top: -1px;
+          right: -1px;
+          width: 8px;
+          height: 8px;
+          background: transparent;
+          border-top: 1px solid currentColor;
+          border-right: 1px solid currentColor;
+          pointer-events: none;
+          clip-path: polygon(0 0, 100% 0, 100% 100%);
+          transition: border-color 0.3s;
+        }
+
+        button::after {
+          content: '';
+          position: absolute;
+          bottom: -1px;
+          left: -1px;
+          width: 8px;
+          height: 8px;
+          background: transparent;
+          border-bottom: 1px solid currentColor;
+          border-left: 1px solid currentColor;
+          pointer-events: none;
+          clip-path: polygon(0 100%, 0 0, 100% 100%);
+          transition: border-color 0.3s;
+        }
+
         /* Sizes */
         .btn-sm {
           font-size: 8px;

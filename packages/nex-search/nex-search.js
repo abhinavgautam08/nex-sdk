@@ -40,7 +40,7 @@
  */
 class NexSearch extends HTMLElement {
   static get observedAttributes() {
-    return ['placeholder', 'button-text', 'icon', 'hint', 'loading', 'value', 'clearable'];
+    return ['placeholder', 'button-text', 'icon', 'hint', 'loading', 'value', 'clearable', 'logo'];
   }
 
   constructor() {
@@ -95,6 +95,7 @@ class NexSearch extends HTMLElement {
     const isLoading   = this.hasAttribute('loading');
     const value       = this.getAttribute('value')       || '';
     const clearable   = this.hasAttribute('clearable');
+    const logoSrc     = this.getAttribute('logo')        || '../logo/logo.webp';
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -231,18 +232,11 @@ class NexSearch extends HTMLElement {
           cursor: not-allowed;
         }
 
-        .btn-icon {
-          font-family: 'Material Symbols Outlined', 'Material Icons';
-          font-size: 16px;
-          line-height: 1;
-          font-weight: normal;
-          font-style: normal;
+        .btn-logo {
+          height: 12px;
+          width: auto;
           display: inline-block;
-          text-transform: none;
-          word-wrap: normal;
-          white-space: nowrap;
-          direction: ltr;
-          -webkit-font-smoothing: antialiased;
+          flex-shrink: 0;
         }
 
         /* Spinner */
@@ -290,7 +284,7 @@ class NexSearch extends HTMLElement {
           <button id="nex-btn" ${isLoading ? 'disabled' : ''} aria-label="${buttonText}">
             ${isLoading
               ? `<div class="spinner"></div>`
-              : `<span class="btn-icon">${icon}</span>`
+              : `<img src="${logoSrc}" class="btn-logo" onerror="this.style.display='none'">`
             }
             <span>${buttonText}</span>
           </button>

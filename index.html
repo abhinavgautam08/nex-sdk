@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEX SDK - Interactive Component Testbench</title>
+  
+  <!-- Cyberpunk fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  
+  <!-- Core Design Tokens -->
+  <style>
+    :root {
+      --nex-primary: #00f2ff;
+      --nex-accent: #ff007f;
+      --nex-bg: #050508;
+      --nex-card-bg: #0d0e15;
+      --nex-glow: 0 0 10px rgba(0, 242, 255, 0.35);
+      --nex-text: #e2e8f0;
+      --nex-text-muted: #64748b;
+      --border-color: #1e2235;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--nex-bg);
+      color: var(--nex-text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      border-top: 4px solid var(--nex-primary);
+    }
+
+    /* Cyberpunk Header */
+    header {
+      background: linear-gradient(180deg, #090a10 0%, #050508 100%);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--nex-primary), var(--nex-accent), transparent);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(90deg, var(--nex-primary), #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+    }
+
+    .brand-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      background: rgba(255, 0, 127, 0.1);
+      border: 1px solid var(--nex-accent);
+      color: var(--nex-accent);
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .header-info {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    /* Layout structure */
+    .app-container {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 75px);
+      position: relative;
+    }
+
+    /* Sidebar Navigation */
+    .sidebar {
+      width: 280px;
+      background-color: #08090f;
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 1rem;
+      gap: 2rem;
+      overflow-y: auto;
+    }
+
+    .nav-group-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--nex-text-muted);
+      margin-bottom: 0.75rem;
+      padding-left: 0.5rem;
+    }
+
+    .nav-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      list-style: none;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      color: var(--nex-text-muted);
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .nav-item:hover {
+      color: var(--nex-primary);
+      background: rgba(0, 242, 255, 0.03);
+    }
+
+    .nav-item.active {
+      color: #fff;
+      background: linear-gradient(90deg, rgba(0, 242, 255, 0.1) 0%, transparent 100%);
+      border-left: 3px solid var(--nex-primary);
+      border-color: var(--border-color) var(--border-color) var(--border-color) var(--nex-primary);
+      text-shadow: 0 0 8px rgba(0, 242, 255, 0.4);
+    }
+
+    /* Main Content Area */
+    main {
+      flex: 1;
+      padding: 2rem;
+      overflow-y: auto;
+      background: radial-gradient(circle at top right, rgba(13, 14, 21, 0.5), transparent);
+    }
+
+    .tab-content {
+      display: none;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .tab-content.active {
+      display: flex;
+    }
+
+    /* Card Panels */
+    .card-panel {
+      background-color: var(--nex-card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card-panel::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--nex-primary);
+    }
+
+    .card-panel.security::before {
+      background: var(--nex-accent);
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 0.75rem;
+    }
+
+    .panel-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .panel-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+    }
+
+    /* Grid Layouts for Demos */
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .demo-box {
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem;
+      background: rgba(255, 255, 255, 0.01);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .demo-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--nex-primary);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .demo-desc {
+      font-size: 0.8rem;
+      color: var(--nex-text-muted);
+      line-height: 1.4;
+    }
+
+    /* Event Log Terminal */
+    .event-log-panel {
+      width: 320px;
+      background-color: #07080c;
+      border-left: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .log-header {
+      padding: 1rem;
+      background: #0b0c13;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .log-header h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      color: var(--nex-accent);
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--nex-text-muted);
+      color: var(--nex-text-muted);
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      transition: all 0.2s;
+    }
+
+    .clear-btn:hover {
+      border-color: var(--nex-accent);
+      color: var(--nex-accent);
+    }
+
+    .log-container {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .log-entry {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+      padding-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .log-time {
+      color: var(--nex-text-muted);
+    }
+
+    .log-tag {
+      color: var(--nex-primary);
+      font-weight: bold;
+    }
+
+    .log-msg {
+      color: var(--nex-text);
+    }
+
+    .log-data {
+      color: #a855f7;
+      display: block;
+      margin-top: 2px;
+      font-size: 0.7rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .btn-test {
+      background: rgba(0, 242, 255, 0.03);
+      border: 1px solid var(--nex-primary);
+      color: var(--nex-primary);
+      padding: 0.5rem 1.25rem;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      transition: all 0.2s;
+      clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%);
+      position: relative;
+    }
+
+    .btn-test::after {
+      content: '';
+      position: absolute;
+      top: -1px;
+      right: -1px;
+      width: 12px;
+      height: 12px;
+      background: transparent;
+      border-top: 1px solid var(--nex-primary);
+      border-right: 1px solid var(--nex-primary);
+      pointer-events: none;
+      clip-path: polygon(0 0, 100% 0, 100% 100%);
+      transition: all 0.2s;
+    }
+
+    .btn-test:hover {
+      background: var(--nex-primary);
+      color: #000;
+      box-shadow: var(--nex-glow);
+    }
+
+    .btn-test:hover::after {
+      border-color: #000;
+    }
+
+    .input-test {
+      background: #08090f;
+      border: 1px solid var(--border-color);
+      color: #fff;
+      padding: 0.5rem;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      width: 100%;
+    }
+
+    .input-test:focus {
+      outline: none;
+      border-color: var(--nex-primary);
+    }
+  </style>
+
+  <!-- Load ALL 40 NEX SDK Packages locally -->
+  <!-- Runtime & Security Guards (Loaded first) -->
+  <script src="./packages/nex-proto-guard/nex-proto-guard.js"></script>
+  <script src="./packages/nex-frame-guard/nex-frame-guard.js"></script>
+  <script src="./packages/nex-https/nex-https.js"></script>
+  <script src="./packages/nex-integrity/nex-integrity.js"></script>
+  <script src="./packages/nex-url-guard/nex-url-guard.js?v=2"></script>
+  <script src="./packages/nex-timing-guard/nex-timing-guard.js"></script>
+  <script src="./packages/nex-audit/nex-audit.js?v=2"></script>
+  <script src="./packages/nex-idle/nex-idle.js"></script>
+  <script src="./packages/nex-jwt/nex-jwt.js"></script>
+  <script src="./packages/nex-vault/nex-vault.js?v=2"></script>
+  <script src="./packages/nex-honeypot/nex-honeypot.js"></script>
+  <script src="./packages/nex-clipboard/nex-clipboard.js"></script>
+  <script src="./packages/nex-pow/nex-pow.js"></script>
+  <script src="./packages/nex-totp/nex-totp.js?v=2"></script>
+  <script src="./packages/nex-password/nex-password.js"></script>
+  <script src="./packages/nex-mask/nex-mask.js"></script>
+  <script src="./packages/nex-sanitizer/nex-sanitizer.js"></script>
+  <script src="./packages/nex-storage/nex-storage.js"></script>
+  <script src="./packages/nex-crypto/nex-crypto.js"></script>
+  <script src="./packages/nex-theme/nex-theme.js"></script>
+  <script src="./packages/nex-network/nex-network.js"></script>
+
+  <!-- UI & Media Components -->
+  <script src="./packages/nex-stream/nex-stream.js?v=2"></script>
+  <script src="./packages/nex-image/nex-image.js"></script>
+  <script src="./packages/nex-file/nex-file.js"></script>
+  <script src="./packages/nex-upload/nex-upload.js"></script>
+  <script src="./packages/nex-search/nex-search.js?v=2"></script>
+  <script src="./packages/nex-ui/nex-ui.js?v=2"></script>
+  <script src="./packages/nex-analytics/nex-analytics.js"></script>
+  <script src="./packages/nex-terminal/nex-terminal.js"></script>
+  <script src="./packages/nex-chart/nex-chart.js"></script>
+  <script src="./packages/nex-router/nex-router.js"></script>
+  <script src="./packages/nex-auth/nex-auth.js"></script>
+  <script src="./packages/nex-chat/nex-chat.js"></script>
+  <script src="./packages/nex-notification/nex-notification.js"></script>
+  <script src="./packages/nex-payment/nex-payment.js"></script>
+  <script src="./packages/nex-editor/nex-editor.js"></script>
+  <script src="./packages/nex-qr/nex-qr.js"></script>
+  <script src="./packages/nex-camera/nex-camera.js"></script>
+  <script src="./packages/nex-scanner/nex-scanner.js"></script>
+  <script src="./packages/nex-share/nex-share.js"></script>
+</head>
+<body>
+
+  <!-- Active Guards Initialization -->
+  <nex-proto-guard freeze warn></nex-proto-guard>
+  <nex-frame-guard action="blur"></nex-frame-guard>
+  <nex-https action="warn" mixed></nex-https>
+  <nex-integrity monitor warn></nex-integrity>
+  <nex-url-guard allow="localhost, 127.0.0.1" action="block"></nex-url-guard>
+  <nex-timing-guard></nex-timing-guard>
+  <nex-theme storage-key="nex-testbench-theme"></nex-theme>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <h1>NEX SDK TESTBENCH</h1>
+      <span class="brand-tag">v1.7.2 DEV MODE</span>
+    </div>
+    <div class="header-info">
+      <nex-network ping-interval="5000"></nex-network>
+      <nex-button variant="neon" id="themeToggler">TOGGLE THEME</nex-button>
+    </div>
+  </header>
+
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <div>
+        <div class="nav-group-title">UI & Media</div>
+        <ul class="nav-list">
+          <li class="nav-item active" data-target="tab-media">Media & Player</li>
+          <li class="nav-item" data-target="tab-inputs">Interactive & Inputs</li>
+          <li class="nav-item" data-target="tab-ui">Base UI Components</li>
+        </ul>
+      </div>
+      <div>
+        <div class="nav-group-title">Security Stack</div>
+        <ul class="nav-list">
+          <li class="nav-item" data-target="tab-guards">Guards & Audits</li>
+          <li class="nav-item" data-target="tab-crypto">Crypto & Vaults</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main>
+      <!-- TAB 1: MEDIA & PLAYERS -->
+      <div id="tab-media" class="tab-content active">
+        <div class="card-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Media & Visualization Components</h2>
+            <span class="panel-badge">&lt;nex-stream&gt; &lt;nex-chart&gt;</span>
+          </div>
+          
+          <div class="demo-grid">
+            <!-- nex-stream -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-stream&gt;</span>
+                <span class="panel-badge">Video Player</span>
+              </div>
+              <p class="demo-desc">HLS/MP4 compatible cyberpunk video player with native encapsulation.</p>
+              <nex-stream 
+                src="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
+                poster="https://images.unsplash.com/photo-1578894381163-e72c17f2d45f?q=80&w=600"
+                logo="./logo/logo.webp"
+                style="width: 100%; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color);">
+              </nex-stream>
+            </div>
+
+            <!-- nex-chart -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-chart&gt;</span>
+                <span class="panel-badge">Canvas Telemetry</span>
+              </div>
+              <p class="demo-desc">Real-time dynamic data visualizer with glowing metrics.</p>
+              <nex-chart id="testChart" type="line" glow-color="#00f2ff" grid-color="#1e2235" style="display: block;"></nex-chart>
+              <div style="display: flex; gap: 0.5rem;">
+                <button class="btn-test" onclick="addChartPoint()">ADD DATA POINT</button>
+              </div>
+            </div>
+
+            <!-- nex-image -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-image&gt;</span>
+                <span class="panel-badge">Lazy Image</span>
+              </div>
+              <p class="demo-desc">Cyberpunk image loading wrapper with customizable loading screen and error fallback.</p>
+              <nex-image 
+                src="https://images.unsplash.com/photo-1515260268569-9271009adfdb?q=80&w=400"
+                alt="Cyberpunk Alleyway"
+                style="height: 180px; width: 100%; object-fit: cover; border-radius: 6px;">
+              </nex-image>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: INTERACTIVE & INPUTS -->
+      <div id="tab-inputs" class="tab-content">
+        <div class="card-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Interactive Inputs & Terminals</h2>
+            <span class="panel-badge">Terminals & Forms</span>
+          </div>
+
+          <div class="demo-grid">
+            <!-- nex-terminal -->
+            <div class="demo-box" style="grid-column: span 2;">
+              <div class="demo-title">
+                <span>&lt;nex-terminal&gt;</span>
+                <span class="panel-badge">Interactive Shell</span>
+              </div>
+              <p class="demo-desc">XSS-safe terminal shell simulating system interfaces.</p>
+              <nex-terminal id="demoTerminal" title="NEX SHELL v1.0" placeholder="Type a command (try help)..." style="height: 250px; display: block;"></nex-terminal>
+            </div>
+
+            <!-- nex-chat -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-chat&gt;</span>
+                <span class="panel-badge">Secure Chat</span>
+              </div>
+              <p class="demo-desc">Encapsulated, XSS-safe chat UI.</p>
+              <nex-chat id="demoChat" style="height: 250px; display: block;"></nex-chat>
+              <button class="btn-test" onclick="sendMockChatMessage()">SIMULATE RESPONSE</button>
+            </div>
+
+            <!-- nex-editor -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-editor&gt;</span>
+                <span class="panel-badge">Rich Editor</span>
+              </div>
+              <p class="demo-desc">XSS-safe WYSIWYG editor.</p>
+              <nex-editor id="demoEditor" style="min-height: 180px; display: block;"></nex-editor>
+              <button class="btn-test" onclick="logEditorContent()">DUMP HTML</button>
+            </div>
+
+            <!-- nex-upload & nex-file -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-upload&gt; & &lt;nex-file&gt;</span>
+                <span class="panel-badge">Filesystem</span>
+              </div>
+              <p class="demo-desc">Drag & Drop upload wrapper + metadata display card.</p>
+              <nex-upload multiple max-size="5242880" style="margin-bottom: 1rem; display: block;"></nex-upload>
+              <nex-file name="system_core.bin" size="2048576" type="application/octet-stream"></nex-file>
+            </div>
+
+            <!-- nex-search & nex-qr -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-search&gt; & &lt;nex-qr&gt;</span>
+                <span class="panel-badge">Utilities</span>
+              </div>
+              <p class="demo-desc">Cyberpunk search and custom canvas QR generator.</p>
+              <nex-search id="demoSearch" placeholder="Type text to generate QR..."></nex-search>
+              <div style="display: flex; justify-content: center; margin-top: 1rem;">
+                <nex-qr id="demoQr" value="https://github.com/abhinavgautam08/nex-sdk" size="140" color="#00f2ff" bg-color="#0d0e15"></nex-qr>
+              </div>
+            </div>
+
+            <!-- nex-camera & nex-scanner -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-camera&gt; & &lt;nex-scanner&gt;</span>
+                <span class="panel-badge">Media Feed</span>
+              </div>
+              <p class="demo-desc">Capture hardware devices with visual cyberpunk overlay scan lines.</p>
+              <div style="position: relative; width: 100%; height: 180px; background: #000; border-radius: 6px; overflow: hidden;">
+                <nex-camera id="demoCamera" style="width: 100%; height: 100%; display: block;"></nex-camera>
+                <nex-scanner style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;"></nex-scanner>
+              </div>
+              <div style="display: flex; gap: 0.5rem;">
+                <button class="btn-test" onclick="document.getElementById('demoCamera').start()">START CAMERA</button>
+                <button class="btn-test" onclick="document.getElementById('demoCamera').stop()">STOP</button>
+              </div>
+            </div>
+
+            <!-- nex-payment -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-payment&gt;</span>
+                <span class="panel-badge">Mock Checkout</span>
+              </div>
+              <p class="demo-desc">Cyberpunk Checkout & Billing Simulator.</p>
+              <nex-payment logo="https://raw.githubusercontent.com/abhinavgautam08/nex-sdk/main/logo/logo.webp"></nex-payment>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: BASE UI COMPONENTS -->
+      <div id="tab-ui" class="tab-content">
+        <div class="card-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Base UI Design System</h2>
+            <span class="panel-badge">&lt;nex-ui&gt; Components</span>
+          </div>
+
+          <div class="demo-grid">
+            <!-- Buttons & Badges -->
+            <div class="demo-box">
+              <div class="demo-title">Buttons & Actions</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+                <nex-button variant="neon">NEON BUTTON</nex-button>
+                <nex-button variant="flat">FLAT BUTTON</nex-button>
+                <nex-button variant="outline">OUTLINE BUTTON</nex-button>
+                <nex-button variant="neon" disabled>DISABLED</nex-button>
+              </div>
+            </div>
+
+            <!-- Cards -->
+            <div class="demo-box">
+              <div class="demo-title">Encapsulated Cards</div>
+              <nex-card header="SYSTEM STATUS" footer="SECURE PROTOCOL ACTIVE">
+                <p style="font-size: 0.85rem; line-height: 1.5;">This is an isolated content wrapper component from the NexUI package.</p>
+              </nex-card>
+            </div>
+
+            <!-- Loaders & Modals -->
+            <div class="demo-box">
+              <div class="demo-title">Loaders & Overlays</div>
+              <div style="display: flex; align-items: center; gap: 1rem;">
+                <nex-loader size="small"></nex-loader>
+                <nex-loader size="medium"></nex-loader>
+                <nex-loader size="large"></nex-loader>
+              </div>
+              <div style="margin-top: 1rem;">
+                <button class="btn-test" onclick="document.getElementById('demoModal').openModal()">OPEN MODAL</button>
+              </div>
+              
+              <nex-modal id="demoModal" title="RESTRICTED SECTOR ACCESS">
+                <p style="margin-bottom: 1rem;">Authentication required to enter this terminal sequence.</p>
+                <nex-button variant="neon" onclick="document.getElementById('demoModal').closeModal()">CONFIRM</nex-button>
+              </nex-modal>
+            </div>
+
+            <!-- Notifications -->
+            <div class="demo-box">
+              <div class="demo-title">Global Toasts</div>
+              <p class="demo-desc">Queue beautiful floating status/warning banners.</p>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                <button class="btn-test" onclick="showNotification('success')">SUCCESS TOAST</button>
+                <button class="btn-test" onclick="showNotification('warning')">WARNING TOAST</button>
+                <button class="btn-test" onclick="showNotification('info')">INFO TOAST</button>
+              </div>
+              <nex-notification id="notifier" position="top-right"></nex-notification>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: GUARDS & AUDITS -->
+      <div id="tab-guards" class="tab-content">
+        <div class="card-panel security">
+          <div class="panel-header">
+            <h2 class="panel-title">Security & Guard Stack</h2>
+            <span class="panel-badge">Client Shields</span>
+          </div>
+
+          <div class="demo-grid">
+            <!-- nex-pow (Proof-of-Work CAPTCHA) -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-pow&gt;</span>
+                <span class="panel-badge">PoW Captcha</span>
+              </div>
+              <p class="demo-desc">Privacy-first CPU Proof-of-Work bot-shield.</p>
+              <nex-pow id="demoPow" difficulty="15" auto="false" style="display: block;"></nex-pow>
+              <button class="btn-test" onclick="runPowChallenge()">SOLVE CHALLENGE</button>
+            </div>
+
+            <!-- nex-idle -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-idle&gt;</span>
+                <span class="panel-badge">Idle Guard</span>
+              </div>
+              <p class="demo-desc">Triggers security warnings on inactivity.</p>
+              <nex-idle id="demoIdle" timeout="30" warn-at="10"></nex-idle>
+              <p class="demo-desc" style="color: var(--nex-primary);">Timeout: 30s | Warnings start: 10s</p>
+              <div id="idleState" style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; background: rgba(0,0,0,0.3); padding: 0.5rem; border-radius: 4px;">State: Active</div>
+            </div>
+
+            <!-- nex-mask -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-mask&gt;</span>
+                <span class="panel-badge">Sensitve Masker</span>
+              </div>
+              <p class="demo-desc">Automatically masks text values with click-to-reveal timeout.</p>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                <div>Key: <nex-mask type="password" reveal-timeout="5000">super_secret_api_token_100x</nex-mask></div>
+                <div>Card: <nex-mask type="card" reveal-timeout="4000">4111 2222 3333 4444</nex-mask></div>
+              </div>
+            </div>
+
+            <!-- nex-audit -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-audit&gt;</span>
+                <span class="panel-badge">Security Audit Log</span>
+              </div>
+              <p class="demo-desc">Aggregates and forwards local client security events.</p>
+              <nex-audit id="demoAudit" endpoint="/api/security/logs" auto-flush="10"></nex-audit>
+              <button class="btn-test" onclick="simulateSecurityViolation()">TRIGGER VIOLATION EVENT</button>
+            </div>
+            
+            <!-- nex-honeypot -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-honeypot&gt;</span>
+                <span class="panel-badge">Spam Trap</span>
+              </div>
+              <p class="demo-desc">Generates invisible form elements to capture automated crawlers/bots.</p>
+              <form id="honeypotForm" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <input class="input-test" placeholder="Username (Visible Field)">
+                <nex-honeypot id="demoHp"></nex-honeypot>
+                <button class="btn-test" type="submit">SUBMIT FORM</button>
+              </form>
+            </div>
+
+            <!-- nex-jwt -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-jwt&gt;</span>
+                <span class="panel-badge">JWT Validator</span>
+              </div>
+              <p class="demo-desc">Auto-check local token integrity & expiry.</p>
+              <nex-jwt id="demoJwt" check-interval="10" storage="session"></nex-jwt>
+              <div style="display: flex; gap: 0.5rem;">
+                <button class="btn-test" onclick="setMockToken()">SET TOKEN</button>
+                <button class="btn-test" onclick="document.getElementById('demoJwt').clearToken()">CLEAR</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: CRYPTO & UTILITIES -->
+      <div id="tab-crypto" class="tab-content">
+        <div class="card-panel security">
+          <div class="panel-header">
+            <h2 class="panel-title">Cryptography & Data Vaults</h2>
+            <span class="panel-badge">Browser Encryptions</span>
+          </div>
+
+          <div class="demo-grid">
+            <!-- nex-totp -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-totp&gt;</span>
+                <span class="panel-badge">TOTP Generator</span>
+              </div>
+              <p class="demo-desc">Generates offline RFC-6238 2FA codes locally.</p>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 1rem;">
+                <nex-totp secret="JBSWY3DPEHPK3PXP" digits="6" period="30" display="code-only" id="demoTotp"></nex-totp>
+              </div>
+            </div>
+
+            <!-- nex-password -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-password&gt;</span>
+                <span class="panel-badge">Entropy Generator</span>
+              </div>
+              <p class="demo-desc">Interactive cryptographic password generator.</p>
+              <nex-password length="16" numbers="true" symbols="true" id="demoPassword"></nex-password>
+            </div>
+
+            <!-- nex-vault -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-vault&gt;</span>
+                <span class="panel-badge">In-Memory Vault</span>
+              </div>
+              <p class="demo-desc">Zero-disk RAM storage shield (auto-wipes on visibility changes).</p>
+              <nex-vault id="demoVault" wipe-on-hide wipe-on-unload max-keys="5"></nex-vault>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <div style="display: flex; gap: 0.5rem;">
+                  <input class="input-test" id="vaultKey" placeholder="key" style="width: 30%">
+                  <input class="input-test" id="vaultValue" placeholder="secret value" style="width: 70%">
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <button class="btn-test" onclick="setVaultKey()">STORE</button>
+                  <button class="btn-test" onclick="getVaultKey()">FETCH</button>
+                  <button class="btn-test" onclick="wipeVault()">WIPE</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- nex-storage -->
+            <div class="demo-box">
+              <div class="demo-title">
+                <span>&lt;nex-storage&gt;</span>
+                <span class="panel-badge">AES-256 Storage</span>
+              </div>
+              <p class="demo-desc">Local encrypted WebStorage wrapper.</p>
+              <nex-storage id="demoStorage" type="local" encryption="aes"></nex-storage>
+              <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                <div style="display: flex; gap: 0.5rem;">
+                  <input class="input-test" id="storageKey" placeholder="key" style="width: 30%">
+                  <input class="input-test" id="storageVal" placeholder="value" style="width: 70%">
+                </div>
+                <div style="display: flex; gap: 0.5rem;">
+                  <button class="btn-test" onclick="setStorageKey()">STORE</button>
+                  <button class="btn-test" onclick="getStorageKey()">RETRIEVE</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Sidebar Logger Console -->
+    <div class="event-log-panel">
+      <div class="log-header">
+        <h3>EVENT LOGGER</h3>
+        <button class="clear-btn" onclick="clearLogs()">CLEAR</button>
+      </div>
+      <div class="log-container" id="logContainer">
+        <div class="log-entry">
+          <span class="log-time">[11:23:00]</span>
+          <span class="log-tag">SYSTEM:</span>
+          <span class="log-msg">Testbench ready. Tracking component events...</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Event logging utility
+    function logEvent(tag, message, data = null) {
+      const logContainer = document.getElementById('logContainer');
+      const timeString = new Date().toLocaleTimeString();
+      
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      
+      let dataHtml = '';
+      if (data) {
+        dataHtml = `<span class="log-data">${JSON.stringify(data, null, 2)}</span>`;
+      }
+      
+      entry.innerHTML = `
+        <span class="log-time">[${timeString}]</span>
+        <span class="log-tag">${tag}:</span>
+        <span class="log-msg">${message}</span>
+        ${dataHtml}
+      `;
+      
+      logContainer.appendChild(entry);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+
+    function clearLogs() {
+      document.getElementById('logContainer').innerHTML = '';
+      logEvent('SYSTEM', 'Log cleared.');
+    }
+
+    // Sidebar Navigation
+    const navItems = document.querySelectorAll('.nav-item');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    navItems.forEach(item => {
+      item.addEventListener('click', () => {
+        // Toggle Nav Items Active State
+        navItems.forEach(n => n.classList.remove('active'));
+        item.classList.add('active');
+
+        // Toggle Tab Contents
+        const targetTab = item.getAttribute('data-target');
+        tabContents.forEach(tab => {
+          if (tab.id === targetTab) {
+            tab.classList.add('active');
+          } else {
+            tab.classList.remove('active');
+          }
+        });
+        
+        logEvent('NAVIGATION', `Switched to tab ${targetTab}`);
+      });
+    });
+
+    // Theme toggler integration
+    const themeToggler = document.getElementById('themeToggler');
+    themeToggler.addEventListener('click', () => {
+      const htmlEl = document.documentElement;
+      if (htmlEl.classList.contains('dark')) {
+        htmlEl.classList.remove('dark');
+        logEvent('THEME', 'Theme changed to Light');
+      } else {
+        htmlEl.classList.add('dark');
+        logEvent('THEME', 'Theme changed to Dark');
+      }
+    });
+
+    // Chart Point simulation
+    let chartValue = 50;
+    function addChartPoint() {
+      const chart = document.getElementById('testChart');
+      if (chart && typeof chart.addDataPoint === 'function') {
+        chartValue += Math.floor(Math.random() * 20) - 10;
+        chartValue = Math.max(0, Math.min(100, chartValue));
+        chart.addDataPoint(new Date().toLocaleTimeString(), chartValue);
+        logEvent('NEX-CHART', `Added data point: ${chartValue}`);
+      } else {
+        logEvent('ERROR', 'Chart component addDataPoint method not found');
+      }
+    }
+
+    // Initialize mock chart
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const chart = document.getElementById('testChart');
+        if (chart && typeof chart.setData === 'function') {
+          chart.setData([10, 25, 45, 30, 60, 50], ['10:00', '10:05', '10:10', '10:15', '10:20', '10:25']);
+          logEvent('NEX-CHART', 'Initialized chart mock data');
+        }
+      }, 500);
+    });
+
+    // Terminal Commands Demo
+    const terminal = document.getElementById('demoTerminal');
+    if (terminal) {
+      terminal.addEventListener('command', (e) => {
+        const cmd = e.detail.command;
+        logEvent('NEX-TERMINAL', `Executed: ${cmd}`);
+        
+        if (cmd === 'help') {
+          terminal.writeLine('Available commands: help, status, clear, trigger-exploit');
+        } else if (cmd === 'status') {
+          terminal.writeLine('System: ONLINE | Guards: ACTIVE | Memory: SECURE');
+        } else if (cmd === 'clear') {
+          terminal.clear();
+        } else if (cmd === 'trigger-exploit') {
+          terminal.writeLine('Initiating security response pattern...');
+          simulateSecurityViolation();
+        } else {
+          terminal.writeLine(`Command not found: ${cmd}`);
+        }
+      });
+    }
+
+    // Chat Component Demo
+    const chat = document.getElementById('demoChat');
+    function sendMockChatMessage() {
+      if (chat && typeof chat.addMessage === 'function') {
+        const msg = "NEX CORE SYSTEM alert: Anomalous network packet detected.";
+        chat.addMessage('SYSTEM', msg, true);
+        logEvent('NEX-CHAT', 'System message appended');
+      }
+    }
+
+    // Editor Component Demo
+    const editor = document.getElementById('demoEditor');
+    function logEditorContent() {
+      if (editor && typeof editor.getHtml === 'function') {
+        logEvent('NEX-EDITOR', 'HTML output fetched', { html: editor.getHtml() });
+      }
+    }
+
+    // Search Component Demo
+    const search = document.getElementById('demoSearch');
+    const qr = document.getElementById('demoQr');
+    if (search) {
+      search.addEventListener('nex-search-submit', (e) => {
+        const query = e.detail.query || e.detail.value || search.value;
+        logEvent('NEX-SEARCH', `Submit: ${query}`);
+        if (qr && query) {
+          qr.setAttribute('value', query);
+          logEvent('NEX-QR', `Updated QR value: ${query}`);
+        }
+      });
+    }
+
+    // Notifications demo
+    const notifier = document.getElementById('notifier');
+    function showNotification(type) {
+      if (window.showNexNotification) {
+        window.showNexNotification({
+          title: `${type.toUpperCase()} SIGNAL`,
+          message: `Security validation completed with ${type} level response.`,
+          type: type,
+          duration: 4000
+        });
+        logEvent('NEX-NOTIFICATION', `Dispatched ${type} toast`);
+      } else {
+        logEvent('ERROR', 'window.showNexNotification is not available');
+      }
+    }
+
+    // PoW Challenge
+    const pow = document.getElementById('demoPow');
+    async function runPowChallenge() {
+      if (pow && typeof pow.solve === 'function') {
+        logEvent('NEX-POW', 'Starting solver...');
+        try {
+          const res = await pow.solve();
+          logEvent('NEX-POW', 'Challenge solved successfully', res);
+        } catch (e) {
+          logEvent('NEX-POW', 'Challenge execution failed', e.message);
+        }
+      }
+    }
+    if (pow) {
+      pow.addEventListener('pow-solved', (e) => {
+        logEvent('NEX-POW', 'Event: pow-solved', e.detail);
+      });
+    }
+
+    // Audit Log Demo
+    function simulateSecurityViolation() {
+      logEvent('SECURITY-ALERT', 'Simulating payload injection trigger');
+      const audit = document.getElementById('demoAudit');
+      const event = new CustomEvent('nex-security-violation', {
+        bubbles: true,
+        composed: true,
+        detail: {
+          type: 'XSS_ATTEMPT',
+          source: 'testbench_mock',
+          severity: 'HIGH',
+          payload: '<script>alert(1)<\/script>'
+        }
+      });
+      document.dispatchEvent(event);
+    }
+    
+    // Register global event listener for security audit logs
+    document.addEventListener('nex-security-violation', (e) => {
+      logEvent('AUDIT_MONITOR', 'Captured security violation event', e.detail);
+    });
+
+    // Honeypot Form Submit
+    const hpForm = document.getElementById('honeypotForm');
+    const hp = document.getElementById('demoHp');
+    if (hpForm) {
+      hpForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (hp && typeof hp.isHuman === 'function') {
+          const isHuman = hp.isHuman(hpForm);
+          logEvent('NEX-HONEYPOT', isHuman ? 'Validation: HUMAN verified' : 'Validation: BOT detected');
+        } else {
+          logEvent('NEX-HONEYPOT', 'Form submitted, no honeypot validator found');
+        }
+      });
+    }
+
+    // JWT simulation
+    const jwt = document.getElementById('demoJwt');
+    function setMockToken() {
+      if (jwt && typeof jwt.setToken === 'function') {
+        const payload = { sub: 'admin_agent', exp: Math.floor(Date.now() / 1000) + 3600 };
+        const mockJwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' + btoa(JSON.stringify(payload)) + '.signature';
+        jwt.setToken(mockJwt);
+        logEvent('NEX-JWT', 'Mock token stored in session storage');
+      }
+    }
+
+    // Vault actions
+    const vault = document.getElementById('demoVault');
+    function setVaultKey() {
+      const k = document.getElementById('vaultKey').value;
+      const v = document.getElementById('vaultValue').value;
+      if (k && v && vault && typeof vault.set === 'function') {
+        vault.set(k, v);
+        logEvent('NEX-VAULT', `Key "${k}" stored in isolated memory`);
+      }
+    }
+    function getVaultKey() {
+      const k = document.getElementById('vaultKey').value;
+      if (k && vault && typeof vault.get === 'function') {
+        const val = vault.get(k);
+        logEvent('NEX-VAULT', `Fetched value for "${k}": ${val || '(null)'}`);
+      }
+    }
+    function wipeVault() {
+      if (vault && typeof vault.wipe === 'function') {
+        vault.wipe();
+        logEvent('NEX-VAULT', 'Isolated RAM storage fully wiped');
+      }
+    }
+
+    // Secure Storage actions
+    const storage = document.getElementById('demoStorage');
+    function setStorageKey() {
+      const k = document.getElementById('storageKey').value;
+      const v = document.getElementById('storageVal').value;
+      if (k && v && storage && typeof storage.setItem === 'function') {
+        storage.setItem(k, v);
+        logEvent('NEX-STORAGE', `Encrypted local storage set: "${k}"`);
+      }
+    }
+    function getStorageKey() {
+      const k = document.getElementById('storageKey').value;
+      if (k && storage && typeof storage.getItem === 'function') {
+        const val = storage.getItem(k);
+        logEvent('NEX-STORAGE', `Retrieved decrypted: "${k}" => ${val || '(null)'}`);
+      }
+    }
+
+    // Listen to Guard stack events
+    document.addEventListener('nex-redirect-blocked', (e) => {
+      logEvent('URL-GUARD', 'Malicious redirect blocked', e.detail);
+    });
+    document.addEventListener('nex-frame-attack', (e) => {
+      logEvent('FRAME-GUARD', 'Clickjacking attempt detected', e.detail);
+    });
+    document.addEventListener('nex-idle-warning', (e) => {
+      document.getElementById('idleState').innerText = 'State: IDLE WARNING';
+      logEvent('IDLE-GUARD', `Warning: User idle for ${e.detail.idleTime}s`);
+    });
+    document.addEventListener('nex-idle', (e) => {
+      document.getElementById('idleState').innerText = 'State: SESSION LOCK';
+      logEvent('IDLE-GUARD', 'Lock: Session expired due to inactivity');
+    });
+    document.addEventListener('nex-active', (e) => {
+      document.getElementById('idleState').innerText = 'State: Active';
+      logEvent('IDLE-GUARD', 'User resumed activity');
+    });
+  </script>
+</body>
+</html>

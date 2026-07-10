@@ -35,10 +35,10 @@ class NexVault extends HTMLElement {
     this._store   = new Map();   // key → { value, expires, timer }
     this._onHide  = null;
     this._onUnload = null;
-    this.style.display = 'none';
   }
 
   connectedCallback() {
+    this.style.display = 'none';
     if (this.hasAttribute('wipe-on-hide')) {
       this._onHide = () => {
         if (document.visibilityState === 'hidden') this.wipe('TAB_HIDDEN');

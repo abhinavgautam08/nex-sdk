@@ -165,6 +165,23 @@ class NexTOTP extends HTMLElement {
           background: rgba(0,242,255,0.06);
           border: 1px solid rgba(0,242,255,0.2);
           padding: 8px 16px;
+          clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 0 100%);
+          position: relative;
+          box-sizing: border-box;
+        }
+        .code::after {
+          content: '';
+          position: absolute;
+          top: -1px;
+          right: -1px;
+          width: 14px;
+          height: 14px;
+          background: transparent;
+          border-top: 1.5px solid currentColor;
+          border-right: 1.5px solid currentColor;
+          pointer-events: none;
+          clip-path: polygon(0 0, 100% 0, 100% 100%);
+          transition: border-color 0.3s;
         }
         .countdown { display: flex; flex-direction: column; align-items: center; gap: 4px; }
         svg { transform: rotate(-90deg); }

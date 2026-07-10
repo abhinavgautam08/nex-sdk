@@ -251,15 +251,33 @@ class NexStream extends HTMLElement {
           z-index: 15;
         }
 
+        .nex-spinner-container {
+          position: relative;
+          width: 48px;
+          height: 48px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 12px;
+        }
+
         .nex-spinner {
+          position: absolute;
           width: 44px;
           height: 44px;
           border: 3px solid var(--nex-primary, #00f2ff);
           border-top-color: transparent;
           border-radius: 50%;
           animation: nex-spin 1s linear infinite;
-          margin-bottom: 12px;
           box-shadow: 0 0 15px var(--nex-glow, rgba(0, 242, 255, 0.3));
+        }
+
+        .nex-spinner-logo {
+          position: absolute;
+          width: 18px;
+          height: 18px;
+          object-fit: contain;
+          z-index: 16;
         }
 
         .nex-loading-text {
@@ -275,31 +293,32 @@ class NexStream extends HTMLElement {
           background-color: rgba(5, 5, 5, 0.95);
           border: 1px solid rgba(255, 0, 127, 0.3);
           z-index: 20;
-          padding: 24px;
+          padding: 12px;
           text-align: center;
+          box-sizing: border-box;
         }
 
         .nex-overlay-error svg {
-          width: 48px;
-          height: 48px;
+          width: 32px;
+          height: 32px;
           color: var(--nex-accent, #ff007f);
-          margin-bottom: 12px;
-          filter: drop-shadow(0 0 8px rgba(255, 0, 85, 0.4));
+          margin-bottom: 6px;
+          filter: drop-shadow(0 0 6px rgba(255, 0, 85, 0.4));
         }
 
         .nex-error-title {
-          font-size: 13px;
+          font-size: 11px;
           font-weight: 900;
           color: #fff;
-          letter-spacing: 0.15em;
-          margin-bottom: 6px;
+          letter-spacing: 0.1em;
+          margin-bottom: 4px;
         }
 
         .nex-error-message {
-          font-size: 9px;
+          font-size: 8px;
           color: var(--nex-accent, #ff007f);
           letter-spacing: 0.05em;
-          margin-bottom: 16px;
+          margin-bottom: 10px;
           text-transform: uppercase;
         }
 
@@ -307,10 +326,10 @@ class NexStream extends HTMLElement {
           background: transparent;
           border: 1px solid var(--nex-accent, #ff007f);
           color: var(--nex-accent, #ff007f);
-          padding: 6px 14px;
-          font-size: 9px;
+          padding: 4px 10px;
+          font-size: 8px;
           font-weight: 900;
-          letter-spacing: 0.15em;
+          letter-spacing: 0.1em;
           cursor: pointer;
           transition: all 0.2s ease;
         }
@@ -318,7 +337,7 @@ class NexStream extends HTMLElement {
         .nex-retry-btn:hover {
           background: var(--nex-accent, #ff007f);
           color: var(--nex-bg, #070707);
-          box-shadow: 0 0 15px var(--nex-accent, #ff007f);
+          box-shadow: 0 0 10px var(--nex-accent, #ff007f);
         }
 
         /* controls */
@@ -554,7 +573,10 @@ class NexStream extends HTMLElement {
 
             <!-- Loading spinner overlay -->
             <div class="nex-overlay nex-overlay-loading hidden">
-              <div class="nex-spinner"></div>
+              <div class="nex-spinner-container">
+                <div class="nex-spinner"></div>
+                <img src="${logoSrc}" class="nex-spinner-logo" onerror="this.style.display='none'">
+              </div>
               <div class="nex-loading-text">CONNECTING // SYNCING_GATEWAY...</div>
             </div>
 
@@ -563,7 +585,6 @@ class NexStream extends HTMLElement {
               <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="currentColor"/></svg>
               <div class="nex-error-title">SYSTEM ERROR // NEURAL_LINK_BROKEN</div>
               <div class="nex-error-message">Unknown Error</div>
-              <button class="nex-retry-btn">RETRY UPLINK</button>
             </div>
 
             <!-- Custom Controls Bar -->
@@ -607,7 +628,12 @@ class NexStream extends HTMLElement {
                   <div class="nex-time-display">00:00 / 00:00</div>
                 </div>
 
-                <div class="nex-controls-row">
+                <div class="nex-controls-right">
+                  <!-- Retry button, shown only when error banner is active -->
+                  <button class="nex-ctrl-btn nex-retry-btn hidden" aria-label="Retry Uplink" title="Retry Uplink">
+                    <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="currentColor"/></svg>
+                  </button>
+
                   <!-- Picture-in-Picture -->
                   <button class="nex-ctrl-btn nex-pip-btn" aria-label="Picture in Picture">
                     <svg viewBox="0 0 24 24"><path d="M19 11h-8v6h8v-6zm4 8V4.98C23 3.88 22.1 3 21 3H3c-1.1 0-2 .88-2 1.98V19c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2zm-2 .02H3V4.97h18v14.05z" fill="currentColor"/></svg>
@@ -1109,10 +1135,12 @@ class NexStream extends HTMLElement {
     this.hideLoading();
     this.overlayError.querySelector('.nex-error-message').textContent = reason;
     this.overlayError.classList.remove('hidden');
+    if (this.retryBtn) this.retryBtn.classList.remove('hidden');
   }
 
   hideError() {
     this.overlayError.classList.add('hidden');
+    if (this.retryBtn) this.retryBtn.classList.add('hidden');
   }
 }
 
