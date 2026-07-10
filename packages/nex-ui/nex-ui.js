@@ -583,7 +583,7 @@ window.showNexToast = (message, type = 'info', duration = 4000) => {
 // ==========================================
 class NexLoader extends HTMLElement {
   static get observedAttributes() {
-    return ['type', 'text', 'logo'];
+    return ['type', 'text', 'logo', 'size'];
   }
 
   constructor() {
@@ -603,8 +603,9 @@ class NexLoader extends HTMLElement {
 
   render() {
     const type = this.getAttribute('type') || 'spinner'; // spinner, progress
-    const text = this.getAttribute('text') || 'SYNCING_DATA_GATEWAY...';
+    const text = this.getAttribute('text') || '';
     const logoSrc = this.getAttribute('logo') || '../logo/logo.webp';
+    const size = this.getAttribute('size') || 'medium'; // small, medium, large
 
     this.shadowRoot.innerHTML = `
       <style>
@@ -632,11 +633,36 @@ class NexLoader extends HTMLElement {
         /* Spinner Type with brand logo */
         .spinner-container {
           position: relative;
-          width: 40px;
-          height: 40px;
           display: flex;
           align-items: center;
           justify-content: center;
+          transition: all 0.3s ease;
+        }
+
+        /* Size Variants */
+        .spinner-container.small {
+          width: 24px;
+          height: 24px;
+        }
+        .spinner-container.small .spinner-logo {
+          width: 11px;
+          height: 11px;
+        }
+        .spinner-container.medium {
+          width: 40px;
+          height: 40px;
+        }
+        .spinner-container.medium .spinner-logo {
+          width: 18px;
+          height: 18px;
+        }
+        .spinner-container.large {
+          width: 56px;
+          height: 56px;
+        }
+        .spinner-container.large .spinner-logo {
+          width: 26px;
+          height: 26px;
         }
 
         .spinner-border {
@@ -650,21 +676,30 @@ class NexLoader extends HTMLElement {
         }
 
         .spinner-logo {
-          width: 18px;
-          height: 18px;
           object-fit: contain;
           z-index: 2;
           filter: drop-shadow(0 0 4px var(--nex-primary, #00f2ff));
+          transition: all 0.3s ease;
         }
 
         /* Progress Bar Type */
         .progress-bar-container {
-          width: 200px;
           height: 4px;
           background: rgba(255, 255, 255, 0.1);
           position: relative;
           overflow: hidden;
           border: 1px solid rgba(0, 242, 255, 0.2);
+          transition: all 0.3s ease;
+        }
+
+        .progress-bar-container.small {
+          width: 120px;
+        }
+        .progress-bar-container.medium {
+          width: 200px;
+        }
+        .progress-bar-container.large {
+          width: 280px;
         }
 
         .progress-fill {
@@ -676,13 +711,23 @@ class NexLoader extends HTMLElement {
         }
 
         .loader-text {
-          font-size: 8px;
           font-weight: 900;
           color: var(--nex-primary, #00f2ff);
           letter-spacing: 0.2em;
           text-transform: uppercase;
           text-shadow: 0 0 6px rgba(0, 242, 255, 0.4);
           animation: pulse-text 1.5s infinite ease-in-out;
+          transition: all 0.3s ease;
+        }
+
+        .loader-wrapper.small .loader-text {
+          font-size: 6.5px;
+        }
+        .loader-wrapper.medium .loader-text {
+          font-size: 8px;
+        }
+        .loader-wrapper.large .loader-text {
+          font-size: 10px;
         }
 
         @keyframes spin {
@@ -710,14 +755,18 @@ class NexLoader extends HTMLElement {
         }
       </style>
 
-      <div class="loader-wrapper">
+      <div class="loader-wrapper ${size}">
         ${type === 'spinner' ? `
-          <div class="spinner-container">
+          <div class="spinner-container ${size}">
             <div class="spinner-border"></div>
             <img class="spinner-logo" src="${logoSrc}" onerror="this.style.display='none'">
           </div>
         ` : ''}
-        ${type === 'progress' ? '<div class="progress-bar-container"><div class="progress-fill"></div></div>' : ''}
+        ${type === 'progress' ? `
+          <div class="progress-bar-container ${size}">
+            <div class="progress-fill"></div>
+          </div>
+        ` : ''}
         ${text ? `<div class="loader-text">${text}</div>` : ''}
       </div>
     `;
