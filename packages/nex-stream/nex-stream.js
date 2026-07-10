@@ -634,6 +634,11 @@ class NexStream extends HTMLElement {
                     <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="currentColor"/></svg>
                   </button>
 
+                  <!-- Download button -->
+                  <button class="nex-ctrl-btn nex-download-btn" aria-label="Download Stream" title="Download Stream">
+                    <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" fill="currentColor"/></svg>
+                  </button>
+
                   <!-- Picture-in-Picture -->
                   <button class="nex-ctrl-btn nex-pip-btn" aria-label="Picture in Picture">
                     <svg viewBox="0 0 24 24"><path d="M19 11h-8v6h8v-6zm4 8V4.98C23 3.88 22.1 3 21 3H3c-1.1 0-2 .88-2 1.98V19c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2zm-2 .02H3V4.97h18v14.05z" fill="currentColor"/></svg>
@@ -663,6 +668,7 @@ class NexStream extends HTMLElement {
     this.overlayError = root.querySelector('.nex-overlay-error');
     this.errorMessageEl = root.querySelector('.nex-error-message');
     this.retryBtn = root.querySelector('.nex-retry-btn');
+    this.downloadBtn = root.querySelector('.nex-download-btn');
     this.controlsBar = root.querySelector('.nex-controls-bar');
     
     // Controls elements
@@ -867,6 +873,27 @@ class NexStream extends HTMLElement {
           this.loadSource(src);
         }
         this.dispatchEvent(new CustomEvent('nex-stream-retry', { bubbles: true, composed: true }));
+      });
+    }
+
+    // 10. Download Stream
+    if (this.downloadBtn) {
+      this.downloadBtn.addEventListener('click', (e) => {
+        const src = this.getAttribute('src');
+        const event = new CustomEvent('nex-stream-download', {
+          bubbles: true,
+          composed: true,
+          cancelable: true,
+          detail: { src }
+        });
+        this.dispatchEvent(event);
+        if (!event.defaultPrevented && src) {
+          const a = document.createElement('a');
+          a.href = src;
+          a.download = '';
+          a.target = '_blank';
+          a.click();
+        }
       });
     }
 
