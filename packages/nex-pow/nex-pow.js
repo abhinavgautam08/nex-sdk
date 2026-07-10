@@ -144,18 +144,21 @@ class NexPOW extends HTMLElement {
       <style>
         :host { display: block; font-family: 'JetBrains Mono', monospace; }
         .wrap {
-          display: flex; align-items: center; gap: 10px;
+          display: flex; align-items: center; gap: 6px;
           border: 1px solid rgba(255,183,0,0.2);
-          padding: 8px 12px; background: rgba(5,5,5,0.8);
+          padding: 4px 8px; background: rgba(5,5,5,0.8);
         }
-        .icon { font-size: 16px; color: #ffb700; }
+        .icon { font-size: 11px; color: #ffb700; }
         .status {
-          font-size: 9px; letter-spacing: 0.12em; color: rgba(255,183,0,0.7);
+          font-size: 8px; letter-spacing: 0.1em; color: rgba(255,183,0,0.7);
           flex: 1;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
-        .track { height: 2px; background: rgba(255,255,255,0.08); flex: 1; position: relative; overflow: hidden; }
+        .track { height: 2px; background: rgba(255,255,255,0.08); flex: 1; min-width: 20px; position: relative; overflow: hidden; }
         .bar   { height: 100%; width: 0%; background: #ffb700; transition: width 0.3s ease; }
-        .diff  { font-size: 8px; color: rgba(255,255,255,0.25); letter-spacing: 0.1em; }
+        .diff  { font-size: 7px; color: rgba(255,255,255,0.25); letter-spacing: 0.1em; }
       </style>
       <div class="wrap">
         <span class="icon">🛡</span>

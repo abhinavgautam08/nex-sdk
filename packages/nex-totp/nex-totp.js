@@ -31,13 +31,12 @@ class NexTOTP extends HTMLElement {
   constructor() {
     super();
     this._timer = null;
-    if (this.hasAttribute('display')) {
-      this.attachShadow({ mode: 'open' });
-    }
+    this.attachShadow({ mode: 'open' });
   }
 
   connectedCallback() {
     if (this.hasAttribute('display')) {
+      this.style.display = '';
       this._renderDisplay();
       this._startDisplayTimer();
     } else {
